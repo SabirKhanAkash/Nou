@@ -1,0 +1,26 @@
+/**
+ * In the name of Allah, the Most Beneficent, the Most Merciful
+ * Written by Sabir Khan Akash
+ */
+
+pluginManagement {
+    repositories {
+        google()
+        mavenCentral()
+        jcenter()
+        maven { url "https://jitpack.io" }
+        gradlePluginPortal()
+    }
+}
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+        jcenter()
+        maven { url "https://jitpack.io" }
+    }
+}
+
+rootProject.name = "Nou"
+include ':app'

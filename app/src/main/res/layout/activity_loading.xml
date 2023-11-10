@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:background="@android:color/transparent">
+
+    <LinearLayout
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_gravity="center"
+        android:background="@android:color/transparent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <FrameLayout
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            android:background="@android:color/transparent">
+
+            <com.agrawalsuneet.loaderspack.loaders.RippleLoader
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@android:color/transparent"
+                android:gravity="center"
+                app:curves_animDuration="800"
+                app:curves_curveColor="@color/app_theme_color"
+                app:curves_curveSweepAngle="180"
+                app:curves_curveWidth="3.5dp"
+                app:curves_distanceBetweenCurves="4dp"
+                app:curves_interpolator="@android:anim/linear_interpolator"
+                app:curves_noOfCurves="5"
+                app:curves_outermostCurveRadius="30dp"
+                app:ripple_animDuration="@integer/material_motion_duration_long_1"
+                app:ripple_circleColor="@color/app_theme_color" />
+
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="5dp"
+            android:background="@android:color/transparent"
+            android:fontFamily="@font/balooda"
+            android:gravity="center"
+            android:paddingTop="10sp"
+            android:text="Processing ..." />
+
+    </LinearLayout>
+
+</FrameLayout>

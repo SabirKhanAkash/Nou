@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--    Default Pre-installed-->
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <!--    App Theme Color-->
+    <color name="app_theme_color">#0064D2</color>
+
+    <!--    For Custom Toast-->
+    <color name="toast_red">#efd7d7</color>
+    <color name="toast_text_red">#ab527b</color>
+    <color name="toast_green">#d7eccf</color>
+    <color name="toast_text_green">#3c763d</color>
+    <color name="toast_blue">#abcee5</color>
+    <color name="toast_text_blue">#3c647c</color>
+
+    <color name="light_black">#0D1634</color>
+    <color name="light_gray_2">#808080</color>
+
+    <!--    For Loader-->
+    <color name="medium_gray">#1A304A</color>
+
+    <!--    For Border-->
+    <color name="regular_gray">#898B8D</color>
+    <color name="light_gray">#DAEAECED</color>
+</resources>
