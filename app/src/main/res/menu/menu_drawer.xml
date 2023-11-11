@@ -3,14 +3,14 @@
     <item
         android:id="@+id/ticketFragment"
         android:icon="@drawable/home_icon"
-        android:title="Home" />
+        android:title="টিকিট" />
     <item
         android:id="@+id/historyFragment"
         android:icon="@drawable/history_icon"
-        android:title="History" />
+        android:title="হিসাব" />
     <item
         android:id="@+id/profileFragment"
         android:icon="@drawable/profile_icon"
-        android:title="Profile" />
+        android:title="প্রোফাইল" />
 
 </menu>

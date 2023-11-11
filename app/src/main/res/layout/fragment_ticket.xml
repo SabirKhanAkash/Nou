@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -39,237 +38,245 @@
 
     </LinearLayout>
 
-    <LinearLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:background="@drawable/ticket_custom_bg"
-        android:orientation="vertical"
-        android:paddingStart="20sp"
-        android:paddingTop="15sp"
-        android:paddingEnd="20sp"
-        android:paddingBottom="10sp">
-
-        <RadioGroup
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:weightSum="1">
-
-            <RadioButton
-                android:id="@+id/bench"
-                style="@style/Base.Theme.Nou"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.33"
-                android:fontFamily="@font/balooda"
-                android:gravity="center"
-                android:text="বেঞ্চ"
-                android:textColor="@color/light_gray_3"
-                android:textSize="14sp" />
-
-            <RadioButton
-                android:id="@+id/seat"
-                style="@style/Base.Theme.Nou"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.33"
-                android:fontFamily="@font/balooda"
-                android:gravity="center"
-                android:text="সিট"
-                android:textColor="@color/light_gray_3"
-                android:textSize="14sp" />
-
-            <RadioButton
-                android:id="@+id/cabin"
-                style="@style/Base.Theme.Nou"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.33"
-                android:fontFamily="@font/balooda"
-                android:gravity="center"
-                android:text="কেবিন"
-                android:textColor="@color/light_gray_3"
-                android:textSize="14sp" />
-
-        </RadioGroup>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20sp"
-            android:layout_marginBottom="5sp"
-            android:fontFamily="@font/balooda"
-            android:text="যাত্রা শুরু"
-            android:textColor="@color/light_gray_3"
-            android:textSize="14sp"
-            android:textStyle="bold" />
-
-        <AutoCompleteTextView
-            android:id="@+id/source"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/selector_btn_bg"
-            android:drawableStart="@drawable/source_icon"
-            android:drawablePadding="16sp"
-            android:fontFamily="@font/balooda"
-            android:padding="14sp"
-            android:text="ঢাকা"
-            android:textColor="@color/light_gray_3"
-            android:textSize="14sp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20sp"
-            android:layout_marginBottom="5sp"
-            android:fontFamily="@font/balooda"
-            android:text="যাত্রা শেষ"
-            android:textColor="@color/light_gray_3"
-            android:textSize="14sp"
-            android:textStyle="bold" />
-
-        <AutoCompleteTextView
-            android:id="@+id/destination"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/selector_btn_bg"
-            android:drawableStart="@drawable/destination_icon"
-            android:drawablePadding="16sp"
-            android:fontFamily="@font/balooda"
-            android:padding="14sp"
-            android:text="চাঁদপুর"
-            android:textColor="@color/light_gray_3"
-            android:textSize="14sp" />
+        android:fitsSystemWindows="true">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:gravity="bottom"
-            android:orientation="horizontal"
-            android:weightSum="1">
+            android:background="@drawable/ticket_custom_bg"
+            android:orientation="vertical"
+            android:paddingStart="20sp"
+            android:paddingTop="15sp"
+            android:paddingEnd="20sp"
+            android:paddingBottom="10sp">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
+            <RadioGroup
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.8"
-                android:orientation="vertical">
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:weightSum="1">
 
-                <TextView
+                <RadioButton
+                    android:id="@+id/bench"
+                    style="@style/Base.Theme.Nou"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20sp"
-                    android:layout_marginBottom="5sp"
+                    android:layout_weight="0.33"
                     android:fontFamily="@font/balooda"
-                    android:text="যাত্রার তারিখ"
-                    android:textColor="@color/light_gray_3"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/journeyDate"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/selector_btn_bg"
-                    android:drawableStart="@drawable/calendar_icon"
-                    android:drawablePadding="16sp"
-                    android:fontFamily="@font/balooda"
-                    android:padding="14sp"
-                    android:text="তারিখ - মাস - বছর"
+                    android:gravity="center"
+                    android:text="বেঞ্চ"
                     android:textColor="@color/light_gray_3"
                     android:textSize="14sp" />
 
-            </LinearLayout>
+                <RadioButton
+                    android:id="@+id/seat"
+                    style="@style/Base.Theme.Nou"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.33"
+                    android:fontFamily="@font/balooda"
+                    android:gravity="center"
+                    android:text="সিট"
+                    android:textColor="@color/light_gray_3"
+                    android:textSize="14sp" />
 
-            <LinearLayout
+                <RadioButton
+                    android:id="@+id/cabin"
+                    style="@style/Base.Theme.Nou"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.33"
+                    android:fontFamily="@font/balooda"
+                    android:gravity="center"
+                    android:text="কেবিন"
+                    android:textColor="@color/light_gray_3"
+                    android:textSize="14sp" />
+
+            </RadioGroup>
+
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.2"
-                android:orientation="vertical">
+                android:layout_marginTop="20sp"
+                android:layout_marginBottom="5sp"
+                android:fontFamily="@font/balooda"
+                android:text="যাত্রা শুরু"
+                android:textColor="@color/light_gray_3"
+                android:textSize="14sp"
+                android:textStyle="bold" />
 
-                <TextView
+            <AutoCompleteTextView
+                android:id="@+id/source"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/selector_btn_bg"
+                android:drawableStart="@drawable/source_icon"
+                android:drawablePadding="16sp"
+                android:fontFamily="@font/balooda"
+                android:padding="14sp"
+                android:text="ঢাকা"
+                android:textColor="@color/light_gray_3"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20sp"
+                android:layout_marginBottom="5sp"
+                android:fontFamily="@font/balooda"
+                android:text="যাত্রা শেষ"
+                android:textColor="@color/light_gray_3"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <AutoCompleteTextView
+                android:id="@+id/destination"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/selector_btn_bg"
+                android:drawableStart="@drawable/destination_icon"
+                android:drawablePadding="16sp"
+                android:fontFamily="@font/balooda"
+                android:padding="14sp"
+                android:text="চাঁদপুর"
+                android:textColor="@color/light_gray_3"
+                android:textSize="14sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="bottom"
+                android:gravity="bottom"
+                android:orientation="horizontal"
+                android:weightSum="1">
+
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:layout_marginEnd="10sp"
-                    android:layout_marginBottom="5sp"
-                    android:fontFamily="@font/balooda"
-                    android:text="যাত্রার সময়"
-                    android:textColor="@color/light_gray_3"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
+                    android:layout_weight="0.8"
+                    android:orientation="vertical">
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/timePickerInputLayout"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:layout_marginStart="5sp"
-                    android:layout_marginEnd="5sp"
-                    android:gravity="center"
-                    app:hint="Select Time">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/timePickerEditText"
-                        style="@style/Widget.Material3.TextInputLayout.FilledBox.ExposedDropdownMenu"
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/selector_btn_bg"
-                        android:clickable="true"
-                        android:drawableEnd="@drawable/time_icon"
-                        android:drawablePadding="15sp"
-                        android:focusable="false"
-                        android:focusableInTouchMode="false"
+                        android:layout_marginTop="20sp"
+                        android:layout_marginBottom="5sp"
                         android:fontFamily="@font/balooda"
-                        android:inputType="none"
-                        android:onClick="showTimePickerDialog"
-                        android:text="ঘণ্টা : মিনিট"
+                        android:text="যাত্রার তারিখ"
+                        android:textColor="@color/light_gray_3"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/journeyDate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/selector_btn_bg"
+                        android:drawableStart="@drawable/calendar_icon"
+                        android:drawablePadding="16sp"
+                        android:fontFamily="@font/balooda"
+                        android:padding="14sp"
+                        android:text="তারিখ - মাস - বছর"
                         android:textColor="@color/light_gray_3"
                         android:textSize="14sp" />
 
-                </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.2"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:layout_marginEnd="10sp"
+                        android:layout_marginBottom="5sp"
+                        android:fontFamily="@font/balooda"
+                        android:text="যাত্রার সময়"
+                        android:textColor="@color/light_gray_3"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/timePickerInputLayout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:layout_marginStart="5sp"
+                        android:layout_marginEnd="5sp"
+                        android:gravity="center">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/timePickerEditText"
+                            style="@style/Widget.Material3.TextInputLayout.FilledBox.ExposedDropdownMenu"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/selector_btn_bg"
+                            android:clickable="true"
+                            android:drawableEnd="@drawable/time_icon"
+                            android:drawablePadding="15sp"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"
+                            android:fontFamily="@font/balooda"
+                            android:inputType="none"
+                            android:onClick="showTimePickerDialog"
+                            android:text="ঘণ্টা : মিনিট"
+                            android:textColor="@color/light_gray_3"
+                            android:textSize="14sp" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
 
             </LinearLayout>
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20sp"
+                android:layout_marginBottom="5sp"
+                android:fontFamily="@font/balooda"
+                android:text="যাত্রীর বিবরণ"
+                android:textColor="@color/light_gray_3"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <AutoCompleteTextView
+                android:id="@+id/passenger"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/selector_btn_bg"
+                android:drawableStart="@drawable/user_icon"
+                android:drawablePadding="16sp"
+                android:fontFamily="@font/balooda"
+                android:padding="14sp"
+                android:text="যাত্রীর বিবরণ লিখুন"
+                android:textColor="@color/light_gray_3"
+                android:textSize="14sp" />
+
+            <Button
+                android:id="@+id/confirmTicket"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20sp"
+                android:paddingTop="12sp"
+                android:paddingBottom="12sp"
+                android:src="@drawable/button_bg"
+                android:text="টিকিট নিশ্চিত করুন"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+
         </LinearLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20sp"
-            android:layout_marginBottom="5sp"
-            android:fontFamily="@font/balooda"
-            android:text="যাত্রীর বিবরণ"
-            android:textColor="@color/light_gray_3"
-            android:textSize="14sp"
-            android:textStyle="bold" />
+    </androidx.core.widget.NestedScrollView>
 
-        <AutoCompleteTextView
-            android:id="@+id/passenger"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/selector_btn_bg"
-            android:drawableStart="@drawable/user_icon"
-            android:drawablePadding="16sp"
-            android:fontFamily="@font/balooda"
-            android:padding="14sp"
-            android:text="যাত্রীর বিবরণ লিখুন"
-            android:textColor="@color/light_gray_3"
-            android:textSize="14sp" />
-
-        <Button
-            android:id="@+id/confirmTicket"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20sp"
-            android:paddingTop="12sp"
-            android:paddingBottom="12sp"
-            android:src="@drawable/button_bg"
-            android:text="টিকিট নিশ্চিত করুন"
-            android:textColor="@color/white"
-            android:textSize="14sp" />
-
-    </LinearLayout>
 
 </FrameLayout>
