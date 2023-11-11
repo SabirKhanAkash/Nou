@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.akash.nou.R
 import com.akash.nou.databinding.ActivityAuthBinding
 import com.akash.nou.utils.LoadingDialog
+import com.akash.nou.utils.SharedPref
 import com.akash.nou.viewmodel.AuthViewModel
 import com.akash.nou.viewmodel.viewmodelfactory.AuthViewModelFactory
 import showTopToast
@@ -24,9 +25,17 @@ class AuthActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAuthBinding
     private lateinit var authViewModel: AuthViewModel
     private val loadingDialog: LoadingDialog = LoadingDialog(this@AuthActivity)
+    private val sharedPref: SharedPref = SharedPref()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+
+
+        /**
+         * Homepage
+         */
+        if(sharedPref.getString(applicationContext, "authToken") != "")
+            startActivity(Intent(this@AuthActivity, HomepageActivity::class.java).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK))
 
 
         /**

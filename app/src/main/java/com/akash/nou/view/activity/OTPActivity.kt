@@ -6,6 +6,7 @@
 package com.akash.nou.view.activity
 
 import GenericApiResponse
+import android.content.Intent
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.View
@@ -99,64 +100,10 @@ class OTPActivity : AppCompatActivity() {
                         )
                         sharedPref.setUser(applicationContext, "user", resultData.user)
 
-                        showTopToast(
-                            applicationContext,
-                            "${sharedPref.getUser(applicationContext, "user")._id}\n" +
-                                    "${sharedPref.getUser(applicationContext, "user").phone_no}\n" +
-                                    "${sharedPref.getUser(applicationContext, "user").otp}\n" +
-                                    "${sharedPref.getUser(applicationContext, "user").username}\n" +
-                                    "${sharedPref.getUser(applicationContext, "user").role}\n" +
-                                    "${sharedPref.getUser(applicationContext, "user").village}\n" +
-                                    "${sharedPref.getUser(applicationContext, "user").dob}\n" +
-                                    "${
-                                        sharedPref.getUser(
-                                            applicationContext,
-                                            "user"
-                                        ).created_date
-                                    }\n" +
-                                    "${
-                                        sharedPref.getUser(
-                                            applicationContext,
-                                            "user"
-                                        ).created_by
-                                    }\n" +
-                                    "${
-                                        sharedPref.getUser(
-                                            applicationContext,
-                                            "user"
-                                        ).updated_date
-                                    }\n" +
-                                    "${
-                                        sharedPref.getUser(
-                                            applicationContext,
-                                            "user"
-                                        ).updated_by
-                                    }\n" +
-                                    "${
-                                        sharedPref.getUser(
-                                            applicationContext,
-                                            "user"
-                                        ).data_source
-                                    }\n" +
-                                    "${
-                                        sharedPref.getUser(
-                                            applicationContext,
-                                            "user"
-                                        ).approval_status
-                                    }\n" +
-                                    "${
-                                        sharedPref.getUser(
-                                            applicationContext,
-                                            "user"
-                                        ).app_version
-                                    }\n",
-                            "long",
-                            "positive"
-                        )
                         binding.otpView.showSuccess()
                         binding.otpView.requestFocusOTP()
                         binding.otpResponseMsg.visibility = View.INVISIBLE
-//                        startActivity(Intent(this@OTPActivity, Homepage::class.java).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK))
+                        startActivity(Intent(this@OTPActivity, HomepageActivity::class.java).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK))
                     } else {
                         binding.otpView.showError()
                         binding.otpResponseMsg.visibility = View.VISIBLE

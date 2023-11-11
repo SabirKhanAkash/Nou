@@ -18,6 +18,9 @@
         tools:replace="android:allowBackup"
         tools:targetApi="31">
         <activity
+            android:name=".view.activity.HomepageActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.activity.OTPActivity"
             android:exported="false" />
         <activity
