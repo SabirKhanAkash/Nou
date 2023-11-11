@@ -16,6 +16,7 @@
         android:label="fragment_history"
         tools:layout="@layout/fragment_history" />
     <fragment
+
         android:id="@+id/profileFragment"
         android:name="com.akash.nou.view.fragment.ProfileFragment"
         android:label="fragment_profile"

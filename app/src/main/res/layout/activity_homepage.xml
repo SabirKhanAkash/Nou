@@ -25,6 +25,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/bottom_nav_colors"
         android:elevation="10sp"
+        android:paddingBottom="8sp"
         app:itemRippleColor="@color/app_theme_color"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

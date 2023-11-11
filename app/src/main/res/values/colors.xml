@@ -16,6 +16,7 @@
     <color name="toast_text_blue">#3c647c</color>
 
     <color name="light_black">#0D1634</color>
+    <color name="light_gray_3">#22313F</color>
     <color name="light_gray_2">#808080</color>
 
     <!--    For Loader-->
@@ -23,5 +24,7 @@
 
     <!--    For Border-->
     <color name="regular_gray">#898B8D</color>
+    <color name="very_light_gray">#E6E8E9</color>
+    <color name="small_light_gray">#F5F6F6</color>
     <color name="light_gray">#DAEAECED</color>
 </resources>

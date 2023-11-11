@@ -34,8 +34,13 @@ class AuthActivity : AppCompatActivity() {
         /**
          * Homepage
          */
-        if(sharedPref.getString(applicationContext, "authToken") != "")
-            startActivity(Intent(this@AuthActivity, HomepageActivity::class.java).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK))
+        if (sharedPref.getString(applicationContext, "authToken") != "")
+            startActivity(
+                Intent(
+                    this@AuthActivity,
+                    HomepageActivity::class.java
+                ).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+            )
 
 
         /**

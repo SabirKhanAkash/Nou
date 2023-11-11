@@ -103,7 +103,12 @@ class OTPActivity : AppCompatActivity() {
                         binding.otpView.showSuccess()
                         binding.otpView.requestFocusOTP()
                         binding.otpResponseMsg.visibility = View.INVISIBLE
-                        startActivity(Intent(this@OTPActivity, HomepageActivity::class.java).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK))
+                        startActivity(
+                            Intent(
+                                this@OTPActivity,
+                                HomepageActivity::class.java
+                            ).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+                        )
                     } else {
                         binding.otpView.showError()
                         binding.otpResponseMsg.visibility = View.VISIBLE

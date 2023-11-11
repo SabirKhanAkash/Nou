@@ -77,13 +77,20 @@
                     android:shadowColor="@color/app_theme_color"
                     android:textCursorDrawable="@drawable/text_cursor" />
 
-                <ImageView
+                <Button
                     android:id="@+id/loginBtn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/login_btn_bg" />
+                    android:layout_marginTop="20sp"
+                    android:drawableEnd="@drawable/check_circle_icon"
+                    android:fontFamily="@font/balooda"
+                    android:paddingStart="30sp"
+                    android:paddingTop="12sp"
+                    android:paddingBottom="12sp"
+                    android:src="@drawable/button_bg"
+                    android:text="লগইন করুন"
+                    android:textColor="@color/white"
+                    android:textSize="14sp" />
 
             </LinearLayout>
 
