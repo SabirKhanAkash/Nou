@@ -112,19 +112,35 @@
                 android:textSize="14sp"
                 android:textStyle="bold" />
 
-            <AutoCompleteTextView
+            <com.google.android.material.textfield.MaterialAutoCompleteTextView
                 android:id="@+id/source"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:hint="যাত্রা শুরুর স্থান"
                 android:background="@drawable/selector_btn_bg"
-                android:drawableStart="@drawable/source_icon"
                 android:drawablePadding="16sp"
                 android:maxLines="1"
-                android:fontFamily="@font/balooda"
                 android:padding="14sp"
-                android:text="ঢাকা"
+                android:fontFamily="@font/balooda"
+                android:textSize="14sp"
                 android:textColor="@color/light_gray_3"
-                android:textSize="14sp" />
+                android:drawableStart="@drawable/source_icon"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu" />
+
+
+<!--            <AutoCompleteTextView-->
+<!--                android:id="@+id/source"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:background="@drawable/selector_btn_bg"-->
+<!--                android:drawableStart="@drawable/source_icon"-->
+<!--                android:drawablePadding="16sp"-->
+<!--                android:maxLines="1"-->
+<!--                android:fontFamily="@font/balooda"-->
+<!--                android:padding="14sp"-->
+<!--                android:text="ঢাকা"-->
+<!--                android:textColor="@color/light_gray_3"-->
+<!--                android:textSize="14sp" />-->
 
             <TextView
                 android:layout_width="wrap_content"

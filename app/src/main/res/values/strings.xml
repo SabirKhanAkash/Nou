@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Nou</string>
     <string name="selected_time_format">%02d:%02d %s</string>
-    <string-array name="village">
+    <string-array name="zilla">
         <item>জেলা নির্বাচন করুন</item>
         <item>ঢাকা</item>
         <item>গাজীপুর</item>

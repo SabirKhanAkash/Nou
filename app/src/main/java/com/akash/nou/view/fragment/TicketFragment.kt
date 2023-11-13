@@ -10,10 +10,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import android.widget.DatePicker
 import androidx.fragment.app.Fragment
 import com.akash.nou.R
 import com.akash.nou.databinding.FragmentTicketBinding
+import com.google.android.material.textfield.MaterialAutoCompleteTextView
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
 import java.text.SimpleDateFormat
@@ -21,6 +24,10 @@ import java.util.Calendar
 import java.util.Locale
 
 class TicketFragment : Fragment() {
+    companion object {
+        fun newInstance() = TicketFragment()
+    }
+
     /**
      * Global Variables
      */
@@ -38,6 +45,11 @@ class TicketFragment : Fragment() {
          */
         binding = FragmentTicketBinding.inflate(layoutInflater)
 
+        val items = requireContext().resources.getStringArray(R.array.zilla)
+
+        val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, items)
+
+        binding.source.setAdapter(adapter)
 
         /**
          * Event Listener

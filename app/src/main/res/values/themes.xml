@@ -5,7 +5,7 @@
     <style name="Base.Theme.Nou" parent="Theme.MaterialComponents.Light.NoActionBar"> <!-- Action bar removed -->
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/app_theme_color</item>
-        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorOnPrimary">@color/app_theme_color</item>
         <!-- Secondary brand color. -->
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
@@ -28,4 +28,8 @@
         <item name="android:colorPrimary">@color/black</item>
         <item name="android:colorPrimaryDark">@color/black</item>
     </style>
+
+<!--    <style name="Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">-->
+<!--        <item name="materialAutoCompleteTextViewStyle">@style/Widget.MaterialComponents.AutoCompleteTextView.FilledBox</item>-->
+<!--    </style>-->
 </resources>
