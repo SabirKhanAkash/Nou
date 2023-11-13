@@ -1,3 +1,78 @@
 <resources>
     <string name="app_name">Nou</string>
+    <string name="selected_time_format">%02d:%02d %s</string>
+    <string-array name="village">
+        <item>জেলা নির্বাচন করুন</item>
+        <item>ঢাকা</item>
+        <item>গাজীপুর</item>
+        <item>নরসিংদী</item>
+        <item>নারায়ণগঞ্জ</item>
+        <item>টাঙ্গাইল</item>
+        <item>কিশোরগঞ্জ</item>
+        <item>মানিকগঞ্জ</item>
+        <item>মাদারীপুর</item>
+        <item>শরীয়তপুর</item>
+        <item>মুন্সিগঞ্জ</item>
+        <item>গোপালগঞ্জ</item>
+        <item>ফরিদপুর</item>
+        <item>রাজবাড়ী</item>
+
+        <item>চট্টগ্রাম</item>
+        <item>কুমিল্লা</item>
+        <item>নোয়াখালী</item>
+        <item>ফেনী</item>
+        <item>ব্রাহ্মণবাড়িয়া</item>
+        <item>চাঁদপুর</item>
+        <item>লক্ষীপুর</item>
+        <item>কক্সবাজার</item>
+        <item>খাগড়াছড়ি</item>
+        <item>রাঙামাটি</item>
+        <item>বান্দরবান</item>
+        <item>ময়মনসিংহ</item>
+        <item>শেরপুর</item>
+        <item>জামালপুর</item>
+        <item>নেত্রকোণা</item>
+
+        <item>রাজশাহী</item>
+        <item>বগুড়া</item>
+        <item>সিরাজগঞ্জ</item>
+        <item>পাবনা</item>
+        <item>নাটোর</item>
+        <item>নওগাঁ</item>
+        <item>জয়পুরহাট</item>
+        <item>চাপাইনবাবগঞ্জ</item>
+
+        <item>খুলনা</item>
+        <item>যশোর</item>
+        <item>বাগেরহাট</item>
+        <item>সাতক্ষীরা</item>
+        <item>কুষ্টিয়া</item>
+        <item>ঝিনাইদহ</item>
+        <item>মেহেরপুর</item>
+        <item>নড়াইল</item>
+        <item>চুয়াডাঙ্গা</item>
+        <item>মাগুরা</item>
+
+        <item>সিলেট</item>
+        <item>মৌলভিবাজার</item>
+        <item>হবিগঞ্জ</item>
+        <item>সুনামগঞ্জ</item>
+
+        <item>রংপুর</item>
+        <item>দিনাজপুর</item>
+        <item>পঞ্চগড়</item>
+        <item>ঠাকুরগাঁও</item>
+        <item>লালমনিরহাট</item>
+        <item>কুড়িগ্রাম</item>
+        <item>নীলফামারী</item>
+        <item>গাইবান্ধা</item>
+
+        <item>বরিশাল</item>
+        <item>পিরোজপুর</item>
+        <item>ভোলা</item>
+        <item>ঝালকাঠি</item>
+        <item>পটুয়াখালী</item>
+        <item>বরগুনা</item>
+
+    </string-array>
 </resources>
