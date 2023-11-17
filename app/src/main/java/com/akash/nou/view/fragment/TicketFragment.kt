@@ -12,7 +12,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.ViewOutlineProvider
 import android.widget.ArrayAdapter
 import android.widget.DatePicker
 import androidx.fragment.app.Fragment
@@ -166,7 +165,7 @@ class TicketFragment : Fragment() {
         /**
          * LiveData Observer
          */
-        ticketViewModel.seatMapLiveData.observe(viewLifecycleOwner) { result ->
+        ticketViewModel.ticketsLiveData.observe(viewLifecycleOwner) { result ->
             when(result) {
                 is GenericApiResponse.Success -> {
                     if(result.data.status == "Success") {

@@ -5,6 +5,5 @@ data class TicketBody(
     var source: String,
     var destination: String,
     var journeyDateTime: String,
-    var childItemCount: Int? = null,
     var adultItemCount: Int
 )

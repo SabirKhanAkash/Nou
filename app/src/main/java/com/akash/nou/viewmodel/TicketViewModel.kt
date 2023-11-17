@@ -9,19 +9,17 @@ import GenericApiResponse
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.akash.nou.model.AuthResponse
 import com.akash.nou.model.SeatBookResponse
-import com.akash.nou.model.SeatMap
+import com.akash.nou.model.Tickets
 import com.akash.nou.model.SoldTicketListResponse
 import com.akash.nou.model.TicketBody
-import com.akash.nou.repository.AuthRepository
 import com.akash.nou.repository.TicketRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class TicketViewModel(private val repository: TicketRepository) : ViewModel() {
 
-    val seatMapLiveData: MutableLiveData<GenericApiResponse<SeatMap>> = MutableLiveData()
+    val ticketsLiveData: MutableLiveData<GenericApiResponse<Tickets>> = MutableLiveData()
     val bookTicketLiveData: MutableLiveData<GenericApiResponse<SeatBookResponse>> = MutableLiveData()
     val soldTicketListLiveData: MutableLiveData<GenericApiResponse<SoldTicketListResponse>> = MutableLiveData()
     val isLoading: MutableLiveData<Boolean> = MutableLiveData()
@@ -33,10 +31,10 @@ class TicketViewModel(private val repository: TicketRepository) : ViewModel() {
                 val response = repository.searchTicket(phone_no, authToken, refreshToken, ticketBody).execute()
                 if (response.isSuccessful) {
                     isLoading.postValue(false)
-                    seatMapLiveData.postValue(GenericApiResponse.Success(response.body()!!))
+                    ticketsLiveData.postValue(GenericApiResponse.Success(response.body()!!))
                 } else {
                     isLoading.postValue(false)
-                    seatMapLiveData.postValue(
+                    ticketsLiveData.postValue(
                         GenericApiResponse.Error(
                             "Oops! Something went wrong. :(\n${
                                 response.errorBody().toString()
@@ -46,7 +44,7 @@ class TicketViewModel(private val repository: TicketRepository) : ViewModel() {
                 }
             } catch (e: Exception) {
                 isLoading.postValue(false)
-                seatMapLiveData.postValue(GenericApiResponse.Error(e.message))
+                ticketsLiveData.postValue(GenericApiResponse.Error(e.message))
             }
         }
     }

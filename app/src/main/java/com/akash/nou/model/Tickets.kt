@@ -1,7 +1,8 @@
 package com.akash.nou.model
 
-data class SeatMap(
-    var seatType: String,
+data class Tickets(
+    var ticketList: List<TicketBody>,
+    var count: Int,
     var status: String,
     var message: String
 )

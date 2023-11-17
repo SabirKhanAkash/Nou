@@ -5,9 +5,8 @@
 
 package com.akash.nou.api
 
-import com.akash.nou.model.AuthResponse
 import com.akash.nou.model.SeatBookResponse
-import com.akash.nou.model.SeatMap
+import com.akash.nou.model.Tickets
 import com.akash.nou.model.SoldTicketListResponse
 import com.akash.nou.model.TicketBody
 import retrofit2.Call
@@ -22,7 +21,7 @@ interface TicketAPI {
         @Header("authToken") authToken: String,
         @Header("refreshToken") refreshToken: String,
         @Body ticketBody: TicketBody
-    ): Call<SeatMap>
+    ): Call<Tickets>
 
     @POST("/ticket/book-seat/")
     fun bookSeat(
