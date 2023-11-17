@@ -5,6 +5,7 @@
 
 import com.akash.nou.BuildConfig
 import com.akash.nou.api.AuthAPI
+import com.akash.nou.api.TicketAPI
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import okhttp3.Dispatcher
@@ -45,5 +46,9 @@ object RetrofitClient {
 
     fun getAuthInterfaceService(): AuthAPI {
         return getRetrofitInstance().create(AuthAPI::class.java)
+    }
+
+    fun getTicketInterfaceService(): TicketAPI {
+        return getRetrofitInstance().create(TicketAPI::class.java)
     }
 }

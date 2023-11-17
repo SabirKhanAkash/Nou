@@ -2,7 +2,6 @@
     <string name="app_name">Nou</string>
     <string name="selected_time_format">%02d:%02d %s</string>
     <string-array name="zilla">
-        <item>জেলা নির্বাচন করুন</item>
         <item>ঢাকা</item>
         <item>গাজীপুর</item>
         <item>নরসিংদী</item>
@@ -74,5 +73,16 @@
         <item>পটুয়াখালী</item>
         <item>বরগুনা</item>
 
+    </string-array>
+    <string-array name="seat_category">
+        <item>ফ্লোর</item>
+        <item>ডেক</item>
+        <item>চেয়ার</item>
+        <item>এসি চেয়ার</item>
+        <item>সিঙ্গেল কেবিন</item>
+        <item>এসি সিঙ্গেল কেবিন</item>
+        <item>ডাবল কেবিন</item>
+        <item>এসি ডাবল কেবিন</item>
+        <item>ভিআইপি</item>
     </string-array>
 </resources>

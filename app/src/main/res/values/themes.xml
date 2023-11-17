@@ -9,8 +9,7 @@
         <!-- Secondary brand color. -->
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor">@android:color/transparent</item>
-        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowTranslucentStatus">true</item>
         <!-- Customize your theme here. -->
     </style>
 
@@ -29,7 +28,7 @@
         <item name="android:colorPrimaryDark">@color/black</item>
     </style>
 
-<!--    <style name="Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">-->
-<!--        <item name="materialAutoCompleteTextViewStyle">@style/Widget.MaterialComponents.AutoCompleteTextView.FilledBox</item>-->
-<!--    </style>-->
+    <!--    <style name="Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">-->
+    <!--        <item name="materialAutoCompleteTextViewStyle">@style/Widget.MaterialComponents.AutoCompleteTextView.FilledBox</item>-->
+    <!--    </style>-->
 </resources>

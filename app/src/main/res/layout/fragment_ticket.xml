@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/app_theme_color"
     tools:context=".view.fragment.TicketFragment">
 
@@ -56,50 +56,43 @@
             android:paddingEnd="20sp"
             android:paddingBottom="10sp">
 
-            <RadioGroup
+            <TextView
+                android:id="@+id/errorMessage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/balooda"
+                android:text="সকল তথ্য দিন"
+                android:textColor="@color/red"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:visibility="gone" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/seatLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:weightSum="1">
+                app:boxBackgroundColor="@color/white"
+                app:boxStrokeColor="@color/app_theme_color"
+                app:hintTextColor="@color/app_theme_color">
 
-                <RadioButton
-                    android:buttonTint="@color/app_theme_color"
-                    android:id="@+id/bench"
-                    android:layout_width="wrap_content"
+                <AutoCompleteTextView
+                    android:id="@+id/seatCategory"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.33"
+                    android:background="@drawable/selector_btn_bg"
+                    android:drawableStart="@drawable/seat_icon"
+                    android:drawablePadding="16sp"
                     android:fontFamily="@font/balooda"
-                    android:gravity="center"
-                    android:text="বেঞ্চ"
+                    android:hint="সিটের ধরণ"
+                    android:inputType="none"
+                    android:maxLines="1"
+                    android:padding="14sp"
                     android:textColor="@color/light_gray_3"
                     android:textSize="14sp" />
 
-                <RadioButton
-                    android:buttonTint="@color/app_theme_color"
-                    android:id="@+id/seat"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.33"
-                    android:fontFamily="@font/balooda"
-                    android:gravity="center"
-                    android:text="সিট"
-                    android:textColor="@color/light_gray_3"
-                    android:textSize="14sp" />
-
-                <RadioButton
-                    android:buttonTint="@color/app_theme_color"
-                    android:id="@+id/cabin"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.33"
-                    android:fontFamily="@font/balooda"
-                    android:gravity="center"
-                    android:text="কেবিন"
-                    android:textColor="@color/light_gray_3"
-                    android:textSize="14sp" />
-
-            </RadioGroup>
+            </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -112,35 +105,31 @@
                 android:textSize="14sp"
                 android:textStyle="bold" />
 
-            <com.google.android.material.textfield.MaterialAutoCompleteTextView
-                android:id="@+id/source"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/sourceLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="যাত্রা শুরুর স্থান"
-                android:background="@drawable/selector_btn_bg"
-                android:drawablePadding="16sp"
-                android:maxLines="1"
-                android:padding="14sp"
-                android:fontFamily="@font/balooda"
-                android:textSize="14sp"
-                android:textColor="@color/light_gray_3"
-                android:drawableStart="@drawable/source_icon"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu" />
+                app:boxBackgroundColor="@color/white"
+                app:boxStrokeColor="@color/app_theme_color"
+                app:hintTextColor="@color/app_theme_color">
 
+                <AutoCompleteTextView
+                    android:id="@+id/source"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/selector_btn_bg"
+                    android:drawableStart="@drawable/source_icon"
+                    android:drawablePadding="16sp"
+                    android:fontFamily="@font/balooda"
+                    android:hint="যাত্রা শুরুর স্থান"
+                    android:inputType="none"
+                    android:maxLines="1"
+                    android:padding="14sp"
+                    android:textColor="@color/light_gray_3"
+                    android:textSize="14sp" />
 
-<!--            <AutoCompleteTextView-->
-<!--                android:id="@+id/source"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:background="@drawable/selector_btn_bg"-->
-<!--                android:drawableStart="@drawable/source_icon"-->
-<!--                android:drawablePadding="16sp"-->
-<!--                android:maxLines="1"-->
-<!--                android:fontFamily="@font/balooda"-->
-<!--                android:padding="14sp"-->
-<!--                android:text="ঢাকা"-->
-<!--                android:textColor="@color/light_gray_3"-->
-<!--                android:textSize="14sp" />-->
+            </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -153,19 +142,31 @@
                 android:textSize="14sp"
                 android:textStyle="bold" />
 
-            <AutoCompleteTextView
-                android:id="@+id/destination"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/destinationLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/selector_btn_bg"
-                android:drawableStart="@drawable/destination_icon"
-                android:drawablePadding="16sp"
-                android:maxLines="1"
-                android:fontFamily="@font/balooda"
-                android:padding="14sp"
-                android:text="চাঁদপুর"
-                android:textColor="@color/light_gray_3"
-                android:textSize="14sp" />
+                app:boxBackgroundColor="@color/white"
+                app:boxStrokeColor="@color/app_theme_color"
+                app:hintTextColor="@color/app_theme_color">
+
+                <AutoCompleteTextView
+                    android:id="@+id/destination"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/selector_btn_bg"
+                    android:drawableStart="@drawable/destination_icon"
+                    android:drawablePadding="16sp"
+                    android:fontFamily="@font/balooda"
+                    android:hint="যাত্রা শেষের স্থান"
+                    android:inputType="none"
+                    android:maxLines="1"
+                    android:padding="14sp"
+                    android:textColor="@color/light_gray_3"
+                    android:textSize="14sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -192,8 +193,8 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        style="@style/Base.Theme.Nou"
                         android:id="@+id/journeyDate"
+                        style="@style/Base.Theme.Nou"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/selector_btn_bg"
@@ -226,13 +227,12 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:layout_gravity="end"
                         android:id="@+id/timePickerEditText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="end"
                         android:background="@drawable/selector_btn_bg"
                         android:clickable="true"
-                        android:padding="8sp"
                         android:drawableEnd="@drawable/time_icon"
                         android:drawablePadding="15sp"
                         android:focusable="false"
@@ -240,6 +240,7 @@
                         android:fontFamily="@font/balooda"
                         android:inputType="none"
                         android:onClick="showTimePickerDialog"
+                        android:padding="8sp"
                         android:text="ঘণ্টা : মিনিট"
                         android:textColor="@color/light_gray_3"
                         android:textSize="14sp" />
@@ -254,7 +255,7 @@
                 android:layout_marginTop="20sp"
                 android:layout_marginBottom="5sp"
                 android:fontFamily="@font/balooda"
-                android:text="যাত্রীর বিবরণ"
+                android:text="যাত্রীর সংখ্যা"
                 android:textColor="@color/light_gray_3"
                 android:textSize="14sp"
                 android:textStyle="bold" />
@@ -262,78 +263,82 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:weightSum="1"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:weightSum="1">
 
                 <LinearLayout
-                    android:gravity="center"
-                    android:layout_weight="0.5"
+                    android:visibility="gone"
                     android:layout_width="0dp"
-                    android:orientation="vertical"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:gravity="center"
+                    android:orientation="vertical">
 
                     <TextView
-                        android:gravity="bottom"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/balooda"
+                        android:gravity="bottom"
                         android:text="শিশু"
                         android:textColor="@color/light_gray_3"
                         android:textSize="14sp"
                         android:textStyle="bold" />
 
                     <LinearLayout
-                        android:weightSum="1"
-                        android:paddingStart="5sp"
-                        android:paddingEnd="5sp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:paddingStart="5sp"
+                        android:paddingEnd="5sp"
+                        android:weightSum="1">
 
                         <LinearLayout
-                            android:layout_weight="0.3"
-                            android:gravity="start"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.3"
+                            android:gravity="start">
 
                             <com.google.android.material.button.MaterialButton
                                 android:id="@+id/btnMinusChild"
                                 style="@style/Widget.MaterialComponents.Button"
                                 android:layout_width="45sp"
-                                android:fontFamily="@font/balooda"
                                 android:layout_height="wrap_content"
-                                android:text="-" />
+                                android:fontFamily="@font/balooda"
+                                android:text="-"
+                                android:textStyle="bold"
+                                android:textColor="@color/white" />
 
                         </LinearLayout>
 
                         <TextView
-                            android:layout_weight="0.4"
-                            android:gravity="center"
-                            android:layout_gravity="center"
                             android:id="@+id/childItemCount"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="0.4"
                             android:fontFamily="@font/balooda"
-                            android:textColor="@color/light_gray_3"
+                            android:gravity="center"
                             android:text="0"
+                            android:textColor="@color/light_gray_3"
                             android:textSize="18sp" />
 
                         <LinearLayout
-                            android:layout_weight="0.3"
-                            android:gravity="end"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.3"
+                            android:gravity="end">
 
                             <com.google.android.material.button.MaterialButton
                                 android:id="@+id/btnPlusChild"
-                                android:layout_width="45sp"
-                                android:fontFamily="@font/balooda"
                                 style="@style/Widget.MaterialComponents.Button"
+                                android:layout_width="45sp"
                                 android:layout_height="wrap_content"
-                                android:text="+" />
+                                android:fontFamily="@font/balooda"
+                                android:text="+"
+                                android:textStyle="bold"
+                                android:textColor="@color/white" />
 
                         </LinearLayout>
-
 
 
                     </LinearLayout>
@@ -341,71 +346,76 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:gravity="center"
-                    android:layout_weight="0.5"
                     android:layout_width="0dp"
-                    android:orientation="vertical"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
 
                     <TextView
-                        android:gravity="bottom"
+                        android:visibility="gone"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/balooda"
+                        android:gravity="bottom"
                         android:text="প্রাপ্তবয়স্ক"
                         android:textColor="@color/light_gray_3"
                         android:textSize="14sp"
                         android:textStyle="bold" />
 
                     <LinearLayout
-                        android:weightSum="1"
-                        android:paddingStart="5sp"
-                        android:paddingEnd="5sp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:paddingStart="5sp"
+                        android:paddingEnd="5sp"
+                        android:weightSum="1">
 
                         <LinearLayout
-                            android:layout_weight="0.3"
-                            android:gravity="start"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.3"
+                            android:gravity="start">
 
                             <com.google.android.material.button.MaterialButton
                                 android:id="@+id/btnMinusAdult"
                                 style="@style/Widget.MaterialComponents.Button"
                                 android:layout_width="45sp"
-                                android:fontFamily="@font/balooda"
                                 android:layout_height="wrap_content"
-                                android:text="-" />
+                                android:fontFamily="@font/balooda"
+                                android:text="-"
+                                android:textStyle="bold"
+                                android:textColor="@color/white" />
 
                         </LinearLayout>
 
                         <TextView
-                            android:layout_weight="0.4"
-                            android:gravity="center"
-                            android:layout_gravity="center"
                             android:id="@+id/adultItemCount"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="0.4"
                             android:fontFamily="@font/balooda"
-                            android:textColor="@color/light_gray_3"
+                            android:gravity="center"
                             android:text="0"
+                            android:textColor="@color/light_gray_3"
                             android:textSize="18sp" />
 
                         <LinearLayout
-                            android:layout_weight="0.3"
-                            android:gravity="end"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.3"
+                            android:gravity="end">
 
                             <com.google.android.material.button.MaterialButton
                                 android:id="@+id/btnPlusAdult"
-                                android:layout_width="45sp"
-                                android:fontFamily="@font/balooda"
                                 style="@style/Widget.MaterialComponents.Button"
+                                android:layout_width="45sp"
                                 android:layout_height="wrap_content"
-                                android:text="+" />
+                                android:fontFamily="@font/balooda"
+                                android:text="+"
+                                android:textStyle="bold"
+                                android:textColor="@color/white" />
 
                         </LinearLayout>
 
