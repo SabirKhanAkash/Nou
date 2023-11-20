@@ -6,6 +6,7 @@ import com.akash.nou.model.TicketBody
 import com.google.android.material.bottomsheet.BottomSheetDialog
 
 fun showSeatPlan(ctx: Context, ticketBody: TicketBody, data: Tickets) {
-    val popupWindow: BottomSheetDialog = BottomSheetDialog(ctx)
+    val popupWindow = BottomSheetDialog(ctx)
+    popupWindow.setCancelable(true)
     popupWindow.show()
 }

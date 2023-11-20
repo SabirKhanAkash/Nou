@@ -74,6 +74,7 @@ class TicketFragment : Fragment() {
             ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, items)
         val destinationAdapter =
             ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, items)
+        binding.seatCategory.setAdapter(seat_categoryAdapter)
         binding.source.setAdapter(sourceAdapter)
         binding.destination.setAdapter(destinationAdapter)
         ticketViewModel = ViewModelProvider(this, TicketViewModelFactory())[TicketViewModel::class.java]
@@ -123,8 +124,7 @@ class TicketFragment : Fragment() {
                     selectedSeatCategory,
                     source,
                     destination,
-                    journeyDate+" "+journeyTime,
-                    childItemCount,
+                    "$journeyDate $journeyTime",
                     adultItemCount
                 )
                 ticketViewModel.searchTicket(phone_no, authToken, refreshToken, ticketBody)
@@ -150,9 +150,9 @@ class TicketFragment : Fragment() {
                     binding.errorMessage.visibility = View.VISIBLE
                     binding.errorMessage.text = "যাত্রার সময় সিলেক্ট করুন"
                 }
-                if (childItemCount == 0 && adultItemCount == 0) {
+                if (adultItemCount == 0) {
                     binding.errorMessage.visibility = View.VISIBLE
-                    binding.errorMessage.text = "যাত্রীর ধরণ সিলেক্ট করুন"
+                    binding.errorMessage.text = "যাত্রী সংখ্যা সিলেক্ট করুন"
                 }
                 if (childItemCount > 0 && adultItemCount == 0) {
                     binding.errorMessage.visibility = View.VISIBLE
@@ -169,12 +169,22 @@ class TicketFragment : Fragment() {
             when(result) {
                 is GenericApiResponse.Success -> {
                     if(result.data.status == "Success") {
-                        showSeatPlan(requireContext(), ticketBody, result.data)
+                        if(result.data.tickets.count >= adultItemCount) {
+                            showSeatPlan(requireContext(), ticketBody, result.data)
+                        }
+                        else {
+                            binding.errorMessage.visibility = View.VISIBLE
+                            binding.errorMessage.text = "দুঃখিত! উল্লিখিত বিবরণের টিকিট নেই"
+                            binding.errorMessage.setTextColor(Color.parseColor("#FFBCA903"))
+                        }
                     }
                     else {
-                        binding.errorMessage.visibility = View.VISIBLE
-                        binding.errorMessage.text = "দুঃখিত! উল্লিখিত বিবরণের টিকিট নেই"
-                        binding.errorMessage.setTextColor(Color.parseColor("#FFBCA903"))
+                        showTopToast(
+                            requireContext(),
+                            "দুঃখিত! আবার চেষ্টা করুন",
+                            "short",
+                            "neutral"
+                        )
                     }
                 }
                 is GenericApiResponse.Error -> {

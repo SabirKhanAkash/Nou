@@ -18,7 +18,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class TicketViewModel(private val repository: TicketRepository) : ViewModel() {
-
     val ticketsLiveData: MutableLiveData<GenericApiResponse<Tickets>> = MutableLiveData()
     val bookTicketLiveData: MutableLiveData<GenericApiResponse<SeatBookResponse>> = MutableLiveData()
     val soldTicketListLiveData: MutableLiveData<GenericApiResponse<SoldTicketListResponse>> = MutableLiveData()

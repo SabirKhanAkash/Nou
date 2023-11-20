@@ -15,7 +15,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class AuthViewModel(private val repository: AuthRepository) : ViewModel() {
-
     val authLiveData: MutableLiveData<GenericApiResponse<AuthResponse>> = MutableLiveData()
     val otpLiveData: MutableLiveData<GenericApiResponse<AuthResponse>> = MutableLiveData()
     val isLoading: MutableLiveData<Boolean> = MutableLiveData()
@@ -26,9 +25,8 @@ class AuthViewModel(private val repository: AuthRepository) : ViewModel() {
             try {
                 val response = repository.setPhoneNo(phone_no).execute()
                 if (response.isSuccessful) {
-                    val authResponse: AuthResponse = response.body()!!
                     isLoading.postValue(false)
-                    authLiveData.postValue(GenericApiResponse.Success(authResponse))
+                    authLiveData.postValue(GenericApiResponse.Success(response.body()!!))
                 } else {
                     isLoading.postValue(false)
                     authLiveData.postValue(
@@ -52,9 +50,8 @@ class AuthViewModel(private val repository: AuthRepository) : ViewModel() {
             try {
                 val response = repository.verifyOTP(phone_no, otp).execute()
                 if (response.isSuccessful) {
-                    val authResponse: AuthResponse = response.body()!!
                     isLoading.postValue(false)
-                    otpLiveData.postValue(GenericApiResponse.Success(authResponse))
+                    otpLiveData.postValue(GenericApiResponse.Success(response.body()!!))
                 } else {
                     isLoading.postValue(false)
                     otpLiveData.postValue(

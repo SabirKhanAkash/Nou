@@ -18,23 +18,23 @@ interface TicketAPI {
     @POST("/ticket/search/")
     fun searchTicket(
         @Header("phone_no") phone_no: String,
-        @Header("authToken") authToken: String,
-        @Header("refreshToken") refreshToken: String,
+        @Header("auth") authToken: String,
+        @Header("refresh") refreshToken: String,
         @Body ticketBody: TicketBody
     ): Call<Tickets>
 
     @POST("/ticket/book-seat/")
     fun bookSeat(
         @Header("phone_no") phone_no: String,
-        @Header("authToken") authToken: String,
-        @Header("refreshToken") refreshToken: String,
+        @Header("auth") authToken: String,
+        @Header("refresh") refreshToken: String,
         @Body ticketBody: TicketBody
     ): Call<SeatBookResponse>
 
     @POST("/ticket/sold-list/")
     fun getSoldTicketList(
         @Header("phone_no") phone_no: String,
-        @Header("authToken") authToken: String,
-        @Header("refreshToken") refreshToken: String,
+        @Header("auth") authToken: String,
+        @Header("refresh") refreshToken: String,
     ): Call<SoldTicketListResponse>
 }
