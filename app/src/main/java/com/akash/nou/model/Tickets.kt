@@ -5,5 +5,6 @@ data class Tickets(
     var ticketList: List<TicketBody>,
     var count: Int,
     var status: String,
-    var message: String
+    var message: String,
+    var token: Boolean
 )

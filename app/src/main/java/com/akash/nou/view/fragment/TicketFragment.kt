@@ -7,6 +7,7 @@ package com.akash.nou.view.fragment
 
 import GenericApiResponse
 import android.app.DatePickerDialog
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -22,6 +23,7 @@ import com.akash.nou.model.TicketBody
 import com.akash.nou.utils.LoadingDialog
 import com.akash.nou.utils.SharedPref
 import com.akash.nou.utils.showSeatPlan
+import com.akash.nou.view.activity.AuthActivity
 import com.akash.nou.viewmodel.TicketViewModel
 import com.akash.nou.viewmodel.viewmodelfactory.TicketViewModelFactory
 import com.google.android.material.timepicker.MaterialTimePicker
@@ -168,24 +170,38 @@ class TicketFragment : Fragment() {
         ticketViewModel.ticketsLiveData.observe(viewLifecycleOwner) { result ->
             when(result) {
                 is GenericApiResponse.Success -> {
-                    if(result.data.status == "Success") {
-                        if(result.data.tickets.count >= adultItemCount) {
-                            showSeatPlan(requireContext(), ticketBody, result.data)
+                    if(result.data.token) {
+                        if(result.data.status == "Success") {
+                            if(result.data.tickets.count >= adultItemCount) {
+                                showSeatPlan(requireContext(), ticketBody, result.data)
+                            }
+                            else {
+                                binding.errorMessage.visibility = View.VISIBLE
+                                binding.errorMessage.text = "দুঃখিত! উল্লিখিত বিবরণের টিকিট নেই"
+                                binding.errorMessage.setTextColor(Color.parseColor("#FFBCA903"))
+                            }
                         }
                         else {
-                            binding.errorMessage.visibility = View.VISIBLE
-                            binding.errorMessage.text = "দুঃখিত! উল্লিখিত বিবরণের টিকিট নেই"
-                            binding.errorMessage.setTextColor(Color.parseColor("#FFBCA903"))
+                            showTopToast(
+                                requireContext(),
+                                "দুঃখিত! আবার চেষ্টা করুন",
+                                "short",
+                                "neutral"
+                            )
                         }
                     }
                     else {
                         showTopToast(
                             requireContext(),
-                            "দুঃখিত! আবার চেষ্টা করুন",
+                            "সেশনটি শেষ হলো",
                             "short",
-                            "neutral"
+                            "negative"
                         )
+                        sharedPref.clearData(requireContext())
+                        startActivity(Intent(requireContext(), AuthActivity::class.java).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK))
+                        activity?.finish()
                     }
+
                 }
                 is GenericApiResponse.Error -> {
                     showTopToast(

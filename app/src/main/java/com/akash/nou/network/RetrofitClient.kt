@@ -25,10 +25,10 @@ object RetrofitClient {
         val dispatcher = Dispatcher()
         dispatcher.maxRequests = 1
 
-        builder.callTimeout(50, TimeUnit.SECONDS)
-        builder.connectTimeout(50, TimeUnit.SECONDS)
-        builder.readTimeout(50, TimeUnit.SECONDS)
-        builder.writeTimeout(50, TimeUnit.SECONDS)
+        builder.callTimeout(5, TimeUnit.SECONDS)
+        builder.connectTimeout(5, TimeUnit.SECONDS)
+        builder.readTimeout(5, TimeUnit.SECONDS)
+        builder.writeTimeout(5, TimeUnit.SECONDS)
 
         val gson: Gson = GsonBuilder().setLenient().setDateFormat("yyyy-MM-dd HH:mm:ss").create()
         interceptor.level = HttpLoggingInterceptor.Level.BODY

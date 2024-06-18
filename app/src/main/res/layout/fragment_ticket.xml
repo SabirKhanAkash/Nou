@@ -86,7 +86,7 @@
                     android:drawablePadding="16sp"
                     android:fontFamily="@font/balooda"
                     android:hint="সিটের ধরণ"
-                    android:inputType="none"
+                    android:inputType="textAutoComplete"
                     android:maxLines="1"
                     android:padding="14sp"
                     android:textColor="@color/light_gray_3"
