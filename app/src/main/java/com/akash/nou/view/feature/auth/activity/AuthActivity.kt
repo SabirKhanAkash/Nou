@@ -20,7 +20,7 @@ import com.akash.nou.utils.SharedPref
 import com.akash.nou.view.feature.auth.screen.AuthActivityContent
 import com.akash.nou.view.feature.homepage.activity.HomepageActivity
 import com.akash.nou.viewmodel.AuthViewModel
-import com.akash.nou.viewmodel.viewmodelfactory.AuthViewModelFactory
+import com.akash.nou.viewmodelfactory.AuthViewModelFactory
 import showTopToast
 
 class AuthActivity : AppCompatActivity() {

@@ -3,7 +3,7 @@
  * Written by Sabir Khan Akash
  */
 
-package com.akash.nou.viewmodel.viewmodelfactory
+package com.akash.nou.viewmodelfactory
 
 import RetrofitClient
 import androidx.lifecycle.ViewModel
