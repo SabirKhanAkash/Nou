@@ -18,13 +18,13 @@
         tools:replace="android:allowBackup"
         tools:targetApi="31">
         <activity
-            android:name=".view.activity.HomepageActivity"
+            android:name=".view.feature.homepage.activity.HomepageActivity"
             android:exported="false" />
         <activity
-            android:name=".view.activity.OTPActivity"
+            android:name=".view.feature.auth.activity.OTPActivity"
             android:exported="false" />
         <activity
-            android:name=".view.activity.SplashScreenActivity"
+            android:name=".view.feature.splash.activity.SplashScreenActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -33,7 +33,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".view.activity.AuthActivity"
+            android:name=".view.feature.auth.activity.AuthActivity"
             android:exported="false" />
     </application>
 

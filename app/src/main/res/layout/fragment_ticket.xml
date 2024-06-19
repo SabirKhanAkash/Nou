@@ -267,12 +267,12 @@
                 android:weightSum="1">
 
                 <LinearLayout
-                    android:visibility="gone"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
                     android:gravity="center"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:visibility="gone">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -305,8 +305,8 @@
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/balooda"
                                 android:text="-"
-                                android:textStyle="bold"
-                                android:textColor="@color/white" />
+                                android:textColor="@color/white"
+                                android:textStyle="bold" />
 
                         </LinearLayout>
 
@@ -335,8 +335,8 @@
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/balooda"
                                 android:text="+"
-                                android:textStyle="bold"
-                                android:textColor="@color/white" />
+                                android:textColor="@color/white"
+                                android:textStyle="bold" />
 
                         </LinearLayout>
 
@@ -353,7 +353,6 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:visibility="gone"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/balooda"
@@ -361,7 +360,8 @@
                         android:text="প্রাপ্তবয়স্ক"
                         android:textColor="@color/light_gray_3"
                         android:textSize="14sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:visibility="gone" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -384,8 +384,8 @@
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/balooda"
                                 android:text="-"
-                                android:textStyle="bold"
-                                android:textColor="@color/white" />
+                                android:textColor="@color/white"
+                                android:textStyle="bold" />
 
                         </LinearLayout>
 
@@ -414,8 +414,8 @@
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/balooda"
                                 android:text="+"
-                                android:textStyle="bold"
-                                android:textColor="@color/white" />
+                                android:textColor="@color/white"
+                                android:textStyle="bold" />
 
                         </LinearLayout>
 

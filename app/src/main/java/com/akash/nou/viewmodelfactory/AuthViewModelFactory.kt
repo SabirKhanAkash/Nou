@@ -3,21 +3,19 @@
  * Written by Sabir Khan Akash
  */
 
-package com.akash.nou.viewmodel.viewmodelfactory
+package com.akash.nou.viewmodelfactory
 
 import RetrofitClient
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.akash.nou.repository.AuthRepository
-import com.akash.nou.repository.TicketRepository
 import com.akash.nou.viewmodel.AuthViewModel
-import com.akash.nou.viewmodel.TicketViewModel
 
-class TicketViewModelFactory : ViewModelProvider.Factory {
+class AuthViewModelFactory : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(TicketViewModel::class.java)) {
-            val repository = TicketRepository(RetrofitClient.getTicketInterfaceService())
-            return TicketViewModel(repository) as T
+        if (modelClass.isAssignableFrom(AuthViewModel::class.java)) {
+            val repository = AuthRepository(RetrofitClient.getAuthInterfaceService())
+            return AuthViewModel(repository) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

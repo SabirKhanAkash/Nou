@@ -6,9 +6,9 @@
 package com.akash.nou.api
 
 import com.akash.nou.model.SeatBookResponse
-import com.akash.nou.model.Tickets
 import com.akash.nou.model.SoldTicketListResponse
 import com.akash.nou.model.TicketBody
+import com.akash.nou.model.Tickets
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.Header
