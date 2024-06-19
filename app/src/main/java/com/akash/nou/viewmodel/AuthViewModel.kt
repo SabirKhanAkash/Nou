@@ -21,12 +21,24 @@ class AuthViewModel(private val repository: AuthRepository) : ViewModel() {
     val isLoading: MutableLiveData<Boolean> = MutableLiveData()
     private val _phoneNumber = MutableLiveData<String>()
     private val _isPhoneNumberValid = MutableLiveData<Boolean>()
+    private val _isOTPVerified = MutableLiveData<Boolean>()
+    private val _otp = MutableLiveData<String>()
     val phoneNumber: LiveData<String> = _phoneNumber
+    val otp: LiveData<String> = _otp
     val isPhoneNumberValid: LiveData<Boolean> = _isPhoneNumberValid
+    val isOTPVerified: LiveData<Boolean> = _isOTPVerified
 
     fun setPhoneNumber(phoneNo: String) {
         _phoneNumber.value = phoneNo
         _isPhoneNumberValid.value = phoneNo.length == 11
+    }
+
+    fun setOtp(otp: String) {
+        _otp.value = otp
+    }
+
+    fun setOtpVerified(value: Boolean) {
+        _isOTPVerified.value = value
     }
 
     fun verifyPhoneNumber(phone_no: String) {

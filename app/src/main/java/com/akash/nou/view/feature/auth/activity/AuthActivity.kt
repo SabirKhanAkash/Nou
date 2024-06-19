@@ -58,7 +58,7 @@ class AuthActivity : AppCompatActivity() {
                         startActivity(
                             Intent(
                                 this@AuthActivity, OTPActivity::class.java
-                            ).putExtra("phone", authViewModel.phoneNumber.toString())
+                            ).putExtra("phone", authViewModel.phoneNumber.value.toString())
                         )
                     }
                     else {

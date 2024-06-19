@@ -12,8 +12,6 @@ import android.view.KeyEvent
 import android.view.View
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.ViewModelProvider
 import com.akash.nou.R
 import com.akash.nou.databinding.ActivityOtpBinding
@@ -44,7 +42,7 @@ class OTPActivity : AppCompatActivity() {
          */
         binding = ActivityOtpBinding.inflate(layoutInflater)
 
-        setContentView(binding.root)
+//        setContentView(binding.root)
 
         binding.phone.text = "${intent.getStringExtra("phone")} নম্বরে পাঠানো ওটিপি কোডটি টাইপ করুন"
 
@@ -83,8 +81,7 @@ class OTPActivity : AppCompatActivity() {
 
         binding.otpBtn.setOnClickListener {
             authViewModel.verifyOTP(
-                intent.getStringExtra("phone").toString(),
-                binding.otpView.otp!!
+                intent.getStringExtra("phone").toString(), binding.otpView.otp!!
             )
         }
 
@@ -97,11 +94,10 @@ class OTPActivity : AppCompatActivity() {
                 is GenericApiResponse.Success -> {
                     val resultData = result.data
                     if (resultData.status == "Success") {
+                        authViewModel.setOtpVerified(true)
                         sharedPref.setString(applicationContext, "authToken", resultData.authToken)
                         sharedPref.setString(
-                            applicationContext,
-                            "refreshToken",
-                            resultData.refreshToken
+                            applicationContext, "refreshToken", resultData.refreshToken
                         )
                         sharedPref.setUser(applicationContext, "user", resultData.user)
 
@@ -110,12 +106,12 @@ class OTPActivity : AppCompatActivity() {
                         binding.otpResponseMsg.visibility = View.INVISIBLE
                         startActivity(
                             Intent(
-                                this@OTPActivity,
-                                HomepageActivity::class.java
+                                this@OTPActivity, HomepageActivity::class.java
                             ).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
                         )
                     }
                     else {
+                        authViewModel.setOtpVerified(false)
                         binding.otpView.showError()
                         binding.otpResponseMsg.visibility = View.VISIBLE
                         binding.otpView.requestFocusOTP()
@@ -123,40 +119,28 @@ class OTPActivity : AppCompatActivity() {
                 }
 
                 is GenericApiResponse.Error -> {
+                    authViewModel.setOtpVerified(false)
                     showTopToast(
-                        applicationContext,
-                        "দুঃখিত! কারিগরি ত্রুটি হয়েছে ☹️",
-                        "short",
-                        "neutral"
+                        applicationContext, "দুঃখিত! কারিগরি ত্রুটি হয়েছে ☹️", "short", "neutral"
                     )
                 }
 
                 else -> {
+                    authViewModel.setOtpVerified(false)
                     showTopToast(
-                        applicationContext,
-                        "দুঃখিত! অজানা ত্রুটি হয়েছে ☹️",
-                        "short",
-                        "neutral"
+                        applicationContext, "দুঃখিত! অজানা ত্রুটি হয়েছে ☹️", "short", "neutral"
                     )
                 }
             }
         }
 
         authViewModel.isLoading.observe(this@OTPActivity) { isLoading ->
-            if (isLoading)
-                loadingDialog.startLoading()
-            else
-                loadingDialog.dismissLoading()
+            if (isLoading) loadingDialog.startLoading()
+            else loadingDialog.dismissLoading()
         }
 
         setContent {
-            OTPScreen()
+            OTPScreen(authViewModel, intent.getStringExtra("phone"))
         }
-    }
-
-    @Preview(showBackground = true)
-    @Composable
-    fun DefaultPreview() {
-        OTPScreen()
     }
 }

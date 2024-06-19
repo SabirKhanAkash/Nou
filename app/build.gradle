@@ -64,6 +64,7 @@ dependencies {
      * For OTP
      */
     implementation 'com.github.appsfeature:otp-view:1.0'
+    implementation 'com.github.mukeshsolanki.android-otpview-pinview:otpview-compose:3.1.0'
 
     /**
      * For Networking
