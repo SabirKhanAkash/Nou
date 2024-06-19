@@ -8,8 +8,6 @@ package com.akash.nou.view.feature.auth.activity
 import GenericApiResponse
 import android.content.Intent
 import android.os.Bundle
-import android.view.KeyEvent
-import android.view.View
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -20,8 +18,7 @@ import com.akash.nou.utils.SharedPref
 import com.akash.nou.view.feature.auth.screen.OTPScreen
 import com.akash.nou.view.feature.homepage.activity.HomepageActivity
 import com.akash.nou.viewmodel.AuthViewModel
-import com.akash.nou.viewmodel.viewmodelfactory.AuthViewModelFactory
-import com.otpview.OTPListener
+import com.akash.nou.viewmodelfactory.AuthViewModelFactory
 import showTopToast
 
 class OTPActivity : AppCompatActivity() {
@@ -40,12 +37,6 @@ class OTPActivity : AppCompatActivity() {
         /**
          * Initializations
          */
-        binding = ActivityOtpBinding.inflate(layoutInflater)
-
-//        setContentView(binding.root)
-
-        binding.phone.text = "${intent.getStringExtra("phone")} নম্বরে পাঠানো ওটিপি কোডটি টাইপ করুন"
-
         authViewModel = ViewModelProvider(this, AuthViewModelFactory())[AuthViewModel::class.java]
 
 
@@ -55,34 +46,6 @@ class OTPActivity : AppCompatActivity() {
         binding.resendOtp.setOnClickListener {
             binding.otpView.resetState()
             authViewModel.verifyPhoneNumber(intent.getStringExtra("phone").toString())
-        }
-
-        binding.otpView.otpListener = object : OTPListener {
-            override fun onInteractionListener() {
-
-            }
-
-            override fun onOTPComplete(otp: String) {
-                binding.otpBtn.performClick()
-            }
-
-        }
-
-        binding.otpView.setOnKeyListener { _, keyCode, event ->
-            if (keyCode == KeyEvent.KEYCODE_DEL && event.action == KeyEvent.ACTION_DOWN) {
-                binding.otpResponseMsg.visibility = View.INVISIBLE
-            }
-            false
-        }
-
-        binding.otpView.requestFocusOTP()
-
-        binding.otpView.otpListener
-
-        binding.otpBtn.setOnClickListener {
-            authViewModel.verifyOTP(
-                intent.getStringExtra("phone").toString(), binding.otpView.otp!!
-            )
         }
 
 
@@ -100,10 +63,6 @@ class OTPActivity : AppCompatActivity() {
                             applicationContext, "refreshToken", resultData.refreshToken
                         )
                         sharedPref.setUser(applicationContext, "user", resultData.user)
-
-                        binding.otpView.showSuccess()
-                        binding.otpView.requestFocusOTP()
-                        binding.otpResponseMsg.visibility = View.INVISIBLE
                         startActivity(
                             Intent(
                                 this@OTPActivity, HomepageActivity::class.java
@@ -112,9 +71,6 @@ class OTPActivity : AppCompatActivity() {
                     }
                     else {
                         authViewModel.setOtpVerified(false)
-                        binding.otpView.showError()
-                        binding.otpResponseMsg.visibility = View.VISIBLE
-                        binding.otpView.requestFocusOTP()
                     }
                 }
 

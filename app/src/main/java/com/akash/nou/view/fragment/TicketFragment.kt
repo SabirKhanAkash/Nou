@@ -25,7 +25,7 @@ import com.akash.nou.utils.SharedPref
 import com.akash.nou.utils.showSeatPlan
 import com.akash.nou.view.feature.auth.activity.AuthActivity
 import com.akash.nou.viewmodel.TicketViewModel
-import com.akash.nou.viewmodel.viewmodelfactory.TicketViewModelFactory
+import com.akash.nou.viewmodelfactory.TicketViewModelFactory
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
 import showTopToast
