@@ -23,7 +23,7 @@ import com.akash.nou.model.TicketBody
 import com.akash.nou.utils.LoadingDialog
 import com.akash.nou.utils.SharedPref
 import com.akash.nou.utils.showSeatPlan
-import com.akash.nou.view.activity.AuthActivity
+import com.akash.nou.view.feature.auth.activity.AuthActivity
 import com.akash.nou.viewmodel.TicketViewModel
 import com.akash.nou.viewmodel.viewmodelfactory.TicketViewModelFactory
 import com.google.android.material.timepicker.MaterialTimePicker
@@ -34,8 +34,6 @@ import java.util.Calendar
 import java.util.Locale
 
 class TicketFragment : Fragment() {
-
-
 
 
     /**
@@ -71,7 +69,11 @@ class TicketFragment : Fragment() {
         val items = requireContext().resources.getStringArray(R.array.zilla)
         val seat_category_items = requireContext().resources.getStringArray(R.array.seat_category)
         val seat_categoryAdapter =
-            ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, seat_category_items)
+            ArrayAdapter(
+                requireContext(),
+                android.R.layout.simple_dropdown_item_1line,
+                seat_category_items
+            )
         val sourceAdapter =
             ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, items)
         val destinationAdapter =
@@ -79,7 +81,8 @@ class TicketFragment : Fragment() {
         binding.seatCategory.setAdapter(seat_categoryAdapter)
         binding.source.setAdapter(sourceAdapter)
         binding.destination.setAdapter(destinationAdapter)
-        ticketViewModel = ViewModelProvider(this, TicketViewModelFactory())[TicketViewModel::class.java]
+        ticketViewModel =
+            ViewModelProvider(this, TicketViewModelFactory())[TicketViewModel::class.java]
         phone_no = sharedPref.getUser(requireContext(), "user").phone_no.toString()
         authToken = sharedPref.getString(requireContext(), "authToken").toString()
         refreshToken = sharedPref.getString(requireContext(), "refreshToken").toString()
@@ -168,11 +171,11 @@ class TicketFragment : Fragment() {
          * LiveData Observer
          */
         ticketViewModel.ticketsLiveData.observe(viewLifecycleOwner) { result ->
-            when(result) {
+            when (result) {
                 is GenericApiResponse.Success -> {
-                    if(result.data.token) {
-                        if(result.data.status == "Success") {
-                            if(result.data.tickets.count >= adultItemCount) {
+                    if (result.data.token) {
+                        if (result.data.status == "Success") {
+                            if (result.data.tickets.count >= adultItemCount) {
                                 showSeatPlan(requireContext(), ticketBody, result.data)
                             }
                             else {
@@ -198,11 +201,16 @@ class TicketFragment : Fragment() {
                             "negative"
                         )
                         sharedPref.clearData(requireContext())
-                        startActivity(Intent(requireContext(), AuthActivity::class.java).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK))
+                        startActivity(
+                            Intent(requireContext(), AuthActivity::class.java).setFlags(
+                                Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                            )
+                        )
                         activity?.finish()
                     }
 
                 }
+
                 is GenericApiResponse.Error -> {
                     showTopToast(
                         requireContext(),
@@ -211,6 +219,7 @@ class TicketFragment : Fragment() {
                         "neutral"
                     )
                 }
+
                 else -> {
                     showTopToast(
                         requireContext(),
@@ -222,7 +231,7 @@ class TicketFragment : Fragment() {
             }
         }
         ticketViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
-            if(isLoading)
+            if (isLoading)
                 loadingDialog.startFragmentLoading()
             else
                 loadingDialog.dismissLoading()

@@ -1,4 +1,4 @@
-package com.akash.nou.view.activity
+package com.akash.nou.view.feature.homepage.activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

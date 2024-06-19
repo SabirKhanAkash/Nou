@@ -6,6 +6,7 @@
 package com.akash.nou.viewmodel
 
 import GenericApiResponse
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -18,6 +19,15 @@ class AuthViewModel(private val repository: AuthRepository) : ViewModel() {
     val authLiveData: MutableLiveData<GenericApiResponse<AuthResponse>> = MutableLiveData()
     val otpLiveData: MutableLiveData<GenericApiResponse<AuthResponse>> = MutableLiveData()
     val isLoading: MutableLiveData<Boolean> = MutableLiveData()
+    private val _phoneNumber = MutableLiveData<String>()
+    private val _isPhoneNumberValid = MutableLiveData<Boolean>()
+    val phoneNumber: LiveData<String> = _phoneNumber
+    val isPhoneNumberValid: LiveData<Boolean> = _isPhoneNumberValid
+
+    fun setPhoneNumber(phoneNo: String) {
+        _phoneNumber.value = phoneNo
+        _isPhoneNumberValid.value = phoneNo.length == 11
+    }
 
     fun verifyPhoneNumber(phone_no: String) {
         isLoading.postValue(true)
@@ -27,7 +37,8 @@ class AuthViewModel(private val repository: AuthRepository) : ViewModel() {
                 if (response.isSuccessful) {
                     isLoading.postValue(false)
                     authLiveData.postValue(GenericApiResponse.Success(response.body()!!))
-                } else {
+                }
+                else {
                     isLoading.postValue(false)
                     authLiveData.postValue(
                         GenericApiResponse.Error(
@@ -52,7 +63,8 @@ class AuthViewModel(private val repository: AuthRepository) : ViewModel() {
                 if (response.isSuccessful) {
                     isLoading.postValue(false)
                     otpLiveData.postValue(GenericApiResponse.Success(response.body()!!))
-                } else {
+                }
+                else {
                     isLoading.postValue(false)
                     otpLiveData.postValue(
                         GenericApiResponse.Error(

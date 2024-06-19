@@ -3,33 +3,38 @@
  * Written by Sabir Khan Akash
  */
 
-package com.akash.nou.view.activity
+package com.akash.nou.view.feature.auth.activity
 
 import GenericApiResponse
 import android.content.Intent
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.View
+import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.ViewModelProvider
 import com.akash.nou.R
 import com.akash.nou.databinding.ActivityOtpBinding
 import com.akash.nou.utils.LoadingDialog
 import com.akash.nou.utils.SharedPref
+import com.akash.nou.view.feature.auth.screen.OTPScreen
+import com.akash.nou.view.feature.homepage.activity.HomepageActivity
 import com.akash.nou.viewmodel.AuthViewModel
 import com.akash.nou.viewmodel.viewmodelfactory.AuthViewModelFactory
 import com.otpview.OTPListener
 import showTopToast
 
 class OTPActivity : AppCompatActivity() {
-    private val sharedPref: SharedPref = SharedPref()
+    private val sharedPref: SharedPref by lazy { SharedPref() }
 
     /**
      * Global Variables
      */
     private lateinit var binding: ActivityOtpBinding
     private lateinit var authViewModel: AuthViewModel
-    private val loadingDialog: LoadingDialog = LoadingDialog(this@OTPActivity)
+    private val loadingDialog: LoadingDialog by lazy { LoadingDialog(this@OTPActivity) }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
@@ -109,7 +114,8 @@ class OTPActivity : AppCompatActivity() {
                                 HomepageActivity::class.java
                             ).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
                         )
-                    } else {
+                    }
+                    else {
                         binding.otpView.showError()
                         binding.otpResponseMsg.visibility = View.VISIBLE
                         binding.otpView.requestFocusOTP()
@@ -142,5 +148,15 @@ class OTPActivity : AppCompatActivity() {
             else
                 loadingDialog.dismissLoading()
         }
+
+        setContent {
+            OTPScreen()
+        }
+    }
+
+    @Preview(showBackground = true)
+    @Composable
+    fun DefaultPreview() {
+        OTPScreen()
     }
 }

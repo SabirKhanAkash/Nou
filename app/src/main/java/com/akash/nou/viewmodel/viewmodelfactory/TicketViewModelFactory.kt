@@ -8,9 +8,7 @@ package com.akash.nou.viewmodel.viewmodelfactory
 import RetrofitClient
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.akash.nou.repository.AuthRepository
 import com.akash.nou.repository.TicketRepository
-import com.akash.nou.viewmodel.AuthViewModel
 import com.akash.nou.viewmodel.TicketViewModel
 
 class TicketViewModelFactory : ViewModelProvider.Factory {

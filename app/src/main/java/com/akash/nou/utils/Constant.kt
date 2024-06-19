@@ -9,6 +9,8 @@ class Constant {
         Font(R.font.balooda, FontWeight.Normal)
     )
     val app_theme_color = Color(0xFF0064D2)
+    val app_theme_color_secondary = Color(0xFF488BD5)
+    val app_theme_color_tertiary = Color(0xFF87ADD6)
     val toast_red = Color(0xFFefd7d7)
     val toast_text_red = Color(0xFFab527b)
     val toast_green = Color(0xFFd7eccf)
