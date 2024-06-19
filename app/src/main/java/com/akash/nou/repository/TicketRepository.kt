@@ -7,21 +7,35 @@ package com.akash.nou.repository
 
 import com.akash.nou.api.TicketAPI
 import com.akash.nou.model.SeatBookResponse
-import com.akash.nou.model.Tickets
 import com.akash.nou.model.SoldTicketListResponse
 import com.akash.nou.model.TicketBody
+import com.akash.nou.model.Tickets
 import retrofit2.Call
 
 class TicketRepository(private val service: TicketAPI) {
-    fun searchTicket(phone_no: String, authToken: String, refreshToken: String, ticketBody: TicketBody): Call<Tickets> {
+    fun searchTicket(
+        phone_no: String,
+        authToken: String,
+        refreshToken: String,
+        ticketBody: TicketBody
+    ): Call<Tickets> {
         return service.searchTicket(phone_no, authToken, refreshToken, ticketBody)
     }
 
-    fun bookSeat(phone_no: String, authToken: String, refreshToken: String, ticketBody: TicketBody): Call<SeatBookResponse> {
+    fun bookSeat(
+        phone_no: String,
+        authToken: String,
+        refreshToken: String,
+        ticketBody: TicketBody
+    ): Call<SeatBookResponse> {
         return service.bookSeat(phone_no, authToken, refreshToken, ticketBody)
     }
 
-    fun getSoldTicketList(phone_no: String, authToken: String, refreshToken: String): Call<SoldTicketListResponse> {
+    fun getSoldTicketList(
+        phone_no: String,
+        authToken: String,
+        refreshToken: String
+    ): Call<SoldTicketListResponse> {
         return service.getSoldTicketList(phone_no, authToken, refreshToken)
     }
 }
