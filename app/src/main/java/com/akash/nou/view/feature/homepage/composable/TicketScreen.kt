@@ -1,6 +1,8 @@
 package com.akash.nou.view.feature.homepage.composable
 
 import Constant
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -30,6 +32,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.akash.nou.R
 
+@RequiresApi(Build.VERSION_CODES.N)
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TicketScreen() {
@@ -108,11 +111,19 @@ fun TicketScreen() {
                         )
                         Spacer(modifier = Modifier.height(25.dp))
                         Row(
-                            modifier = Modifier.fillMaxWidth(1.0f),
-                            horizontalArrangement = Arrangement.Absolute.SpaceBetween
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceBetween
                         ) {
-                            DatePickerPopUp("যাত্রার তারিখ", R.drawable.calendar_icon)
-                            DatePickerPopUp("যাত্রার সময়", R.drawable.calendar_icon)
+                            Box(
+                                modifier = Modifier.padding(horizontal = 0.dp)
+                            ) {
+                                DatePickerPopUp("যাত্রার তারিখ", R.drawable.calendar_icon)
+                            }
+                            Box(
+                                modifier = Modifier.padding(horizontal = 0.dp)
+                            ) {
+                                TimePickerPopUp("যাত্রার সময়", R.drawable.calendar_icon)
+                            }
                         }
                     }
                 }
