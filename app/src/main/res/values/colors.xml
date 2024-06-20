@@ -6,6 +6,7 @@
 
     <!--    App Theme Color-->
     <color name="app_theme_color">#0064D2</color>
+    <color name="app_theme_color_secondary">#488BD5</color>
 
     <!--    For Custom Toast-->
     <color name="toast_red">#efd7d7</color>

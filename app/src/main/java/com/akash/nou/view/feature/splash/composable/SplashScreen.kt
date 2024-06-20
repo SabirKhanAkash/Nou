@@ -1,4 +1,4 @@
-package com.akash.nou.view.feature.splash.screen
+package com.akash.nou.view.feature.splash.composable
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement

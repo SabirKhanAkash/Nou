@@ -7,9 +7,10 @@
         <item name="colorPrimary">@color/app_theme_color</item>
         <item name="colorOnPrimary">@color/app_theme_color</item>
         <!-- Secondary brand color. -->
-        <item name="colorOnSecondary">@color/black</item>
+        <item name="colorOnSecondary">@color/app_theme_color_secondary</item>
         <!-- Status bar color. -->
-        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">true</item>
         <!-- Customize your theme here. -->
     </style>
 

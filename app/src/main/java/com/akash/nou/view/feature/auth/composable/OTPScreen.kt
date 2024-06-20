@@ -1,7 +1,8 @@
-package com.akash.nou.view.feature.auth.screen
+package com.akash.nou.view.feature.auth.composable
 
 import Constant
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -100,7 +101,11 @@ fun OTPScreen(authViewModel: AuthViewModel, phoneNo: String?) {
                     textAlign = TextAlign.Start
                 ),
                 overflow = TextOverflow.Ellipsis,
-                maxLines = 1
+                maxLines = 1,
+                modifier = Modifier.clickable {
+                    authViewModel.setOtp("")
+                    authViewModel.verifyPhoneNumber(phoneNo.toString())
+                }
             )
         }
         Column(

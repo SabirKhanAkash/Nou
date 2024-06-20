@@ -12,22 +12,20 @@ import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.akash.nou.R
-import com.akash.nou.databinding.ActivityOtpBinding
 import com.akash.nou.utils.LoadingDialog
 import com.akash.nou.utils.SharedPref
-import com.akash.nou.view.feature.auth.screen.OTPScreen
+import com.akash.nou.view.feature.auth.composable.OTPScreen
 import com.akash.nou.view.feature.homepage.activity.HomepageActivity
 import com.akash.nou.viewmodel.AuthViewModel
 import com.akash.nou.viewmodelfactory.AuthViewModelFactory
 import showTopToast
 
 class OTPActivity : AppCompatActivity() {
-    private val sharedPref: SharedPref by lazy { SharedPref() }
 
     /**
      * Global Variables
      */
-    private lateinit var binding: ActivityOtpBinding
+    private val sharedPref: SharedPref by lazy { SharedPref() }
     private lateinit var authViewModel: AuthViewModel
     private val loadingDialog: LoadingDialog by lazy { LoadingDialog(this@OTPActivity) }
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,16 +36,6 @@ class OTPActivity : AppCompatActivity() {
          * Initializations
          */
         authViewModel = ViewModelProvider(this, AuthViewModelFactory())[AuthViewModel::class.java]
-
-
-        /**
-         * Event Listeners
-         */
-        binding.resendOtp.setOnClickListener {
-            binding.otpView.resetState()
-            authViewModel.verifyPhoneNumber(intent.getStringExtra("phone").toString())
-        }
-
 
         /**
          * LiveData Observer

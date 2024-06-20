@@ -17,7 +17,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.akash.nou.R
 import com.akash.nou.utils.LoadingDialog
 import com.akash.nou.utils.SharedPref
-import com.akash.nou.view.feature.auth.screen.AuthActivityContent
+import com.akash.nou.view.feature.auth.composable.AuthActivityContent
 import com.akash.nou.view.feature.homepage.activity.HomepageActivity
 import com.akash.nou.viewmodel.AuthViewModel
 import com.akash.nou.viewmodelfactory.AuthViewModelFactory

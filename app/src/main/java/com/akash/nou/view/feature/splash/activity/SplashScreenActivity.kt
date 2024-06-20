@@ -11,7 +11,7 @@ import android.os.Handler
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import com.akash.nou.view.feature.auth.activity.AuthActivity
-import com.akash.nou.view.feature.splash.screen.SplashScreen
+import com.akash.nou.view.feature.splash.composable.SplashScreen
 
 class SplashScreenActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -1,4 +1,4 @@
-package com.akash.nou.view.feature.auth.screen
+package com.akash.nou.view.feature.auth.composable
 
 import Constant
 import android.content.Context
