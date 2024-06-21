@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">Nou</string>
+    <string name="menu_item_1">টিকিট</string>
+    <string name="menu_item_2">হিসাব</string>
+    <string name="menu_item_3">প্রোফাইল</string>
     <string name="selected_time_format">%02d:%02d %s</string>
     <string-array name="zilla">
         <item>ঢাকা</item>
