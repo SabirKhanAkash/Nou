@@ -1,16 +1,22 @@
 package com.akash.nou.view.feature.homepage.composable
 
 import Constant
+import android.content.Context
+import android.os.Build
+import androidx.annotation.RequiresApi
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Scaffold
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.NavigationBarItemColors
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
@@ -25,13 +31,17 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.akash.nou.model.BottomNavItem
 
+@RequiresApi(Build.VERSION_CODES.N)
 @Composable
-fun HomePageScreen() {
+fun HomePageScreen(context: Context) {
     val navController = rememberNavController()
     Scaffold(
         bottomBar = { BottomNavigationBar(navController = navController) }
     ) { innerPadding ->
-        NavGraph(navController = navController, modifier = Modifier.padding(innerPadding))
+        NavGraph(
+            context = context, navController = navController, modifier = Modifier.padding
+                (innerPadding)
+        )
     }
 }
 
@@ -42,7 +52,16 @@ fun BottomNavigationBar(navController: NavHostController) {
         BottomNavItem.history,
         BottomNavItem.profile,
     )
-    NavigationBar(containerColor = Color.White, tonalElevation = 15.dp) {
+    NavigationBar(
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(
+                color = Constant().small_light_gray,
+                shape = RoundedCornerShape(12.dp)
+            ),
+        containerColor = Constant().small_light_gray,
+        tonalElevation = 25.dp
+    ) {
         val navBackStackEntry by navController.currentBackStackEntryAsState()
         var currentRoute = navBackStackEntry?.destination?.route
 
@@ -80,6 +99,15 @@ fun BottomNavigationBar(navController: NavHostController) {
                         overflow = TextOverflow.Ellipsis
                     )
                 },
+                colors = NavigationBarItemColors(
+                    selectedIconColor = Constant().app_theme_color,
+                    selectedTextColor = Constant().app_theme_color,
+                    selectedIndicatorColor = Constant().very_light_gray,
+                    disabledIconColor = Constant().light_gray,
+                    disabledTextColor = Constant().light_gray,
+                    unselectedIconColor = Constant().medium_gray,
+                    unselectedTextColor = Constant().medium_gray,
+                ),
                 onClick = {
                     if (currentRoute != item.route) {
                         navController.navigate(item.route) {
@@ -97,8 +125,16 @@ fun BottomNavigationBar(navController: NavHostController) {
     }
 }
 
+@RequiresApi(Build.VERSION_CODES.N)
 @Preview(showBackground = true)
 @Composable
-fun DefaultPreview() {
-    HomePageScreen()
+fun HomePageScreenPreview() {
+    HomePageScreenPreviewContent()
+}
+
+@RequiresApi(Build.VERSION_CODES.N)
+@Composable
+fun HomePageScreenPreviewContent() {
+    val context = androidx.compose.ui.platform.LocalContext.current
+    HomePageScreen(context)
 }

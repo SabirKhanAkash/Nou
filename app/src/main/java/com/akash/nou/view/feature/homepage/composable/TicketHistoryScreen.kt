@@ -7,6 +7,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.style.TextAlign
 
 @Composable
 fun TicketHistoryScreen() {
@@ -15,6 +17,6 @@ fun TicketHistoryScreen() {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        Text(text = "History Screen")
+        Text(text = "History Screen\nComing soon...", style = TextStyle(textAlign = TextAlign.Center))
     }
 }

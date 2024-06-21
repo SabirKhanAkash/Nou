@@ -3,6 +3,7 @@ package com.akash.nou.view.feature.homepage.composable
 import Constant
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
@@ -24,6 +25,7 @@ import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -32,7 +34,8 @@ fun DropDownMenuBox(heading: String, leadingIcon: Int, items: Int) {
     var isMenuExpanded by rememberSaveable { mutableStateOf(false) }
     var selectedMenuItem by rememberSaveable { mutableStateOf("") }
     val menuItems = stringArrayResource(id = items)
-    ExposedDropdownMenuBox(expanded = isMenuExpanded,
+    ExposedDropdownMenuBox(modifier = Modifier.fillMaxWidth(),
+        expanded = isMenuExpanded,
         onExpandedChange = { isMenuExpanded = !isMenuExpanded }) {
         OutlinedTextField(
             modifier = Modifier
@@ -64,17 +67,16 @@ fun DropDownMenuBox(heading: String, leadingIcon: Int, items: Int) {
                 focusedBorderColor = MaterialTheme.colorScheme.primary,
                 unfocusedBorderColor = Color.Gray,
                 cursorColor = MaterialTheme.colorScheme.primary
-            )
+            ),
+            shape = RoundedCornerShape(12.dp)
         )
 
         if (menuItems.isNotEmpty()) {
-            ExposedDropdownMenu(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .background(Constant().small_light_gray),
+            ExposedDropdownMenu(modifier = Modifier
+                .fillMaxWidth(1.0f)
+                .background(Constant().small_light_gray),
                 expanded = isMenuExpanded,
-                onDismissRequest = { isMenuExpanded = false }
-            ) {
+                onDismissRequest = { isMenuExpanded = false }) {
                 menuItems.forEach { option ->
                     DropdownMenuItem(enabled = true,
                         modifier = Modifier
