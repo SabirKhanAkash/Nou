@@ -8,7 +8,7 @@ A Launch Ticket Management Native Android App built with Kotlin, Jetpack Compose
 - IDE Used: Android Studio
 - Emulator Used: Google Pixel 7 Pro (API Level 29)
 
-- DOWNLOAD THE APP BY [CLICKING HERE](https://github.com/SabirKhanAkash/MovieDB/raw/master/MovieDB-App.apk)
+- DOWNLOAD THE APP BY [CLICKING HERE](https://github.com/SabirKhanAkash/Nou/raw/master/Nou-v1.0.apk)
 
 - For any bugs reporting, Create issues [here](https://github.com/SabirKhanAkash/Nou/issues) 
 Any type of suggestions is highly appreciated.
