@@ -1,6 +1,6 @@
 /**
- * In the name of Allah, the Most Beneficent, the Most Merciful
- * Written by Sabir Khan Akash
+ * IN THE NAME OF ALLAH, THE MOST BENEFICENT, THE MOST MERCIFUL
+ * COPYRIGHT (C) SABIR KHAN AKASH - 2023, 2024
  */
 
 package com.akash.nou.viewmodel
@@ -9,9 +9,9 @@ import GenericApiResponse
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.akash.nou.dto.TicketLookUpDTO
 import com.akash.nou.model.SeatBookResponse
 import com.akash.nou.model.SoldTicketListResponse
-import com.akash.nou.model.TicketBody
 import com.akash.nou.model.Tickets
 import com.akash.nou.repository.TicketRepository
 import kotlinx.coroutines.Dispatchers
@@ -26,16 +26,16 @@ class TicketViewModel(private val repository: TicketRepository) : ViewModel() {
     val isLoading: MutableLiveData<Boolean> = MutableLiveData()
 
     fun searchTicket(
-        phone_no: String,
+        phoneNo: String,
         authToken: String,
         refreshToken: String,
-        ticketBody: TicketBody
+        ticketBody: TicketLookUpDTO
     ) {
         viewModelScope.launch(Dispatchers.IO) {
             isLoading.postValue(true)
             try {
                 val response =
-                    repository.searchTicket(phone_no, authToken, refreshToken, ticketBody).execute()
+                    repository.searchTicket(phoneNo, authToken, refreshToken, ticketBody).execute()
                 if (response.isSuccessful) {
                     isLoading.postValue(false)
                     ticketsLiveData.postValue(GenericApiResponse.Success(response.body()!!))
@@ -58,16 +58,16 @@ class TicketViewModel(private val repository: TicketRepository) : ViewModel() {
     }
 
     fun bookSeat(
-        phone_no: String,
+        phoneNo: String,
         authToken: String,
         refreshToken: String,
-        ticketBody: TicketBody
+        ticketBody: TicketLookUpDTO
     ) {
         viewModelScope.launch(Dispatchers.IO) {
             isLoading.postValue(true)
             try {
                 val response =
-                    repository.bookSeat(phone_no, authToken, refreshToken, ticketBody).execute()
+                    repository.bookSeat(phoneNo, authToken, refreshToken, ticketBody).execute()
                 if (response.isSuccessful) {
                     isLoading.postValue(false)
                     bookTicketLiveData.postValue(GenericApiResponse.Success(response.body()!!))
@@ -89,12 +89,12 @@ class TicketViewModel(private val repository: TicketRepository) : ViewModel() {
         }
     }
 
-    fun getSoldTicketList(phone_no: String, authToken: String, refreshToken: String) {
+    fun getSoldTicketList(phoneNo: String, authToken: String, refreshToken: String) {
         viewModelScope.launch(Dispatchers.IO) {
             isLoading.postValue(true)
             try {
                 val response =
-                    repository.getSoldTicketList(phone_no, authToken, refreshToken).execute()
+                    repository.getSoldTicketList(phoneNo, authToken, refreshToken).execute()
                 if (response.isSuccessful) {
                     isLoading.postValue(false)
                     soldTicketListLiveData.postValue(GenericApiResponse.Success(response.body()!!))
@@ -115,6 +115,4 @@ class TicketViewModel(private val repository: TicketRepository) : ViewModel() {
             }
         }
     }
-
-
 }

@@ -1,3 +1,8 @@
+/**
+ * IN THE NAME OF ALLAH, THE MOST BENEFICENT, THE MOST MERCIFUL
+ * COPYRIGHT (C) SABIR KHAN AKASH - 2023, 2024
+ */
+
 package com.akash.nou.view.feature.homepage.composable
 
 import Constant
@@ -21,22 +26,17 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.akash.nou.dto.NumericStepperDTO
 
 @Composable
-fun NumericStepper(
-    heading: String,
-    rowModifier: Modifier,
-    itemCount: Int,
-    decreaseNumber: () -> Unit,
-    increaseNumber: () -> Unit
-) {
+fun NumericStepper(numericStepperDTO: NumericStepperDTO) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
         Text(
             modifier = Modifier.padding(start = 5.dp, bottom = 8.dp),
-            text = heading,
+            text = numericStepperDTO.heading,
             style = TextStyle(
                 fontFamily = Constant().balooda2font,
                 fontSize = 14.sp,
@@ -44,7 +44,7 @@ fun NumericStepper(
             ),
         )
         Row(
-            modifier = rowModifier,
+            modifier = numericStepperDTO.rowModifier,
             horizontalArrangement = Arrangement.SpaceAround,
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -71,7 +71,7 @@ fun NumericStepper(
                     disabledContainerColor = Color.Gray,
                     disabledContentColor = Color.White
                 ),
-                enabled = itemCount != 0,
+                enabled = numericStepperDTO.itemCount != 0,
                 modifier = Modifier
                     .background(
                         color = Constant().app_theme_color,
@@ -82,13 +82,13 @@ fun NumericStepper(
                     width = 1.dp
                 ),
                 shape = RoundedCornerShape(8.dp),
-                onClick = decreaseNumber,
+                onClick = numericStepperDTO.decreaseNumber,
                 contentPadding = ButtonDefaults.TextButtonWithIconContentPadding
             )
 
             Text(
                 modifier = Modifier.width(10.dp),
-                text = itemCount.toString(),
+                text = numericStepperDTO.itemCount.toString(),
                 style = TextStyle(
                     fontFamily = Constant().balooda2font,
                     fontSize = 20.sp,
@@ -119,7 +119,7 @@ fun NumericStepper(
                     disabledContainerColor = Color.Gray,
                     disabledContentColor = Color.White
                 ),
-                enabled = itemCount != 5,
+                enabled = numericStepperDTO.itemCount != 5,
                 modifier = Modifier
                     .background(
                         color = Constant().app_theme_color,
@@ -130,7 +130,7 @@ fun NumericStepper(
                     width = 1.dp
                 ),
                 shape = RoundedCornerShape(8.dp),
-                onClick = increaseNumber,
+                onClick = numericStepperDTO.increaseNumber,
                 contentPadding = ButtonDefaults.TextButtonWithIconContentPadding
             )
         }

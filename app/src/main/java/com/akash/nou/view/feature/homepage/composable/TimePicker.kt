@@ -1,3 +1,8 @@
+/**
+ * IN THE NAME OF ALLAH, THE MOST BENEFICENT, THE MOST MERCIFUL
+ * COPYRIGHT (C) SABIR KHAN AKASH - 2023, 2024
+ */
+
 package com.akash.nou.view.feature.homepage.composable
 
 import Constant
@@ -34,6 +39,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -44,6 +50,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
+import com.akash.nou.dto.PickerPopupDTO
 import java.text.SimpleDateFormat
 import java.util.Locale
 
@@ -52,9 +59,9 @@ import java.util.Locale
 @SuppressLint("UnrememberedMutableState")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TimePickerPopUp(heading: String, leadingIcon: Int) {
-    var showTimePicker by remember { mutableStateOf(false) }
-    var finalTime by remember { mutableStateOf(heading) }
+fun TimePickerPopUp(pickerPopupDTO: PickerPopupDTO): String {
+    var showTimePicker by rememberSaveable { mutableStateOf(false) }
+    var finalTime by rememberSaveable { mutableStateOf(pickerPopupDTO.heading) }
     val cal = Calendar.getInstance()
     val currentHour = cal.get(Calendar.HOUR_OF_DAY)
     val currentMinute = cal.get(Calendar.MINUTE)
@@ -91,8 +98,12 @@ fun TimePickerPopUp(heading: String, leadingIcon: Int) {
         Row(
             modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            Image(painter = painterResource(id = leadingIcon), contentDescription = "time_icon")
+            Image(
+                painter = painterResource(id = pickerPopupDTO.leadingIcon),
+                contentDescription = "time_icon"
+            )
             Text(
+                color = Color.Black,
                 modifier = Modifier.padding(start = 5.dp),
                 text = finalTime,
                 style = TextStyle(
@@ -127,11 +138,11 @@ fun TimePickerPopUp(heading: String, leadingIcon: Int) {
                     periodSelectorSelectedContainerColor = Constant().app_theme_color,
                     periodSelectorSelectedContentColor = Color.White,
                     periodSelectorUnselectedContainerColor = Color.White,
-                    periodSelectorUnselectedContentColor = Color.Gray,
+                    periodSelectorUnselectedContentColor = Color.Black,
                     timeSelectorSelectedContainerColor = Color.White,
                     timeSelectorSelectedContentColor = Color.Black,
                     timeSelectorUnselectedContainerColor = Color.White,
-                    timeSelectorUnselectedContentColor = Color.Gray,
+                    timeSelectorUnselectedContentColor = Color.Black,
                 ),
                 modifier = Modifier
                     .fillMaxWidth()
@@ -141,6 +152,7 @@ fun TimePickerPopUp(heading: String, leadingIcon: Int) {
         }
     }
 
+    return finalTime
 }
 
 @Composable

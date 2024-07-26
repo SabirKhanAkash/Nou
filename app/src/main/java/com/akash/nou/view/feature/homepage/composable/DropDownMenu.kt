@@ -27,13 +27,14 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.akash.nou.dto.DropDownMenuDTO
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DropDownMenuBox(heading: String, leadingIcon: Int, items: Int) {
+fun DropDownMenu(dropDownMenuDTO: DropDownMenuDTO): String {
     var isMenuExpanded by rememberSaveable { mutableStateOf(false) }
     var selectedMenuItem by rememberSaveable { mutableStateOf("") }
-    val menuItems = stringArrayResource(id = items)
+    val menuItems = stringArrayResource(id = dropDownMenuDTO.items)
     ExposedDropdownMenuBox(modifier = Modifier.fillMaxWidth(),
         expanded = isMenuExpanded,
         onExpandedChange = { isMenuExpanded = !isMenuExpanded }) {
@@ -46,20 +47,21 @@ fun DropDownMenuBox(heading: String, leadingIcon: Int, items: Int) {
             readOnly = true,
             label = {
                 Text(
-                    text = heading,
+                    text = dropDownMenuDTO.heading,
                     fontFamily = Constant().balooda2font,
                     fontSize = 14.sp,
-                    color = Color.Gray
+                    color = Color.Black
                 )
             },
             trailingIcon = {
                 ExposedDropdownMenuDefaults.TrailingIcon(
-                    expanded = isMenuExpanded
+                    expanded = isMenuExpanded,
                 )
             },
             leadingIcon = {
                 Icon(
-                    painter = painterResource(id = leadingIcon),
+                    tint = Constant().app_theme_color,
+                    painter = painterResource(id = dropDownMenuDTO.leadingIcon),
                     contentDescription = "item_type_icon"
                 )
             },
@@ -102,4 +104,6 @@ fun DropDownMenuBox(heading: String, leadingIcon: Int, items: Int) {
             }
         }
     }
+
+    return selectedMenuItem
 }

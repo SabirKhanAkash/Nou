@@ -11,8 +11,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:drawableStart="@drawable/negative_icon"
+        android:drawablePadding="5sp"
+        android:drawableTint="@color/toast_text_red"
         android:gravity="center"
-        android:text="Something went wrong!"
+        android:text="This is a Negative toast!"
         android:textColor="@color/toast_text_red"
         android:textSize="16sp" />
 
