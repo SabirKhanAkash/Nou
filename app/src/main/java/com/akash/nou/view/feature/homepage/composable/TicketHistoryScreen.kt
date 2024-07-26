@@ -1,3 +1,8 @@
+/**
+ * IN THE NAME OF ALLAH, THE MOST BENEFICENT, THE MOST MERCIFUL
+ * COPYRIGHT (C) SABIR KHAN AKASH - 2023, 2024
+ */
+
 package com.akash.nou.view.feature.homepage.composable
 
 import androidx.compose.foundation.layout.Arrangement
@@ -17,6 +22,9 @@ fun TicketHistoryScreen() {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        Text(text = "History Screen\nComing soon...", style = TextStyle(textAlign = TextAlign.Center))
+        Text(
+            text = "History Screen\nComing soon...",
+            style = TextStyle(textAlign = TextAlign.Center)
+        )
     }
 }

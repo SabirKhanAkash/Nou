@@ -1,41 +1,41 @@
 /**
- * In the name of Allah, the Most Beneficent, the Most Merciful
- * Written by Sabir Khan Akash
+ * IN THE NAME OF ALLAH, THE MOST BENEFICENT, THE MOST MERCIFUL
+ * COPYRIGHT (C) SABIR KHAN AKASH - 2023, 2024
  */
 
 package com.akash.nou.repository
 
 import com.akash.nou.api.TicketAPI
+import com.akash.nou.dto.TicketLookUpDTO
 import com.akash.nou.model.SeatBookResponse
 import com.akash.nou.model.SoldTicketListResponse
-import com.akash.nou.model.TicketBody
 import com.akash.nou.model.Tickets
 import retrofit2.Call
 
 class TicketRepository(private val service: TicketAPI) {
     fun searchTicket(
-        phone_no: String,
+        phoneNo: String,
         authToken: String,
         refreshToken: String,
-        ticketBody: TicketBody
+        ticketBody: TicketLookUpDTO
     ): Call<Tickets> {
-        return service.searchTicket(phone_no, authToken, refreshToken, ticketBody)
+        return service.searchTicket(phoneNo, authToken, refreshToken, ticketBody)
     }
 
     fun bookSeat(
-        phone_no: String,
+        phoneNo: String,
         authToken: String,
         refreshToken: String,
-        ticketBody: TicketBody
+        ticketBody: TicketLookUpDTO
     ): Call<SeatBookResponse> {
-        return service.bookSeat(phone_no, authToken, refreshToken, ticketBody)
+        return service.bookSeat(phoneNo, authToken, refreshToken, ticketBody)
     }
 
     fun getSoldTicketList(
-        phone_no: String,
+        phoneNo: String,
         authToken: String,
         refreshToken: String
     ): Call<SoldTicketListResponse> {
-        return service.getSoldTicketList(phone_no, authToken, refreshToken)
+        return service.getSoldTicketList(phoneNo, authToken, refreshToken)
     }
 }

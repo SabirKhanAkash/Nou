@@ -1,6 +1,6 @@
 /**
- * In the name of Allah, the Most Beneficent, the Most Merciful
- * Written by Sabir Khan Akash
+ * IN THE NAME OF ALLAH, THE MOST BENEFICENT, THE MOST MERCIFUL
+ * COPYRIGHT (C) SABIR KHAN AKASH - 2023, 2024
  */
 
 package com.akash.nou.view.feature.auth.activity

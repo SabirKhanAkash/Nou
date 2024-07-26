@@ -37,6 +37,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.DialogProperties
+import com.akash.nou.dto.PickerPopupDTO
 import com.akash.nou.utils.Tools
 import java.util.Calendar
 import java.util.TimeZone
@@ -45,8 +46,8 @@ import java.util.TimeZone
 @SuppressLint("UnrememberedMutableState")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DatePickerPopUp(heading: String, leadingIcon: Int) {
-    var dateResult by rememberSaveable { mutableStateOf(heading) }
+fun DatePickerPopUp(pickerPopupDTO: PickerPopupDTO): String {
+    var dateResult by rememberSaveable { mutableStateOf(pickerPopupDTO.heading) }
     val openDialog = rememberSaveable { mutableStateOf(false) }
     ElevatedButton(
         enabled = true,
@@ -78,7 +79,10 @@ fun DatePickerPopUp(heading: String, leadingIcon: Int) {
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            Image(painter = painterResource(id = leadingIcon), contentDescription = "date_icon")
+            Image(
+                painter = painterResource(id = pickerPopupDTO.leadingIcon),
+                contentDescription = "date_icon"
+            )
             Text(
                 modifier = Modifier.padding(start = 5.dp),
                 text = dateResult,
@@ -185,9 +189,15 @@ fun DatePickerPopUp(heading: String, leadingIcon: Int) {
             },
             confirmButton = {
                 TextButton(
+                    colors = ButtonColors(
+                        contentColor = Color.Black,
+                        containerColor = Color.White,
+                        disabledContentColor = Color.Gray,
+                        disabledContainerColor = Color.White
+                    ),
                     onClick = {
                         openDialog.value = false
-                        var date = heading
+                        var date = pickerPopupDTO.heading
                         if (datePickerState.selectedDateMillis != null) {
                             date = Tools.convertLongToTime(datePickerState.selectedDateMillis!!)
                         }
@@ -222,4 +232,5 @@ fun DatePickerPopUp(heading: String, leadingIcon: Int) {
         }
     }
 
+    return dateResult
 }
