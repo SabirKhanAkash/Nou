@@ -70,7 +70,7 @@ fun BottomNavigationBar(navController: NavHostController) {
         val navBackStackEntry by navController.currentBackStackEntryAsState()
         var currentRoute = navBackStackEntry?.destination?.route
 
-        items.forEachIndexed { index, item ->
+        items.forEachIndexed { _, item ->
             NavigationBarItem(
                 selected = currentRoute == item.route,
                 icon = {

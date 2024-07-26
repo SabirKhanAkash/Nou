@@ -11,12 +11,13 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -48,13 +49,13 @@ fun NumericStepper(numericStepperDTO: NumericStepperDTO) {
             horizontalArrangement = Arrangement.SpaceAround,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            OutlinedButton(
+            Button(
                 content = {
                     Text(
                         text = "-",
                         style = TextStyle(
                             fontFamily = Constant().balooda2font,
-                            fontSize = 25.sp,
+                            fontSize = 20.sp,
                             color = Color.White,
                             fontWeight = FontWeight.Bold
                         ),
@@ -76,7 +77,9 @@ fun NumericStepper(numericStepperDTO: NumericStepperDTO) {
                     .background(
                         color = Constant().app_theme_color,
                         shape = RoundedCornerShape(8.dp)
-                    ),
+                    )
+                    .width(50.dp)
+                    .height(50.dp),
                 border = BorderStroke(
                     color = Color.Transparent,
                     width = 1.dp
@@ -96,13 +99,13 @@ fun NumericStepper(numericStepperDTO: NumericStepperDTO) {
                 ),
             )
 
-            OutlinedButton(
+            Button(
                 content = {
                     Text(
                         text = "+",
                         style = TextStyle(
                             fontFamily = Constant().balooda2font,
-                            fontSize = 25.sp,
+                            fontSize = 20.sp,
                             color = Color.White,
                             fontWeight = FontWeight.Bold
                         ),
@@ -124,7 +127,9 @@ fun NumericStepper(numericStepperDTO: NumericStepperDTO) {
                     .background(
                         color = Constant().app_theme_color,
                         shape = RoundedCornerShape(8.dp)
-                    ),
+                    )
+                    .width(50.dp)
+                    .height(50.dp),
                 border = BorderStroke(
                     color = Color.Transparent,
                     width = 1.dp
