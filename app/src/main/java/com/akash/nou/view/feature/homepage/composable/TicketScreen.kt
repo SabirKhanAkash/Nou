@@ -775,15 +775,19 @@ fun TicketScreen(context: Context) {
                             Spacer(modifier = Modifier.height(10.dp))
 
                             Button(
+                                colors = ButtonColors(
+                                    containerColor = Constant().app_theme_color,
+                                    contentColor = Color.White,
+                                    disabledContainerColor = Color.Gray,
+                                    disabledContentColor = Color.White
+                                ),
+                                shape = RoundedCornerShape(12.dp),
                                 border = BorderStroke(
                                     color = Color.Transparent, width = 1.dp
                                 ),
                                 modifier = Modifier
-                                    .fillMaxWidth()
-                                    .background(
-                                        color = Constant().app_theme_color,
-                                        shape = RoundedCornerShape(12.dp)
-                                    ),
+                                    .fillMaxWidth(),
+
                                 onClick = { isSeatViewPoppedUp = false }
                             ) {
                                 Text(
@@ -994,11 +998,7 @@ fun TicketScreen(context: Context) {
                                 ),
                                 enabled = true,
                                 modifier = Modifier
-                                    .fillMaxWidth()
-                                    .background(
-                                        color = Constant().app_theme_color,
-                                        shape = RoundedCornerShape(12.dp)
-                                    ),
+                                    .fillMaxWidth(),
 
                                 onClick = {
                                     when (selectedSeatType) {
