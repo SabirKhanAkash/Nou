@@ -27,6 +27,6 @@ Any type of suggestions is highly appreciated.
   <img src="https://github.com/SabirKhanAkash/Nou/assets/39434260/df883388-fe1f-4385-85a4-9dc6fb71ee9e" width="270" height="570">$~~~~~~$
   <img src="https://github.com/SabirKhanAkash/Nou/assets/39434260/89607293-0aa3-41b2-88ae-6ae44c8fde37" width="270" height="570">$~~~~~~$
   <img src="https://github.com/SabirKhanAkash/Nou/assets/39434260/f9de776e-ed52-4df8-bc0c-807caa70fc16" width="270" height="570">$~~~~~~$
-  <img src="https://github.com/SabirKhanAkash/Nou/assets/39434260/363e7b14-d8f3-4420-8328-bf977e505587" width="270" height="570">$~~~~~~$
+  <img src="https://github.com/user-attachments/assets/6987cb87-482f-419a-8594-70f8b0f7e8c9" width="270" height="570">$~~~~~~$
   <img src="https://github.com/SabirKhanAkash/Nou/assets/39434260/cfa00f99-f725-4a7c-bcc0-38d3ff9335f9" width="270" height="570">$~~~~~~$
-
+  <img src="https://github.com/SabirKhanAkash/Nou/assets/39434260/363e7b14-d8f3-4420-8328-bf977e505587" width="270" height="570">$~~~~~~$
