@@ -12,45 +12,33 @@ import androidx.annotation.RequiresApi
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material3.BottomSheetScaffold
-import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberBottomSheetScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -59,63 +47,52 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.akash.nou.R
 import com.akash.nou.dto.DropDownMenuDTO
 import com.akash.nou.dto.NumericStepperDTO
 import com.akash.nou.dto.PickerPopupDTO
+import com.akash.nou.dto.SeatBookingPopUpDTO
 import com.akash.nou.dto.TicketLookUpDTO
+import com.akash.nou.viewmodel.TicketViewModel
+import com.akash.nou.viewmodelfactory.TicketViewModelFactory
 import showTopToast
 
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterialApi::class)
+@OptIn(ExperimentalMaterial3Api::class)
 @RequiresApi(Build.VERSION_CODES.N)
 @Composable
-fun TicketScreen(context: Context) {
-    var passengerCount by rememberSaveable {
-        mutableIntStateOf(0)
-    }
-    var childPassengerCount by rememberSaveable {
-        mutableIntStateOf(0)
-    }
-    var selectedSeatType by rememberSaveable {
-        mutableStateOf("")
-    }
-    var selectedSource by rememberSaveable {
-        mutableStateOf("")
-    }
-    var selectedDestination by rememberSaveable {
-        mutableStateOf("")
-    }
-    var selectedDate by rememberSaveable {
-        mutableStateOf("")
-    }
-    var selectedTime by rememberSaveable {
-        mutableStateOf("")
-    }
-
-    var isSeatViewPoppedUp by rememberSaveable {
-        mutableStateOf(false)
-    }
-
-    var seats by rememberSaveable { mutableStateOf<List<TicketLookUpDTO>>(emptyList()) }
+fun TicketScreen(
+    context: Context,
+    ticketViewModel: TicketViewModel = viewModel(factory = TicketViewModelFactory())
+) {
+    val _passengerCount by ticketViewModel.passengerCount.observeAsState(initial = 0)
+    val _childPassengerCount by ticketViewModel.childPassengerCount.observeAsState(initial = 0)
+    val _selectedSeatType by ticketViewModel.selectedSeatType.observeAsState(initial = "")
+    val _selectedSource by ticketViewModel.selectedSource.observeAsState(initial = "")
+    val _selectedDestination by ticketViewModel.selectedDestination.observeAsState(initial = "")
+    val _selectedDate by ticketViewModel.selectedDate.observeAsState(initial = "")
+    val _selectedTime by ticketViewModel.selectedTime.observeAsState(initial = "")
+    val _isSeatViewPoppedUp by ticketViewModel.isSeatViewPoppedUp.observeAsState(initial = false)
+//    val _seats by ticketViewModel.seats.observeAsState(initial = emptyList())
+    val _numberOfColumns by ticketViewModel.numberOfColumns.observeAsState(initial = 6)
 
     val seatViewScaffoldState = rememberBottomSheetScaffoldState()
-
-    val numberOfColumns = 6
+    var _seats by rememberSaveable { mutableStateOf<List<TicketLookUpDTO>>(emptyList()) }
 
     BottomSheetScaffold(
         scaffoldState = seatViewScaffoldState,
         sheetContent = {
-            if (isSeatViewPoppedUp) {
+            if (_isSeatViewPoppedUp) {
                 val ticketLookUpDTO = TicketLookUpDTO().apply {
-                    seatType = selectedSeatType
-                    source = selectedSource
-                    destination = selectedDestination
-                    date = selectedDate
-                    time = selectedTime
-                    passengerCount = passengerCount
-                    childPassengerCount = childPassengerCount
+                    seatType = _selectedSeatType
+                    source = _selectedSource
+                    destination = _selectedDestination
+                    date = _selectedDate
+                    time = _selectedTime
+                    passengerCount = _passengerCount
+                    childPassengerCount = _childPassengerCount
                 }
-                seats = listOf(
+                _seats = listOf(
                     TicketLookUpDTO().apply {
                         seatNumber = "A1"; isOccupied = false; isSelected = false
                     },
@@ -306,502 +283,21 @@ fun TicketScreen(context: Context) {
                         seatNumber = "H6"; isOccupied =
                         true; isSelected = false
                     },
-//                    TicketLookUpDTO().apply {
-//                        seatNumber = "I1"; isOccupied =
-//                        true; isSelected = false
-//                    },
-//                    TicketLookUpDTO().apply {
-//                        seatNumber = "I2"; isOccupied =
-//                        false; isSelected = false
-//                    },
-//                    TicketLookUpDTO().apply {
-//                        seatNumber = "I3"; isOccupied =
-//                        true; isSelected = false
-//                    },
-//                    TicketLookUpDTO().apply {
-//                        seatNumber = "I4"; isOccupied =
-//                        false; isSelected = false
-//                    },
-//                    TicketLookUpDTO().apply {
-//                        seatNumber = "I5"; isOccupied =
-//                        true; isSelected = false
-//                    },
-//                    TicketLookUpDTO().apply {
-//                        seatNumber = "I6"; isOccupied =
-//                        false; isSelected = false
-//                    },
-//                    TicketLookUpDTO().apply {
-//                        seatNumber = "J1"; isOccupied =
-//                        true; isSelected = false
-//                    },
-//                    TicketLookUpDTO().apply {
-//                        seatNumber = "J2"; isOccupied =
-//                        false; isSelected = false
-//                    },
-//                    TicketLookUpDTO().apply {
-//                        seatNumber = "J3"; isOccupied =
-//                        true; isSelected = false
-//                    },
-//                    TicketLookUpDTO().apply {
-//                        seatNumber = "J4"; isOccupied =
-//                        false; isSelected = false
-//                    },
-//                    TicketLookUpDTO().apply {
-//                        seatNumber = "J5"; isOccupied =
-//                        true; isSelected = false
-//                    },
-//                    TicketLookUpDTO().apply {
-//                        seatNumber = "J6"; isOccupied =
-//                        false; isSelected = false
-//                    }
                 )
 
-                Column(
-                    modifier = Modifier
-                        .fillMaxSize(),
-                    verticalArrangement = Arrangement.Top,
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    ModalBottomSheet(onDismissRequest = { isSeatViewPoppedUp = false }) {
-                        Column(
-                            verticalArrangement = Arrangement.Top,
-                            horizontalAlignment = Alignment.CenterHorizontally,
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(16.dp),
-                        ) {
-                            Text(
-                                text = "🕘 02 মি : 00 সে এর মধ্যে কাজ শেষ করুন",
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .background(
-                                        color = Constant().toast_red,
-                                        shape = RoundedCornerShape(6.dp)
-                                    )
-                                    .padding(10.dp),
-                                textAlign = TextAlign.Center,
-                                overflow = TextOverflow.Ellipsis,
-                                maxLines = 1,
-                                fontSize = 16.sp,
-                                fontWeight = FontWeight.Bold,
-                                color = Constant().toast_text_red
-                            )
-                            Spacer(modifier = Modifier.height(10.dp))
-
-                            Column(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .height(IntrinsicSize.Min)
-                                    .background(
-                                        color = Color.White,
-                                        shape = RoundedCornerShape(6.dp)
-                                    )
-                                    .border(
-                                        width = 1.dp,
-                                        color = Constant().app_theme_color,
-                                        shape = RoundedCornerShape(6.dp)
-                                    )
-                                    .padding(horizontal = 10.dp, vertical = 5.dp),
-                                horizontalAlignment = Alignment.CenterHorizontally,
-                                verticalArrangement = Arrangement.Center,
-                            ) {
-                                Row(
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .weight(
-                                            weight = 1.0f,
-                                            fill = true
-                                        ),
-                                    horizontalArrangement = Arrangement.SpaceEvenly,
-                                    verticalAlignment = Alignment.CenterVertically
-                                ) {
-                                    Column(
-                                        verticalArrangement = Arrangement.Center,
-                                        horizontalAlignment = Alignment.Start,
-                                        modifier = Modifier
-                                            .weight(0.5f, fill = true)
-                                    ) {
-                                        Row(
-                                            horizontalArrangement = Arrangement.Start,
-                                            verticalAlignment = Alignment.CenterVertically,
-                                            modifier = Modifier
-                                                .fillMaxWidth()
-                                                .background(
-                                                    color = Color.White,
-                                                    shape = RoundedCornerShape(6.dp)
-                                                )
-                                        ) {
-                                            Image(
-                                                painter = painterResource(id = R.drawable.ic_calender),
-                                                contentDescription = "Date icon",
-                                                modifier = Modifier
-                                                    .padding(5.dp)
-                                                    .size(15.dp)
-                                            )
-                                            Text(
-                                                text = selectedDate,
-                                                color = Constant().medium_gray,
-                                                maxLines = 2,
-                                                overflow = TextOverflow.Ellipsis,
-                                                textAlign = TextAlign.Center,
-                                                fontSize = 15.sp
-                                            )
-                                        }
-                                        Row(
-                                            horizontalArrangement = Arrangement.Start,
-                                            verticalAlignment = Alignment.CenterVertically,
-                                            modifier = Modifier
-                                                .fillMaxWidth()
-                                                .background(
-                                                    color = Color.White,
-                                                    shape = RoundedCornerShape(6.dp)
-                                                )
-                                        ) {
-                                            Image(
-                                                painter = painterResource(id = R.drawable.ic_clock),
-                                                contentDescription = "Time icon",
-                                                modifier = Modifier
-                                                    .padding(5.dp)
-                                                    .size(15.dp)
-                                            )
-                                            Text(
-                                                selectedTime,
-                                                color = Constant().medium_gray,
-                                                maxLines = 2,
-                                                overflow = TextOverflow.Ellipsis,
-                                                textAlign = TextAlign.Center,
-                                                fontSize = 15.sp
-                                            )
-                                        }
-                                    }
-
-                                    Row(
-                                        horizontalArrangement = Arrangement.End,
-                                        verticalAlignment = Alignment.CenterVertically,
-                                        modifier = Modifier
-                                            .fillMaxWidth()
-                                            .background(
-                                                color = Color.White,
-                                                shape = RoundedCornerShape(4.dp)
-                                            )
-                                            .padding(5.dp)
-                                            .weight(
-                                                weight = 0.5f,
-                                                fill = true
-                                            ),
-                                    ) {
-                                        Image(
-                                            painter = painterResource(id = R.drawable.ic_user),
-                                            contentDescription = "Passenger icon",
-                                            modifier = Modifier
-                                                .padding(5.dp)
-                                                .size(15.dp)
-                                        )
-                                        Text(
-                                            text = when (childPassengerCount) {
-                                                0 -> {
-                                                    "যাত্রী $passengerCount জন"
-                                                }
-
-                                                else -> {
-                                                    "যাত্রী $passengerCount জন,\nশিশু " +
-                                                            "$childPassengerCount জন"
-                                                }
-                                            },
-                                            color = Constant().medium_gray,
-                                            maxLines = 4,
-                                            overflow = TextOverflow.Ellipsis,
-                                            textAlign = TextAlign.Center,
-                                            fontSize = 15.sp
-                                        )
-                                    }
-
-                                }
-
-                                Row(
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .weight(
-                                            weight = 1.0f,
-                                            fill = true
-                                        ),
-                                    horizontalArrangement = Arrangement.SpaceEvenly,
-                                    verticalAlignment = Alignment.CenterVertically
-                                ) {
-                                    Row(
-                                        verticalAlignment = Alignment.CenterVertically,
-                                        modifier = Modifier
-                                            .fillMaxWidth()
-                                            .background(
-                                                color = Color.White,
-                                                shape = RoundedCornerShape(6.dp)
-                                            )
-                                            .padding(5.dp)
-                                            .weight(
-                                                weight = 0.75f,
-                                                fill = true
-                                            ),
-                                    ) {
-                                        Text(
-                                            text = selectedSource,
-                                            color = Constant().medium_gray,
-                                            maxLines = 2,
-                                            overflow = TextOverflow.Ellipsis,
-                                            textAlign = TextAlign.Center,
-                                            fontSize = 17.sp
-                                        )
-                                        Image(
-                                            painter = painterResource(id = R.drawable.ic_arrow),
-                                            contentDescription = "arrow icon",
-                                            modifier = Modifier
-                                                .padding(5.dp)
-                                        )
-                                        Text(
-                                            text = selectedDestination,
-                                            color = Constant().medium_gray,
-                                            maxLines = 2,
-                                            overflow = TextOverflow.Ellipsis,
-                                            textAlign = TextAlign.Center,
-                                            fontSize = 17.sp
-                                        )
-                                    }
-                                    Spacer(modifier = Modifier.width(15.dp))
-
-                                    Row(
-                                        verticalAlignment = Alignment.CenterVertically,
-                                        modifier = Modifier
-                                            .fillMaxWidth()
-                                            .background(
-                                                color = Color.White,
-                                                shape = RoundedCornerShape(4.dp)
-                                            )
-                                            .padding(5.dp)
-                                            .weight(
-                                                weight = 0.25f,
-                                                fill = true
-                                            ),
-                                    ) {
-                                        Image(
-                                            painter = painterResource(id = R.drawable.seat_icon),
-                                            contentDescription = "Seat icon",
-                                            modifier = Modifier
-                                                .padding(5.dp)
-                                                .size(20.dp)
-                                        )
-                                        Text(
-                                            selectedSeatType,
-                                            color = Constant().medium_gray,
-                                            maxLines = 3,
-                                            overflow = TextOverflow.Ellipsis,
-                                            textAlign = TextAlign.Center,
-                                            fontSize = 15.sp
-                                        )
-                                    }
-
-                                }
-                            }
-                            Spacer(modifier = Modifier.height(10.dp))
-
-                            Column(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .height(IntrinsicSize.Min)
-                                    .background(
-                                        color = Color.White,
-                                        shape = RoundedCornerShape(6.dp)
-                                    )
-                                    .border(
-                                        width = 1.dp,
-                                        color = Color.White,
-                                        shape = RoundedCornerShape(6.dp)
-                                    ),
-                                horizontalAlignment = Alignment.CenterHorizontally,
-                                verticalArrangement = Arrangement.Center,
-                            ) {
-                                Row(
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .background(color = Color.Transparent)
-                                        .weight(1.0f, fill = true)
-                                        .padding(
-                                            vertical = 5.dp,
-                                            horizontal = 16.dp
-                                        )
-                                ) {
-                                    Row(
-                                        modifier = Modifier
-                                            .fillMaxWidth()
-                                            .weight(0.30f, fill = true),
-                                        horizontalArrangement = Arrangement.Start,
-                                        verticalAlignment = Alignment.CenterVertically,
-                                    ) {
-                                        Image(
-                                            colorFilter = ColorFilter.tint(color = Color.Gray),
-                                            painter = painterResource(id = R.drawable.ic_chair),
-                                            contentDescription = "Seat icon",
-                                            modifier = Modifier
-                                                .padding(2.dp)
-                                        )
-                                        Text(
-                                            text = "ফাকা সীট",
-                                            color = Constant().medium_gray,
-                                            maxLines = 2,
-                                            overflow = TextOverflow.Ellipsis,
-                                            textAlign = TextAlign.Center,
-                                            fontSize = 14.sp
-                                        )
-                                    }
-                                    Row(
-                                        modifier = Modifier
-                                            .fillMaxWidth()
-                                            .weight(0.35f, fill = true),
-                                        horizontalArrangement = Arrangement.Center,
-                                        verticalAlignment = Alignment.CenterVertically,
-                                    ) {
-                                        Image(
-                                            colorFilter = ColorFilter.tint(color = Color.Green),
-                                            painter = painterResource(id = R.drawable.ic_chair),
-                                            contentDescription = "Seat icon",
-                                            modifier = Modifier
-                                                .padding(2.dp)
-                                        )
-                                        Text(
-                                            text = "নির্বাচিত সীট",
-                                            color = Constant().medium_gray,
-                                            maxLines = 2,
-                                            overflow = TextOverflow.Ellipsis,
-                                            textAlign = TextAlign.Center,
-                                            fontSize = 14.sp
-                                        )
-                                    }
-                                    Row(
-                                        modifier = Modifier
-                                            .fillMaxWidth()
-                                            .weight(0.35f, fill = true),
-                                        horizontalArrangement = Arrangement.End,
-                                        verticalAlignment = Alignment.CenterVertically,
-                                    ) {
-                                        Image(
-                                            colorFilter = ColorFilter.tint(color = Constant().app_theme_color),
-                                            painter = painterResource(id = R.drawable.ic_chair),
-                                            contentDescription = "Seat icon",
-                                            modifier = Modifier
-                                                .padding(2.dp)
-                                        )
-                                        Text(
-                                            text = "বিক্রিত সীট",
-                                            color = Constant().medium_gray,
-                                            maxLines = 2,
-                                            overflow = TextOverflow.Ellipsis,
-                                            textAlign = TextAlign.Center,
-                                            fontSize = 14.sp
-                                        )
-                                    }
-                                }
-                            }
-
-                            Spacer(modifier = Modifier.height(10.dp))
-
-                            LazyVerticalGrid(
-                                userScrollEnabled = true,
-                                columns = GridCells.Fixed(numberOfColumns),
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .background(
-                                        color = Color.White,
-                                        shape = RoundedCornerShape(6.dp)
-                                    )
-                                    .border(
-                                        width = 1.dp,
-                                        color = Color.White,
-                                        shape = RoundedCornerShape(6.dp)
-                                    ),
-                            ) {
-                                items(seats) { seat ->
-                                    val imageColor = when {
-                                        seat.isSelected -> Color.Green
-                                        seat.isOccupied -> Constant().app_theme_color
-                                        else -> Color.Gray
-                                    }
-                                    Column(
-                                        modifier = Modifier
-                                            .width(IntrinsicSize.Min)
-                                            .height(IntrinsicSize.Min)
-                                            .clickable {
-                                                if (!seat.isOccupied) {
-                                                    seat.isSelected = !seat.isSelected
-                                                    showTopToast(
-                                                        context,
-                                                        "আপনি আসন নং ${seat.seatNumber} নির্বাচন করেছেন",
-                                                        "short",
-                                                        "positive"
-                                                    )
-                                                }
-                                                else {
-                                                    showTopToast(
-                                                        context,
-                                                        "${seat.seatNumber} নং আসনটি ইতিমধ্যে " +
-                                                                "বিক্রি হয়ে " +
-                                                                "গেছে",
-                                                        "short",
-                                                        "neutral"
-                                                    )
-                                                }
-                                            },
-                                        horizontalAlignment = Alignment.CenterHorizontally,
-                                        verticalArrangement = Arrangement.Center
-                                    ) {
-                                        Image(
-                                            colorFilter = ColorFilter.tint(imageColor),
-                                            painter = painterResource(id = R.drawable.ic_chair),
-                                            contentDescription = "Seat ${seat.seatNumber}",
-                                            modifier = Modifier
-                                                .size(32.dp)
-                                                .padding(horizontal = 4.dp, vertical = 2.dp)
-
-                                        )
-                                        Text(
-                                            text = "${seat.seatNumber}",
-                                            color = Constant().medium_gray,
-                                            maxLines = 2,
-                                            overflow = TextOverflow.Ellipsis,
-                                            textAlign = TextAlign.Center,
-                                            fontWeight = FontWeight.Bold,
-                                            fontSize = 13.sp
-                                        )
-                                    }
-                                }
-                            }
-                            Spacer(modifier = Modifier.height(10.dp))
-
-                            Button(
-                                colors = ButtonColors(
-                                    containerColor = Constant().app_theme_color,
-                                    contentColor = Color.White,
-                                    disabledContainerColor = Color.Gray,
-                                    disabledContentColor = Color.White
-                                ),
-                                shape = RoundedCornerShape(12.dp),
-                                border = BorderStroke(
-                                    color = Color.Transparent, width = 1.dp
-                                ),
-                                modifier = Modifier
-                                    .fillMaxWidth(),
-
-                                onClick = { isSeatViewPoppedUp = false }
-                            ) {
-                                Text(
-                                    text = "টিকিট নিশ্চিত করুন",
-                                    fontSize = 16.sp,
-                                    maxLines = 1,
-                                    overflow = TextOverflow.Ellipsis,
-                                    color = Color.White
-                                )
-                            }
-                            Spacer(modifier = Modifier.height(5.dp))
-                        }
-                    }
+                val seatBookingPopUpDTO = SeatBookingPopUpDTO().apply {
+                    isSeatViewPoppedUp = _isSeatViewPoppedUp
+                    selectedDate = _selectedDate
+                    selectedTime = _selectedTime
+                    selectedSeatType = _selectedSeatType
+                    selectedDestination = _selectedDestination
+                    selectedSource = _selectedSource
+                    childPassengerCount = _childPassengerCount
+                    passengerCount = _passengerCount
+                    seats = _seats
+                    numberOfColumns = _numberOfColumns
                 }
+                SeatBookingPopUp(context, seatBookingPopUpDTO)
             }
         }) { _ ->
         Column(
@@ -874,7 +370,7 @@ fun TicketScreen(context: Context) {
                                 leadingIcon = R.drawable.seat_icon
                                 items = R.array.seat_category
                             }
-                            selectedSeatType = DropDownMenu(dropDownMenuDTOForSeatType)
+                            DropDownMenu("seatType", dropDownMenuDTOForSeatType)
 
                             Spacer(modifier = Modifier.height(25.dp))
 
@@ -883,7 +379,7 @@ fun TicketScreen(context: Context) {
                                 leadingIcon = R.drawable.source_icon
                                 items = R.array.zilla
                             }
-                            selectedSource = DropDownMenu(dropDownMenuDTOForSource)
+                            DropDownMenu("source", dropDownMenuDTOForSource)
 
                             Spacer(modifier = Modifier.height(25.dp))
 
@@ -892,7 +388,7 @@ fun TicketScreen(context: Context) {
                                 leadingIcon = R.drawable.destination_icon
                                 items = R.array.zilla
                             }
-                            selectedDestination = DropDownMenu(dropDownMenuDTOForDestination)
+                            DropDownMenu("destination", dropDownMenuDTOForDestination)
 
                             Spacer(modifier = Modifier.height(30.dp))
 
@@ -908,7 +404,7 @@ fun TicketScreen(context: Context) {
                                         heading = "যাত্রার তারিখ"
                                         leadingIcon = R.drawable.calendar_icon
                                     }
-                                    selectedDate = DatePickerPopUp(pickerPopupDTO)
+                                    DatePickerPopUp(pickerPopupDTO)
                                 }
                                 Box(
                                     modifier = Modifier.padding(start = 10.dp)
@@ -917,7 +413,7 @@ fun TicketScreen(context: Context) {
                                         heading = "যাত্রার সময়"
                                         leadingIcon = R.drawable.time_icon
                                     }
-                                    selectedTime = TimePickerPopUp(pickerPopupDTO)
+                                    TimePickerPopUp(pickerPopupDTO)
                                 }
                             }
 
@@ -933,13 +429,16 @@ fun TicketScreen(context: Context) {
                                     rowModifier = Modifier
                                         .fillMaxWidth(0.5f)
                                         .padding(end = 10.dp)
-                                    itemCount = passengerCount
+                                    itemCount = _passengerCount
                                     decreaseNumber = {
-                                        if (passengerCount > 0) passengerCount -= 1
-                                        if (passengerCount == 0) childPassengerCount = 0
+                                        if (_passengerCount > 0) ticketViewModel
+                                            .decrementPassengerCount()
+                                        if (_passengerCount == 0) ticketViewModel
+                                            .initChildPassengerCount()
                                     }
                                     increaseNumber = {
-                                        if (passengerCount < 5) passengerCount += 1
+                                        if (_passengerCount < 5) ticketViewModel
+                                            .incrementPassengerCount()
                                     }
                                 }
                                 NumericStepper(numericStepperDTOForAdult)
@@ -949,13 +448,15 @@ fun TicketScreen(context: Context) {
                                     rowModifier = Modifier
                                         .fillMaxWidth()
                                         .padding(start = 10.dp)
-                                    itemCount = childPassengerCount
+                                    itemCount = _childPassengerCount
                                     decreaseNumber = {
-                                        if (childPassengerCount > 0) childPassengerCount -= 1
+                                        if (_childPassengerCount > 0) ticketViewModel
+                                            .decrementChildPassengerCount()
                                     }
                                     increaseNumber = {
-                                        if (childPassengerCount < 5 && passengerCount > 0) childPassengerCount += 1
-                                        if (passengerCount == 0) showTopToast(
+                                        if (_childPassengerCount < 5 && _passengerCount > 0) ticketViewModel
+                                            .incrementChildPassengerCount()
+                                        if (_passengerCount == 0) showTopToast(
                                             context,
                                             "অন্তত একজন প্রাপ্তবয়স্ক যাত্রী প্রয়োজন",
                                             "short",
@@ -1001,9 +502,9 @@ fun TicketScreen(context: Context) {
                                     .fillMaxWidth(),
 
                                 onClick = {
-                                    when (selectedSeatType) {
+                                    when (_selectedSeatType) {
                                         "" -> {
-                                            isSeatViewPoppedUp = false
+                                            ticketViewModel.dismissSeatViewPopUp()
                                             showTopToast(
                                                 context,
                                                 "Please select a seat type",
@@ -1013,9 +514,9 @@ fun TicketScreen(context: Context) {
                                         }
 
                                         else -> {
-                                            when (selectedSource) {
+                                            when (_selectedSource) {
                                                 "" -> {
-                                                    isSeatViewPoppedUp = false
+                                                    ticketViewModel.dismissSeatViewPopUp()
                                                     showTopToast(
                                                         context,
                                                         "Please select a source location",
@@ -1025,9 +526,9 @@ fun TicketScreen(context: Context) {
                                                 }
 
                                                 else -> {
-                                                    when (selectedDestination) {
+                                                    when (_selectedDestination) {
                                                         "" -> {
-                                                            isSeatViewPoppedUp = false
+                                                            ticketViewModel.dismissSeatViewPopUp()
                                                             showTopToast(
                                                                 context,
                                                                 "Please select a destination" + " location",
@@ -1037,9 +538,9 @@ fun TicketScreen(context: Context) {
                                                         }
 
                                                         else -> {
-                                                            when (selectedDate) {
+                                                            when (_selectedDate) {
                                                                 "যাত্রার তারিখ" -> {
-                                                                    isSeatViewPoppedUp = false
+                                                                    ticketViewModel.dismissSeatViewPopUp()
                                                                     showTopToast(
                                                                         context,
                                                                         "Please select a date",
@@ -1049,10 +550,9 @@ fun TicketScreen(context: Context) {
                                                                 }
 
                                                                 else -> {
-                                                                    when (selectedTime) {
+                                                                    when (_selectedTime) {
                                                                         "যাত্রার সময়" -> {
-                                                                            isSeatViewPoppedUp =
-                                                                                false
+                                                                            ticketViewModel.dismissSeatViewPopUp()
                                                                             showTopToast(
                                                                                 context,
                                                                                 "Please " + "select a time",
@@ -1062,10 +562,9 @@ fun TicketScreen(context: Context) {
                                                                         }
 
                                                                         else -> {
-                                                                            when (passengerCount) {
+                                                                            when (_passengerCount) {
                                                                                 0 -> {
-                                                                                    isSeatViewPoppedUp =
-                                                                                        false
+                                                                                    ticketViewModel.dismissSeatViewPopUp()
                                                                                     showTopToast(
                                                                                         context,
                                                                                         "Please add a passenger",
@@ -1075,8 +574,7 @@ fun TicketScreen(context: Context) {
                                                                                 }
 
                                                                                 else -> {
-                                                                                    isSeatViewPoppedUp =
-                                                                                        true
+                                                                                    ticketViewModel.popUpSeatView()
                                                                                 }
                                                                             }
                                                                         }

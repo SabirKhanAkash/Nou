@@ -27,9 +27,9 @@ import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
@@ -37,8 +37,11 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.DialogProperties
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.akash.nou.dto.PickerPopupDTO
 import com.akash.nou.utils.Tools
+import com.akash.nou.viewmodel.TicketViewModel
+import com.akash.nou.viewmodelfactory.TicketViewModelFactory
 import java.util.Calendar
 import java.util.TimeZone
 
@@ -46,8 +49,11 @@ import java.util.TimeZone
 @SuppressLint("UnrememberedMutableState")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DatePickerPopUp(pickerPopupDTO: PickerPopupDTO): String {
-    var dateResult by rememberSaveable { mutableStateOf(pickerPopupDTO.heading) }
+fun DatePickerPopUp(
+    pickerPopupDTO: PickerPopupDTO,
+    ticketViewModel: TicketViewModel = viewModel(factory = TicketViewModelFactory())
+) {
+    val _selectedDate by ticketViewModel.selectedDate.observeAsState(initial = pickerPopupDTO.heading)
     val openDialog = rememberSaveable { mutableStateOf(false) }
     ElevatedButton(
         enabled = true,
@@ -85,7 +91,7 @@ fun DatePickerPopUp(pickerPopupDTO: PickerPopupDTO): String {
             )
             Text(
                 modifier = Modifier.padding(start = 5.dp),
-                text = dateResult,
+                text = _selectedDate,
                 style = TextStyle(
                     fontFamily = Constant().balooda2font,
                     fontSize = 14.sp,
@@ -201,7 +207,7 @@ fun DatePickerPopUp(pickerPopupDTO: PickerPopupDTO): String {
                         if (datePickerState.selectedDateMillis != null) {
                             date = Tools.convertLongToTime(datePickerState.selectedDateMillis!!)
                         }
-                        dateResult = "তারিখ: $date"
+                        ticketViewModel.setDate("তারিখ: $date")
                     },
                     enabled = confirmEnabled.value
                 ) {
@@ -231,6 +237,4 @@ fun DatePickerPopUp(pickerPopupDTO: PickerPopupDTO): String {
             DatePicker(state = datePickerState)
         }
     }
-
-    return dateResult
 }

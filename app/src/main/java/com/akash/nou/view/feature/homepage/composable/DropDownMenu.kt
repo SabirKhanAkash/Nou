@@ -15,6 +15,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
@@ -27,13 +28,22 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.akash.nou.dto.DropDownMenuDTO
+import com.akash.nou.viewmodel.TicketViewModel
+import com.akash.nou.viewmodelfactory.TicketViewModelFactory
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DropDownMenu(dropDownMenuDTO: DropDownMenuDTO): String {
+fun DropDownMenu(
+    dropDownType: String,
+    dropDownMenuDTO: DropDownMenuDTO,
+    ticketViewModel: TicketViewModel = viewModel(factory = TicketViewModelFactory())
+) {
+    val _selectedSeatType by ticketViewModel.selectedSeatType.observeAsState(initial = "")
+    val _selectedSource by ticketViewModel.selectedSource.observeAsState(initial = "")
+    val _selectedDestination by ticketViewModel.selectedDestination.observeAsState(initial = "")
     var isMenuExpanded by rememberSaveable { mutableStateOf(false) }
-    var selectedMenuItem by rememberSaveable { mutableStateOf("") }
     val menuItems = stringArrayResource(id = dropDownMenuDTO.items)
     ExposedDropdownMenuBox(modifier = Modifier.fillMaxWidth(),
         expanded = isMenuExpanded,
@@ -42,8 +52,24 @@ fun DropDownMenu(dropDownMenuDTO: DropDownMenuDTO): String {
             modifier = Modifier
                 .menuAnchor()
                 .fillMaxWidth(),
-            value = selectedMenuItem,
-            onValueChange = { selectedMenuItem = it },
+            value = when (dropDownType) {
+                "seatType" -> {
+                    _selectedSeatType
+                }
+
+                "source" -> {
+                    _selectedSource
+                }
+
+                "destination" -> {
+                    _selectedDestination
+                }
+
+                else -> {
+                    _selectedSeatType
+                }
+            },
+            onValueChange = { ticketViewModel.setDropDownItem(it, dropDownType) },
             readOnly = true,
             label = {
                 Text(
@@ -97,13 +123,11 @@ fun DropDownMenu(dropDownMenuDTO: DropDownMenuDTO): String {
                             )
                         },
                         onClick = {
-                            selectedMenuItem = option
+                            ticketViewModel.setDropDownItem(option, dropDownType)
                             isMenuExpanded = false
                         })
                 }
             }
         }
     }
-
-    return selectedMenuItem
 }

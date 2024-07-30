@@ -37,6 +37,7 @@ import androidx.compose.material3.TimePickerColors
 import androidx.compose.material3.rememberTimePickerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -50,7 +51,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.akash.nou.dto.PickerPopupDTO
+import com.akash.nou.viewmodel.TicketViewModel
+import com.akash.nou.viewmodelfactory.TicketViewModelFactory
 import java.text.SimpleDateFormat
 import java.util.Locale
 
@@ -59,9 +63,15 @@ import java.util.Locale
 @SuppressLint("UnrememberedMutableState")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TimePickerPopUp(pickerPopupDTO: PickerPopupDTO): String {
+fun TimePickerPopUp(
+    pickerPopupDTO: PickerPopupDTO,
+    ticketViewModel: TicketViewModel = viewModel(factory = TicketViewModelFactory())
+) {
     var showTimePicker by rememberSaveable { mutableStateOf(false) }
-    var finalTime by rememberSaveable { mutableStateOf(pickerPopupDTO.heading) }
+    val _selectedTime by ticketViewModel.selectedTime.observeAsState(
+        initial = pickerPopupDTO
+            .heading
+    )
     val cal = Calendar.getInstance()
     val currentHour = cal.get(Calendar.HOUR_OF_DAY)
     val currentMinute = cal.get(Calendar.MINUTE)
@@ -105,7 +115,7 @@ fun TimePickerPopUp(pickerPopupDTO: PickerPopupDTO): String {
             Text(
                 color = Color.Black,
                 modifier = Modifier.padding(start = 5.dp),
-                text = finalTime,
+                text = _selectedTime,
                 style = TextStyle(
                     fontFamily = Constant().balooda2font,
                     fontSize = 14.sp,
@@ -123,7 +133,7 @@ fun TimePickerPopUp(pickerPopupDTO: PickerPopupDTO): String {
                 cal.set(Calendar.HOUR_OF_DAY, state.hour)
                 cal.set(Calendar.MINUTE, state.minute)
                 cal.isLenient = false
-                finalTime = "সময়: ${formatter.format(cal.time)}"
+                ticketViewModel.setTime("সময়: ${formatter.format(cal.time)}")
                 showTimePicker = false
             },
         ) {
@@ -151,8 +161,6 @@ fun TimePickerPopUp(pickerPopupDTO: PickerPopupDTO): String {
             )
         }
     }
-
-    return finalTime
 }
 
 @Composable

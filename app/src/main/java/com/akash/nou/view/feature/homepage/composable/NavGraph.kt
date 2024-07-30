@@ -14,7 +14,6 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 
-
 @RequiresApi(Build.VERSION_CODES.N)
 @Composable
 fun NavGraph(context: Context, navController: NavHostController, modifier: Modifier) {
