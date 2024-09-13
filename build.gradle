@@ -11,7 +11,7 @@ buildscript {
     repositories {
         google()
         mavenCentral()
-        jcenter() // Consider removing this as jcenter is deprecated
+        maven { url "https://jitpack.io"  }
     }
     dependencies {
         classpath "com.android.tools.build:gradle:8.1.0"

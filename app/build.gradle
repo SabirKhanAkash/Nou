@@ -28,7 +28,8 @@ android {
 
     buildTypes {
         debug {
-            buildConfigField "String", "BASE_URL", "\"http://192.168.0.164:4000\""
+//            buildConfigField "String", "BASE_URL", "\"http://192.168.0.164:4000\""
+            buildConfigField "String", "BASE_URL", "\"https://nou-express-js-backend.onrender.com\""
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             android.buildFeatures.buildConfig true
@@ -94,7 +95,7 @@ dependencies {
     /**
      * For Loading Animation
      */
-    implementation 'com.agrawalsuneet.androidlibs:loaderspack:1.2.3'
+    implementation 'com.github.agrawalsuneet:loaderspack-android:1.2.3'
 
     /**
      * For Image
@@ -105,11 +106,6 @@ dependencies {
      * For SearchView
      */
     implementation 'com.github.mancj:MaterialSearchBar:0.8.5'
-
-    /**
-     * For Dropdown Menu
-     */
-//    implementation 'com.github.Breens-Mbaka:Searchable-Dropdown-Menu-Jetpack-Compose:0.2.8'
 
     /**
      * For Compose
