@@ -12,12 +12,14 @@ import androidx.activity.compose.setContent
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.akash.nou.R
+import com.akash.nou.utils.SharedPref
 import com.akash.nou.view.feature.homepage.composable.HomePageScreen
 
 class HomepageActivity : AppCompatActivity() {
     /**
      * Global Variables
      */
+    private val sharedPref: SharedPref by lazy { SharedPref() }
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,7 +27,7 @@ class HomepageActivity : AppCompatActivity() {
 
         setContent {
             NouTheme {
-                HomePageScreen(applicationContext)
+                HomePageScreen(applicationContext, sharedPref)
             }
         }
     }

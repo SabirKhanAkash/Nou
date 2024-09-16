@@ -11,17 +11,25 @@ import com.akash.nou.model.SoldTicketListResponse
 import com.akash.nou.model.Tickets
 import retrofit2.Call
 import retrofit2.http.Body
+import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.POST
 import retrofit2.http.PUT
+import retrofit2.http.Query
 
 interface TicketAPI {
-    @POST("/ticket/search/")
+    @GET("/ticket/search")
     fun searchTicket(
-        @Header("phoneNo") phoneNo: String,
-        @Header("auth") authToken: String,
-        @Header("refresh") refreshToken: String,
-        @Body ticketBody: TicketLookUpDTO
+        @Header("refresh") refreshToken: String?,
+        @Header("Authorization") accessToken: String?,
+        @Query("pageNo") pageNo: Int,
+        @Query("date") date: String,
+        @Query("time") time: String,
+        @Query("seatCategory") seatCategory: String,
+        @Query("source") source: String,
+        @Query("destination") destination: String,
+        @Query("passengerCount") passengerCount: Int,
+        @Query("childPassengerCount") childPassengerCount: Int,
     ): Call<Tickets>
 
     @PUT("/ticket/book-seat/")

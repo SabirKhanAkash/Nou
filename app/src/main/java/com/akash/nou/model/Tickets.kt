@@ -5,11 +5,8 @@
 
 package com.akash.nou.model
 
-import com.akash.nou.dto.TicketLookUpDTO
-
 data class Tickets(
-    var ticketList: List<TicketLookUpDTO>,
-    var count: Int,
+    var data: Data,
     var status: String,
     var message: String,
     var token: Boolean

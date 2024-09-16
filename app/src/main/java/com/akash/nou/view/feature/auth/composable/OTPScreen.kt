@@ -32,12 +32,13 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.akash.nou.R
+import com.akash.nou.dto.AuthDto
 import com.akash.nou.viewmodel.AuthViewModel
 import com.mukeshsolanki.OTP_VIEW_TYPE_BORDER
 import com.mukeshsolanki.OtpView
 
 @Composable
-fun OTPScreen(authViewModel: AuthViewModel, phoneNo: String?) {
+fun OTPScreen(authViewModel: AuthViewModel, phoneNumber: String?) {
     val otpValue by authViewModel.otp.observeAsState(initial = "")
     val isOTPVerified by authViewModel.isOTPVerified.observeAsState(initial = false)
     val otpBorderColor: Color
@@ -87,7 +88,7 @@ fun OTPScreen(authViewModel: AuthViewModel, phoneNo: String?) {
                 maxLines = 1
             )
             Text(
-                text = "${phoneNo.toString()} নম্বরে পাঠানো ওটিপি কোডটি টাইপ করুন",
+                text = "${phoneNumber.toString()} নম্বরে পাঠানো ওটিপি কোডটি টাইপ করুন",
                 style = TextStyle(
                     color = Constant().light_gray_2,
                     fontSize = 13.sp,
@@ -108,8 +109,12 @@ fun OTPScreen(authViewModel: AuthViewModel, phoneNo: String?) {
                 overflow = TextOverflow.Ellipsis,
                 maxLines = 1,
                 modifier = Modifier.clickable {
+                    val authDto = AuthDto().apply {
+                        phoneNo = phoneNumber.toString()
+                        authSource = "nou-mobile"
+                    }
                     authViewModel.setOtp("")
-                    authViewModel.verifyPhoneNumber(phoneNo.toString())
+                    authViewModel.login(authDto)
                 }
             )
         }
@@ -127,10 +132,13 @@ fun OTPScreen(authViewModel: AuthViewModel, phoneNo: String?) {
                 otpText = otpValue,
                 onOtpTextChange = {
                     authViewModel.setOtp(it)
-                    if (it.length == 4)
-                        authViewModel.verifyOTP(
-                            phoneNo.toString(), it
-                        )
+                    if (it.length == 4) {
+                        val authDto = AuthDto().apply {
+                            phoneNo = phoneNumber.toString()
+                            otp = it
+                        }
+                        authViewModel.verifyOTP(authDto)
+                    }
                 },
                 type = OTP_VIEW_TYPE_BORDER,
                 password = false,

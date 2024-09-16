@@ -6,6 +6,8 @@
 package com.akash.nou.viewmodel
 
 import GenericApiResponse
+import android.content.Context
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -15,6 +17,7 @@ import com.akash.nou.model.SeatBookResponse
 import com.akash.nou.model.SoldTicketListResponse
 import com.akash.nou.model.Tickets
 import com.akash.nou.repository.TicketRepository
+import com.akash.nou.utils.SharedPref
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -36,6 +39,7 @@ class TicketViewModel(private val repository: TicketRepository) : ViewModel() {
     private val _isSeatViewPoppedUp = MutableLiveData<Boolean>()
     private val _seats = MutableLiveData<List<TicketLookUpDTO>>()
     private val _numberOfColumns = MutableLiveData<Int>().apply { value = 6 }
+    private val sharedPref: SharedPref by lazy { SharedPref() }
 
     val passengerCount: LiveData<Int> = _passengerCount
     val childPassengerCount: LiveData<Int> = _childPassengerCount
@@ -102,19 +106,61 @@ class TicketViewModel(private val repository: TicketRepository) : ViewModel() {
     }
 
     fun searchTicket(
-        phoneNo: String,
-        authToken: String,
+        context: Context,
         refreshToken: String,
-        ticketBody: TicketLookUpDTO
+        authToken: String,
+        ticketLookUpDto: TicketLookUpDTO
     ) {
         viewModelScope.launch(Dispatchers.IO) {
             isLoading.postValue(true)
             try {
                 val response =
-                    repository.searchTicket(phoneNo, authToken, refreshToken, ticketBody).execute()
+                    repository.searchTicket(null, "Bearer $authToken", ticketLookUpDto)
+                        .execute()
+                Log.d("tag", "1. isSuccessful: ${response.isSuccessful}")
+                Log.d("tag", "1. body: ${response.body().toString()}")
                 if (response.isSuccessful) {
                     isLoading.postValue(false)
                     ticketsLiveData.postValue(GenericApiResponse.Success(response.body()!!))
+                }
+                else if (response.code() == 401) {
+                    val response =
+                        repository.searchTicket(refreshToken, null, ticketLookUpDto)
+                            .execute()
+                    Log.d("tag", "2. isSuccessful: ${response.isSuccessful}")
+                    Log.d("tag", "2. body: ${response.body().toString()}")
+                    if (response.isSuccessful) {
+                        sharedPref.setString(
+                            context, "accessToken",
+                            response.body()?.token.toString()
+                        )
+                        val accessToken = response.body()?.token.toString()
+                        Log.d("tag", "3. new accessToken: ${accessToken}")
+                        val response =
+                            repository.searchTicket(null, "Bearer $accessToken", ticketLookUpDto)
+                                .execute()
+                        Log.d("tag", "3. isSuccessful: ${response.isSuccessful}")
+                        Log.d("tag", "3. body: ${response.body().toString()}")
+
+                        if (response.isSuccessful) {
+                            isLoading.postValue(false)
+                            ticketsLiveData.postValue(GenericApiResponse.Success(response.body()!!))
+                        }
+                        else {
+                            isLoading.postValue(false)
+                            ticketsLiveData.postValue(GenericApiResponse.Forbidden("invalid refresh token"))
+                        }
+                    }
+                    else {
+                        isLoading.postValue(false)
+                        ticketsLiveData.postValue(
+                            GenericApiResponse.Error(
+                                "Oops! Something went wrong. :(\n${
+                                    response.errorBody().toString()
+                                }"
+                            )
+                        )
+                    }
                 }
                 else {
                     isLoading.postValue(false)
@@ -127,6 +173,7 @@ class TicketViewModel(private val repository: TicketRepository) : ViewModel() {
                     )
                 }
             } catch (e: Exception) {
+                Log.d("tag", "${e.stackTraceToString()}")
                 isLoading.postValue(false)
                 ticketsLiveData.postValue(GenericApiResponse.Error(e.message))
             }

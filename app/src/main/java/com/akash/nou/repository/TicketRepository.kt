@@ -13,13 +13,20 @@ import com.akash.nou.model.Tickets
 import retrofit2.Call
 
 class TicketRepository(private val service: TicketAPI) {
-    fun searchTicket(
-        phoneNo: String,
-        authToken: String,
-        refreshToken: String,
-        ticketBody: TicketLookUpDTO
-    ): Call<Tickets> {
-        return service.searchTicket(phoneNo, authToken, refreshToken, ticketBody)
+    fun searchTicket(refreshToken: String?, accessToken: String?, ticketLookUpDto: TicketLookUpDTO):
+            Call<Tickets> {
+        return service.searchTicket(
+            refreshToken = refreshToken,
+            accessToken = accessToken,
+            pageNo = ticketLookUpDto.pageNo,
+            date = ticketLookUpDto.date,
+            time = ticketLookUpDto.time,
+            seatCategory = ticketLookUpDto.seatCategory,
+            source = ticketLookUpDto.source,
+            destination = ticketLookUpDto.destination,
+            passengerCount = ticketLookUpDto.passengerCount,
+            childPassengerCount = ticketLookUpDto.childPassengerCount,
+        )
     }
 
     fun bookSeat(

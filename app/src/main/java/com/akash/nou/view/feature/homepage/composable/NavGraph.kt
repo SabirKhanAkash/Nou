@@ -13,12 +13,15 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.akash.nou.utils.SharedPref
 
 @RequiresApi(Build.VERSION_CODES.N)
 @Composable
-fun NavGraph(context: Context, navController: NavHostController, modifier: Modifier) {
+
+fun NavGraph(context: Context, navController: NavHostController, sharedPref: SharedPref,
+             modifier: Modifier) {
     NavHost(navController = navController, startDestination = "ticket") {
-        composable("ticket") { TicketScreen(context) }
+        composable("ticket") { TicketScreen(context, sharedPref) }
         composable("history") { TicketHistoryScreen() }
         composable("profile") { ProfileScreen() }
     }

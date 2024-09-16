@@ -8,6 +8,7 @@ package com.akash.nou.view.feature.homepage.composable
 import Constant
 import android.content.Context
 import android.os.Build
+import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
@@ -54,6 +55,7 @@ import com.akash.nou.dto.NumericStepperDTO
 import com.akash.nou.dto.PickerPopupDTO
 import com.akash.nou.dto.SeatBookingPopUpDTO
 import com.akash.nou.dto.TicketLookUpDTO
+import com.akash.nou.utils.SharedPref
 import com.akash.nou.viewmodel.TicketViewModel
 import com.akash.nou.viewmodelfactory.TicketViewModelFactory
 import showTopToast
@@ -63,8 +65,14 @@ import showTopToast
 @Composable
 fun TicketScreen(
     context: Context,
-    ticketViewModel: TicketViewModel = viewModel(factory = TicketViewModelFactory())
+    sharedPref: SharedPref,
+    ticketViewModel: TicketViewModel = viewModel(factory = TicketViewModelFactory()
+    )
 ) {
+
+    val accessToken = sharedPref.getString(context, "accessToken").toString()
+    Log.d("tag", "Old accessToken: $accessToken")
+    val refreshToken = sharedPref.getString(context, "refreshToken").toString()
     val _passengerCount by ticketViewModel.passengerCount.observeAsState(initial = 0)
     val _childPassengerCount by ticketViewModel.childPassengerCount.observeAsState(initial = 0)
     val _selectedSeatType by ticketViewModel.selectedSeatType.observeAsState(initial = "")
@@ -78,209 +86,211 @@ fun TicketScreen(
 
     val seatViewScaffoldState = rememberBottomSheetScaffoldState()
     var _seats by rememberSaveable { mutableStateOf<List<TicketLookUpDTO>>(emptyList()) }
+    val ticketLookUpDTO = TicketLookUpDTO().apply {
+        pageNo = 1
+        seatCategory = _selectedSeatType
+        source = _selectedSource
+        destination = _selectedDestination
+        date = _selectedDate
+        time = _selectedTime
+        passengerCount = _passengerCount
+        childPassengerCount = _childPassengerCount
+    }
 
     BottomSheetScaffold(
         scaffoldState = seatViewScaffoldState,
         sheetContent = {
             if (_isSeatViewPoppedUp) {
-                val ticketLookUpDTO = TicketLookUpDTO().apply {
-                    seatType = _selectedSeatType
-                    source = _selectedSource
-                    destination = _selectedDestination
-                    date = _selectedDate
-                    time = _selectedTime
-                    passengerCount = _passengerCount
-                    childPassengerCount = _childPassengerCount
-                }
+
                 _seats = listOf(
                     TicketLookUpDTO().apply {
-                        seatNumber = "A1"; isOccupied = false; isSelected = false
+                        seatNumber = "A1"; sold = false; isSelected = false
                     },
                     TicketLookUpDTO().apply {
-                        seatNumber = "A2"; isOccupied = true; isSelected = false
+                        seatNumber = "A2"; sold = true; isSelected = false
                     },
                     TicketLookUpDTO().apply {
-                        seatNumber = "A3"; isOccupied =
+                        seatNumber = "A3"; sold =
                         true; isSelected = false
                     },
                     TicketLookUpDTO().apply {
-                        seatNumber = "A4"; isOccupied =
+                        seatNumber = "A4"; sold =
                         false; isSelected = false
                     },
                     TicketLookUpDTO().apply {
-                        seatNumber = "A5"; isOccupied =
+                        seatNumber = "A5"; sold =
                         false; isSelected = false
                     },
                     TicketLookUpDTO().apply {
-                        seatNumber = "A6"; isOccupied =
+                        seatNumber = "A6"; sold =
                         true; isSelected = false
                     },
                     TicketLookUpDTO().apply {
-                        seatNumber = "B1"; isOccupied =
+                        seatNumber = "B1"; sold =
                         false; isSelected = false
                     },
                     TicketLookUpDTO().apply {
-                        seatNumber = "B2"; isOccupied =
+                        seatNumber = "B2"; sold =
                         true; isSelected = false
                     },
                     TicketLookUpDTO().apply {
-                        seatNumber = "B3"; isOccupied =
+                        seatNumber = "B3"; sold =
                         false; isSelected = false
                     },
                     TicketLookUpDTO().apply {
-                        seatNumber = "B4"; isOccupied =
+                        seatNumber = "B4"; sold =
                         true; isSelected = false
                     },
                     TicketLookUpDTO().apply {
-                        seatNumber = "B5"; isOccupied =
+                        seatNumber = "B5"; sold =
                         false; isSelected = false
                     },
                     TicketLookUpDTO().apply {
-                        seatNumber = "B6"; isOccupied =
+                        seatNumber = "B6"; sold =
                         true; isSelected = false
                     },
                     TicketLookUpDTO().apply {
-                        seatNumber = "C1"; isOccupied =
+                        seatNumber = "C1"; sold =
                         false; isSelected = false
                     },
                     TicketLookUpDTO().apply {
-                        seatNumber = "C2"; isOccupied =
+                        seatNumber = "C2"; sold =
                         false; isSelected = false
                     },
                     TicketLookUpDTO().apply {
-                        seatNumber = "C3"; isOccupied =
+                        seatNumber = "C3"; sold =
                         true; isSelected = false
                     },
                     TicketLookUpDTO().apply {
-                        seatNumber = "C4"; isOccupied =
+                        seatNumber = "C4"; sold =
                         false; isSelected = false
                     },
                     TicketLookUpDTO().apply {
-                        seatNumber = "C5"; isOccupied =
+                        seatNumber = "C5"; sold =
                         true; isSelected = false
                     },
                     TicketLookUpDTO().apply {
-                        seatNumber = "C6"; isOccupied =
+                        seatNumber = "C6"; sold =
                         false; isSelected = false
                     },
                     TicketLookUpDTO().apply {
-                        seatNumber = "D1"; isOccupied =
+                        seatNumber = "D1"; sold =
                         false; isSelected = false
                     },
                     TicketLookUpDTO().apply {
-                        seatNumber = "D2"; isOccupied =
+                        seatNumber = "D2"; sold =
                         false; isSelected = false
                     },
                     TicketLookUpDTO().apply {
-                        seatNumber = "D3"; isOccupied =
+                        seatNumber = "D3"; sold =
                         true; isSelected = false
                     },
                     TicketLookUpDTO().apply {
-                        seatNumber = "D4"; isOccupied =
+                        seatNumber = "D4"; sold =
                         true; isSelected = false
                     },
                     TicketLookUpDTO().apply {
-                        seatNumber = "D5"; isOccupied =
+                        seatNumber = "D5"; sold =
                         false; isSelected = false
                     },
                     TicketLookUpDTO().apply {
-                        seatNumber = "D6"; isOccupied =
+                        seatNumber = "D6"; sold =
                         false; isSelected = false
                     },
                     TicketLookUpDTO().apply {
-                        seatNumber = "E1"; isOccupied =
+                        seatNumber = "E1"; sold =
                         false; isSelected = false
                     },
                     TicketLookUpDTO().apply {
-                        seatNumber = "E2"; isOccupied =
+                        seatNumber = "E2"; sold =
                         true; isSelected = false
                     },
                     TicketLookUpDTO().apply {
-                        seatNumber = "E3"; isOccupied =
+                        seatNumber = "E3"; sold =
                         true; isSelected = false
                     },
                     TicketLookUpDTO().apply {
-                        seatNumber = "E4"; isOccupied =
+                        seatNumber = "E4"; sold =
                         false; isSelected = false
                     },
                     TicketLookUpDTO().apply {
-                        seatNumber = "E5"; isOccupied =
+                        seatNumber = "E5"; sold =
                         false; isSelected = false
                     },
                     TicketLookUpDTO().apply {
-                        seatNumber = "E6"; isOccupied =
+                        seatNumber = "E6"; sold =
                         true; isSelected = false
                     },
                     TicketLookUpDTO().apply {
-                        seatNumber = "F1"; isOccupied =
+                        seatNumber = "F1"; sold =
                         true; isSelected = false
                     },
                     TicketLookUpDTO().apply {
-                        seatNumber = "F2"; isOccupied =
+                        seatNumber = "F2"; sold =
                         false; isSelected = false
                     },
                     TicketLookUpDTO().apply {
-                        seatNumber = "F3"; isOccupied =
+                        seatNumber = "F3"; sold =
                         false; isSelected = false
                     },
                     TicketLookUpDTO().apply {
-                        seatNumber = "F4"; isOccupied =
+                        seatNumber = "F4"; sold =
                         true; isSelected = false
                     },
                     TicketLookUpDTO().apply {
-                        seatNumber = "F5"; isOccupied =
+                        seatNumber = "F5"; sold =
                         false; isSelected = false
                     },
                     TicketLookUpDTO().apply {
-                        seatNumber = "F6"; isOccupied =
+                        seatNumber = "F6"; sold =
                         true; isSelected = false
                     },
                     TicketLookUpDTO().apply {
-                        seatNumber = "G1"; isOccupied =
+                        seatNumber = "G1"; sold =
                         false; isSelected = false
                     },
                     TicketLookUpDTO().apply {
-                        seatNumber = "G2"; isOccupied =
+                        seatNumber = "G2"; sold =
                         false; isSelected = false
                     },
                     TicketLookUpDTO().apply {
-                        seatNumber = "G3"; isOccupied =
+                        seatNumber = "G3"; sold =
                         false; isSelected = false
                     },
                     TicketLookUpDTO().apply {
-                        seatNumber = "G4"; isOccupied =
+                        seatNumber = "G4"; sold =
                         true; isSelected = false
                     },
                     TicketLookUpDTO().apply {
-                        seatNumber = "G5"; isOccupied =
+                        seatNumber = "G5"; sold =
                         false; isSelected = false
                     },
                     TicketLookUpDTO().apply {
-                        seatNumber = "G6"; isOccupied =
+                        seatNumber = "G6"; sold =
                         true; isSelected = false
                     },
                     TicketLookUpDTO().apply {
-                        seatNumber = "H1"; isOccupied =
+                        seatNumber = "H1"; sold =
                         false; isSelected = false
                     },
                     TicketLookUpDTO().apply {
-                        seatNumber = "H2"; isOccupied =
+                        seatNumber = "H2"; sold =
                         false; isSelected = false
                     },
                     TicketLookUpDTO().apply {
-                        seatNumber = "H3"; isOccupied =
+                        seatNumber = "H3"; sold =
                         true; isSelected = false
                     },
                     TicketLookUpDTO().apply {
-                        seatNumber = "H4"; isOccupied =
+                        seatNumber = "H4"; sold =
                         false; isSelected = false
                     },
                     TicketLookUpDTO().apply {
-                        seatNumber = "H5"; isOccupied =
+                        seatNumber = "H5"; sold =
                         false; isSelected = false
                     },
                     TicketLookUpDTO().apply {
-                        seatNumber = "H6"; isOccupied =
+                        seatNumber = "H6"; sold =
                         true; isSelected = false
                     },
                 )
@@ -574,6 +584,7 @@ fun TicketScreen(
                                                                                 }
 
                                                                                 else -> {
+                                                                                    ticketViewModel.searchTicket(context, refreshToken = refreshToken, authToken = accessToken, ticketLookUpDto = ticketLookUpDTO)
                                                                                     ticketViewModel.popUpSeatView()
                                                                                 }
                                                                             }
@@ -610,5 +621,6 @@ fun TicketScreenPreview() {
 @Composable
 fun TicketScreenPreviewContent() {
     val context = androidx.compose.ui.platform.LocalContext.current
-    TicketScreen(context)
+    val sharedPref: SharedPref by lazy { SharedPref() }
+    TicketScreen(context, sharedPref)
 }

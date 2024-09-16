@@ -8,7 +8,7 @@ package com.akash.nou.model
 data class AuthResponse(
     var status: String,
     var message: String,
-    var authToken: String? = null,
+    var accessToken: String? = null,
     var refreshToken: String? = null,
     var user: User? = null
 )

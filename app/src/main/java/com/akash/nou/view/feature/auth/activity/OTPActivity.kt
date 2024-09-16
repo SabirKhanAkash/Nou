@@ -46,7 +46,7 @@ class OTPActivity : AppCompatActivity() {
                     val resultData = result.data
                     if (resultData.status == "Success") {
                         authViewModel.setOtpVerified(true)
-                        sharedPref.setString(applicationContext, "authToken", resultData.authToken)
+                        sharedPref.setString(applicationContext, "accessToken", resultData.accessToken)
                         sharedPref.setString(
                             applicationContext, "refreshToken", resultData.refreshToken
                         )
@@ -66,6 +66,13 @@ class OTPActivity : AppCompatActivity() {
                     authViewModel.setOtpVerified(false)
                     showTopToast(
                         applicationContext, "দুঃখিত! কারিগরি ত্রুটি হয়েছে ☹️", "short", "neutral"
+                    )
+                }
+
+                is GenericApiResponse.Forbidden -> {
+                    authViewModel.setOtpVerified(false)
+                    showTopToast(
+                        applicationContext, "ওটিপি কোডটি ভুল হয়েছে", "short", "neutral"
                     )
                 }
 

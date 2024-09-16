@@ -37,7 +37,13 @@ class AuthActivity : AppCompatActivity() {
         /**
          * Redirect to Homepage if logged in
          */
-        if (sharedPref.getString(applicationContext, "authToken") != "") {
+        if (sharedPref.getString(applicationContext, "accessToken")
+                .toString() != null && sharedPref.getString(applicationContext, "accessToken")
+                .toString() != "" &&
+            sharedPref.getString(applicationContext, "refreshToken")
+                .toString() != null && sharedPref.getString(applicationContext, "refreshToken")
+                .toString() != ""
+        ) {
             startActivity(
                 Intent(
                     this@AuthActivity, HomepageActivity::class.java
@@ -72,6 +78,12 @@ class AuthActivity : AppCompatActivity() {
                 is GenericApiResponse.Error -> {
                     showTopToast(
                         applicationContext, "দুঃখিত! কারিগরি ত্রুটি হয়েছে ☹️", "short", "neutral"
+                    )
+                }
+
+                is GenericApiResponse.Forbidden -> {
+                    showTopToast(
+                        applicationContext, "দুঃখিত! আপনি নিবন্ধিত ব্যবহারকারী না", "short", "neutral"
                     )
                 }
 

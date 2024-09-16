@@ -54,7 +54,7 @@ fun SeatPlanView(context: Context, seatBookingPopUpDTO: SeatBookingPopUpDTO) {
         items(seatBookingPopUpDTO.seats) { seat ->
             val imageColor = when {
                 seat.isSelected -> Color.Green
-                seat.isOccupied -> Constant().app_theme_color
+                seat.sold -> Constant().app_theme_color
                 else -> Color.Gray
             }
             Column(
@@ -62,7 +62,7 @@ fun SeatPlanView(context: Context, seatBookingPopUpDTO: SeatBookingPopUpDTO) {
                     .width(IntrinsicSize.Min)
                     .height(IntrinsicSize.Min)
                     .clickable {
-                        if (!seat.isOccupied) {
+                        if (!seat.sold) {
                             seat.isSelected = !seat.isSelected
                             showTopToast(
                                 context,

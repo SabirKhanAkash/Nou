@@ -6,16 +6,18 @@
 package com.akash.nou.viewmodel
 
 import GenericApiResponse
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.akash.nou.dto.AuthDto
 import com.akash.nou.model.AuthResponse
 import com.akash.nou.repository.AuthRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class AuthViewModel(private val repository: AuthRepository) : ViewModel() {
+class AuthViewModel(private val authrepository: AuthRepository) : ViewModel() {
     val authLiveData: MutableLiveData<GenericApiResponse<AuthResponse>> = MutableLiveData()
     val otpLiveData: MutableLiveData<GenericApiResponse<AuthResponse>> = MutableLiveData()
     val isLoading: MutableLiveData<Boolean> = MutableLiveData()
@@ -41,14 +43,19 @@ class AuthViewModel(private val repository: AuthRepository) : ViewModel() {
         _isOTPVerified.value = value
     }
 
-    fun verifyPhoneNumber(phone_no: String) {
+    fun login(authDto: AuthDto) {
         isLoading.postValue(true)
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val response = repository.setPhoneNo(phone_no).execute()
+                val response = authrepository.login(authDto).execute()
+
                 if (response.isSuccessful) {
                     isLoading.postValue(false)
                     authLiveData.postValue(GenericApiResponse.Success(response.body()!!))
+                }
+                else if (response.code() == 401) {
+                    isLoading.postValue(false)
+                    authLiveData.postValue(GenericApiResponse.Forbidden("দুঃখিত! আপনি নিবন্ধিত ব্যবহারকারী না"))
                 }
                 else {
                     isLoading.postValue(false)
@@ -61,20 +68,25 @@ class AuthViewModel(private val repository: AuthRepository) : ViewModel() {
                     )
                 }
             } catch (e: Exception) {
+                Log.d("tag", "${e.stackTraceToString()}")
                 isLoading.postValue(false)
                 authLiveData.postValue(GenericApiResponse.Error(e.message))
             }
         }
     }
 
-    fun verifyOTP(phone_no: String, otp: String) {
+    fun verifyOTP(authDto: AuthDto) {
         isLoading.postValue(true)
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val response = repository.verifyOTP(phone_no, otp).execute()
+                val response = authrepository.verifyOTP(authDto).execute()
                 if (response.isSuccessful) {
                     isLoading.postValue(false)
                     otpLiveData.postValue(GenericApiResponse.Success(response.body()!!))
+                }
+                else if (response.code() == 403) {
+                    isLoading.postValue(false)
+                    authLiveData.postValue(GenericApiResponse.Forbidden("ওটিপি কোডটি ভুল হয়েছে"))
                 }
                 else {
                     isLoading.postValue(false)
@@ -87,6 +99,7 @@ class AuthViewModel(private val repository: AuthRepository) : ViewModel() {
                     )
                 }
             } catch (e: Exception) {
+                Log.d("tag", "${e.stackTraceToString()}")
                 isLoading.postValue(false)
                 otpLiveData.postValue(GenericApiResponse.Error(e.message))
             }

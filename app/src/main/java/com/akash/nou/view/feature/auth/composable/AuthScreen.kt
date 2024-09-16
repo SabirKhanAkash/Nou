@@ -41,6 +41,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.akash.nou.R
+import com.akash.nou.dto.AuthDto
 import com.akash.nou.viewmodel.AuthViewModel
 import showTopToast
 
@@ -135,7 +136,11 @@ fun AuthActivityContent(applicationContext: Context, authViewModel: AuthViewMode
                 OutlinedButton(
                     onClick = {
                         if (phoneNumber.length == 11 && phoneNumber.startsWith("01")) {
-                            authViewModel.verifyPhoneNumber(phoneNumber)
+                            val authDto = AuthDto().apply {
+                                phoneNo = phoneNumber
+                                authSource = "nou-mobile"
+                            }
+                            authViewModel.login(authDto)
                         }
                         else {
                             showTopToast(

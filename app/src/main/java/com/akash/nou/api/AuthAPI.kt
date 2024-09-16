@@ -5,20 +5,20 @@
 
 package com.akash.nou.api
 
+import com.akash.nou.dto.AuthDto
 import com.akash.nou.model.AuthResponse
 import retrofit2.Call
-import retrofit2.http.Header
+import retrofit2.http.Body
 import retrofit2.http.POST
 
 interface AuthAPI {
     @POST("/login/")
-    fun setPhoneNo(
-        @Header("phone_no") phone_no: String,
+    fun login(
+        @Body authDto: AuthDto,
     ): Call<AuthResponse>
 
-    @POST("/otp-verify/")
+    @POST("/verify-otp/")
     fun verifyOTP(
-        @Header("phone_no") phone_no: String,
-        @Header("otp") otp: String,
+        @Body authDto: AuthDto,
     ): Call<AuthResponse>
 }
