@@ -9,5 +9,6 @@ data class Tickets(
     var data: Data,
     var status: String,
     var message: String,
-    var token: Boolean
+    var accessToken: String,
+    var refreshToken: String
 )

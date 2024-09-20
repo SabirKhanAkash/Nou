@@ -35,20 +35,19 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.akash.nou.model.BottomNavItem
-import com.akash.nou.utils.SharedPref
 
 @RequiresApi(Build.VERSION_CODES.N)
 @Composable
-fun HomePageScreen(context: Context, sharedPref: SharedPref) {
+fun HomePageScreen(context: Context) {
     val navController = rememberNavController()
     Scaffold(
         bottomBar = { BottomNavigationBar(navController = navController) }
     ) { innerPadding ->
         NavGraph(
-            context = context, navController = navController, sharedPref = sharedPref, modifier =
+            context = context, navController = navController, modifier =
             Modifier
                 .padding
-                (innerPadding)
+                    (innerPadding)
         )
     }
 }
@@ -144,6 +143,5 @@ fun HomePageScreenPreview() {
 @Composable
 fun HomePageScreenPreviewContent() {
     val context = androidx.compose.ui.platform.LocalContext.current
-    val sharedPref: SharedPref by lazy { SharedPref() }
-    HomePageScreen(context, sharedPref)
+    HomePageScreen(context)
 }

@@ -17,6 +17,7 @@ import com.akash.nou.model.SeatBookResponse
 import com.akash.nou.model.SoldTicketListResponse
 import com.akash.nou.model.Tickets
 import com.akash.nou.repository.TicketRepository
+import com.akash.nou.utils.EncryptedSharedPreference
 import com.akash.nou.utils.SharedPref
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -40,6 +41,7 @@ class TicketViewModel(private val repository: TicketRepository) : ViewModel() {
     private val _seats = MutableLiveData<List<TicketLookUpDTO>>()
     private val _numberOfColumns = MutableLiveData<Int>().apply { value = 6 }
     private val sharedPref: SharedPref by lazy { SharedPref() }
+    private val encryptedSharedPreference: EncryptedSharedPreference by lazy { EncryptedSharedPreference() }
 
     val passengerCount: LiveData<Int> = _passengerCount
     val childPassengerCount: LiveData<Int> = _childPassengerCount
@@ -107,44 +109,57 @@ class TicketViewModel(private val repository: TicketRepository) : ViewModel() {
 
     fun searchTicket(
         context: Context,
-        refreshToken: String,
-        authToken: String,
         ticketLookUpDto: TicketLookUpDTO
     ) {
         viewModelScope.launch(Dispatchers.IO) {
             isLoading.postValue(true)
             try {
                 val response =
-                    repository.searchTicket(null, "Bearer $authToken", ticketLookUpDto)
+                    repository.searchTicket(
+                        null,
+                        "Bearer ${sharedPref.getString(context, "accessToken").toString()}",
+                        ticketLookUpDto
+                    )
                         .execute()
-                Log.d("tag", "1. isSuccessful: ${response.isSuccessful}")
-                Log.d("tag", "1. body: ${response.body().toString()}")
                 if (response.isSuccessful) {
                     isLoading.postValue(false)
                     ticketsLiveData.postValue(GenericApiResponse.Success(response.body()!!))
                 }
                 else if (response.code() == 401) {
-                    val response =
-                        repository.searchTicket(refreshToken, null, ticketLookUpDto)
-                            .execute()
-                    Log.d("tag", "2. isSuccessful: ${response.isSuccessful}")
-                    Log.d("tag", "2. body: ${response.body().toString()}")
-                    if (response.isSuccessful) {
+                    val fetchNewTokenResponse =
+                        repository.searchTicket(
+                            encryptedSharedPreference.getString(
+                                context,
+                                "refreshToken"
+                            ).toString(),
+                            null,
+                            ticketLookUpDto
+                        ).execute()
+
+                    if (fetchNewTokenResponse.isSuccessful) {
                         sharedPref.setString(
                             context, "accessToken",
-                            response.body()?.token.toString()
+                            fetchNewTokenResponse.body()?.accessToken.toString()
                         )
-                        val accessToken = response.body()?.token.toString()
-                        Log.d("tag", "3. new accessToken: ${accessToken}")
-                        val response =
-                            repository.searchTicket(null, "Bearer $accessToken", ticketLookUpDto)
-                                .execute()
-                        Log.d("tag", "3. isSuccessful: ${response.isSuccessful}")
-                        Log.d("tag", "3. body: ${response.body().toString()}")
+                        encryptedSharedPreference.setString(
+                            context, "refreshToken",
+                            fetchNewTokenResponse.body()?.refreshToken.toString()
+                        )
 
-                        if (response.isSuccessful) {
+                        val responseWithUpdatedTokens =
+                            repository.searchTicket(
+                                null,
+                                "Bearer ${sharedPref.getString(context, "accessToken")}",
+                                ticketLookUpDto
+                            ).execute()
+
+                        if (responseWithUpdatedTokens.isSuccessful) {
                             isLoading.postValue(false)
-                            ticketsLiveData.postValue(GenericApiResponse.Success(response.body()!!))
+                            ticketsLiveData.postValue(
+                                GenericApiResponse.Success(
+                                    responseWithUpdatedTokens.body()!!
+                                )
+                            )
                         }
                         else {
                             isLoading.postValue(false)

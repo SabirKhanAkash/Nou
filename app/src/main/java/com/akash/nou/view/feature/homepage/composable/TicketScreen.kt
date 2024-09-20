@@ -8,7 +8,6 @@ package com.akash.nou.view.feature.homepage.composable
 import Constant
 import android.content.Context
 import android.os.Build
-import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
@@ -55,7 +54,6 @@ import com.akash.nou.dto.NumericStepperDTO
 import com.akash.nou.dto.PickerPopupDTO
 import com.akash.nou.dto.SeatBookingPopUpDTO
 import com.akash.nou.dto.TicketLookUpDTO
-import com.akash.nou.utils.SharedPref
 import com.akash.nou.viewmodel.TicketViewModel
 import com.akash.nou.viewmodelfactory.TicketViewModelFactory
 import showTopToast
@@ -65,14 +63,10 @@ import showTopToast
 @Composable
 fun TicketScreen(
     context: Context,
-    sharedPref: SharedPref,
-    ticketViewModel: TicketViewModel = viewModel(factory = TicketViewModelFactory()
+    ticketViewModel: TicketViewModel = viewModel(
+        factory = TicketViewModelFactory()
     )
 ) {
-
-    val accessToken = sharedPref.getString(context, "accessToken").toString()
-    Log.d("tag", "Old accessToken: $accessToken")
-    val refreshToken = sharedPref.getString(context, "refreshToken").toString()
     val _passengerCount by ticketViewModel.passengerCount.observeAsState(initial = 0)
     val _childPassengerCount by ticketViewModel.childPassengerCount.observeAsState(initial = 0)
     val _selectedSeatType by ticketViewModel.selectedSeatType.observeAsState(initial = "")
@@ -584,7 +578,10 @@ fun TicketScreen(
                                                                                 }
 
                                                                                 else -> {
-                                                                                    ticketViewModel.searchTicket(context, refreshToken = refreshToken, authToken = accessToken, ticketLookUpDto = ticketLookUpDTO)
+                                                                                    ticketViewModel.searchTicket(
+                                                                                        context,
+                                                                                        ticketLookUpDto = ticketLookUpDTO
+                                                                                    )
                                                                                     ticketViewModel.popUpSeatView()
                                                                                 }
                                                                             }
@@ -621,6 +618,5 @@ fun TicketScreenPreview() {
 @Composable
 fun TicketScreenPreviewContent() {
     val context = androidx.compose.ui.platform.LocalContext.current
-    val sharedPref: SharedPref by lazy { SharedPref() }
-    TicketScreen(context, sharedPref)
+    TicketScreen(context)
 }
