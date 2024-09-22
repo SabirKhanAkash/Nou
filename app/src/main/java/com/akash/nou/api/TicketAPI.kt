@@ -32,6 +32,17 @@ interface TicketAPI {
         @Query("childPassengerCount") childPassengerCount: Int,
     ): Call<Tickets>
 
+    @GET("/all-lookup/index")
+    fun allLookUp(
+        @Header("refresh") refreshToken: String?,
+        @Header("Authorization") accessToken: String?,
+        @Query("pageNo") pageNo: Int,
+        @Query("perPage") perPage: Int,
+        @Query("type") type: String,
+        @Query("vendorId") vendorId: String,
+        @Query("orderValue") orderValue: Int,
+    ): Call<Tickets>
+
     @PUT("/ticket/book-seat/")
     fun bookSeat(
         @Header("phoneNo") phoneNo: String,

@@ -31,11 +31,11 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.akash.nou.R
-import com.akash.nou.dto.SeatBookingPopUpDTO
+import com.akash.nou.dto.SeatBookingPopUpDto
 import showTopToast
 
 @Composable
-fun SeatPlanView(context: Context, seatBookingPopUpDTO: SeatBookingPopUpDTO) {
+fun SeatPlanView(context: Context, seatBookingPopUpDTO: SeatBookingPopUpDto) {
     LazyVerticalGrid(
         userScrollEnabled = true,
         columns = GridCells.Fixed(seatBookingPopUpDTO.numberOfColumns),

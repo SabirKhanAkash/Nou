@@ -26,10 +26,10 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.akash.nou.R
-import com.akash.nou.dto.SeatBookingPopUpDTO
+import com.akash.nou.dto.SeatBookingPopUpDto
 
 @Composable
-fun TicketSummary(seatBookingPopUpDTO: SeatBookingPopUpDTO) {
+fun TicketSummary(seatBookingPopUpDTO: SeatBookingPopUpDto) {
     Column(
         modifier = Modifier
             .fillMaxWidth()

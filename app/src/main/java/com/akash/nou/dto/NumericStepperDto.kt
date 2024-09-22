@@ -2,7 +2,7 @@ package com.akash.nou.dto
 
 import androidx.compose.ui.Modifier
 
-class NumericStepperDTO {
+class NumericStepperDto {
     lateinit var heading: String
     lateinit var rowModifier: Modifier
     var itemCount: Int = 0

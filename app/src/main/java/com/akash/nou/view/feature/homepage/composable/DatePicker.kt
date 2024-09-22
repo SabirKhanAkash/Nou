@@ -38,7 +38,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.DialogProperties
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.akash.nou.dto.PickerPopupDTO
+import com.akash.nou.dto.PickerPopupDto
 import com.akash.nou.utils.Tools
 import com.akash.nou.viewmodel.TicketViewModel
 import com.akash.nou.viewmodelfactory.TicketViewModelFactory
@@ -50,7 +50,7 @@ import java.util.TimeZone
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DatePickerPopUp(
-    pickerPopupDTO: PickerPopupDTO,
+    pickerPopupDTO: PickerPopupDto,
     ticketViewModel: TicketViewModel = viewModel(factory = TicketViewModelFactory())
 ) {
     val _selectedDate by ticketViewModel.selectedDate.observeAsState(initial = pickerPopupDTO.heading)

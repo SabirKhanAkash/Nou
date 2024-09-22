@@ -29,7 +29,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.akash.nou.dto.DropDownMenuDTO
+import com.akash.nou.dto.DropDownMenuDto
 import com.akash.nou.viewmodel.TicketViewModel
 import com.akash.nou.viewmodelfactory.TicketViewModelFactory
 
@@ -37,7 +37,7 @@ import com.akash.nou.viewmodelfactory.TicketViewModelFactory
 @Composable
 fun DropDownMenu(
     dropDownType: String,
-    dropDownMenuDTO: DropDownMenuDTO,
+    dropDownMenuDTO: DropDownMenuDto,
     ticketViewModel: TicketViewModel = viewModel(factory = TicketViewModelFactory())
 ) {
     val _selectedSeatType by ticketViewModel.selectedSeatType.observeAsState(initial = "")

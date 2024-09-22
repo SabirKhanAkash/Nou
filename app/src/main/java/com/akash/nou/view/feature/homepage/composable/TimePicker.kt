@@ -52,7 +52,7 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.akash.nou.dto.PickerPopupDTO
+import com.akash.nou.dto.PickerPopupDto
 import com.akash.nou.viewmodel.TicketViewModel
 import com.akash.nou.viewmodelfactory.TicketViewModelFactory
 import java.text.SimpleDateFormat
@@ -64,7 +64,7 @@ import java.util.Locale
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TimePickerPopUp(
-    pickerPopupDTO: PickerPopupDTO,
+    pickerPopupDTO: PickerPopupDto,
     ticketViewModel: TicketViewModel = viewModel(factory = TicketViewModelFactory())
 ) {
     var showTimePicker by rememberSaveable { mutableStateOf(false) }

@@ -49,11 +49,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.akash.nou.R
-import com.akash.nou.dto.DropDownMenuDTO
-import com.akash.nou.dto.NumericStepperDTO
-import com.akash.nou.dto.PickerPopupDTO
-import com.akash.nou.dto.SeatBookingPopUpDTO
+import com.akash.nou.dto.AllLookUpDto
+import com.akash.nou.dto.DropDownMenuDto
+import com.akash.nou.dto.NumericStepperDto
+import com.akash.nou.dto.PickerPopupDto
+import com.akash.nou.dto.SeatBookingPopUpDto
 import com.akash.nou.dto.TicketLookUpDTO
+import com.akash.nou.utils.SharedPref
+import com.akash.nou.utils.getCurrentTimeAsNumber
 import com.akash.nou.viewmodel.TicketViewModel
 import com.akash.nou.viewmodelfactory.TicketViewModelFactory
 import showTopToast
@@ -90,6 +93,35 @@ fun TicketScreen(
         passengerCount = _passengerCount
         childPassengerCount = _childPassengerCount
     }
+
+    val sharedPref: SharedPref by lazy { SharedPref() }
+
+    val seatTypeLookUpDto = AllLookUpDto().apply {
+        pageNo = 1
+        type = "seat_category"
+        perPage = 20
+        orderValue = 0
+        vendorId = sharedPref.getUser(context, "user")._id.toString()
+    }
+    ticketViewModel.getAllLookUpInfos(context, seatTypeLookUpDto)
+
+    val stationLookUpDto = AllLookUpDto().apply {
+        pageNo = 1
+        type = "station"
+        perPage = 64
+        orderValue = 0
+        vendorId = sharedPref.getUser(context, "user")._id.toString()
+    }
+    ticketViewModel.getAllLookUpInfos(context, stationLookUpDto)
+
+    val journeyTimeLookUpDto = AllLookUpDto().apply {
+        pageNo = 1
+        type = "journey_time"
+        perPage = 48
+        orderValue = getCurrentTimeAsNumber()
+        vendorId = sharedPref.getUser(context, "user")._id.toString()
+    }
+    ticketViewModel.getAllLookUpInfos(context, journeyTimeLookUpDto)
 
     BottomSheetScaffold(
         scaffoldState = seatViewScaffoldState,
@@ -289,7 +321,7 @@ fun TicketScreen(
                     },
                 )
 
-                val seatBookingPopUpDTO = SeatBookingPopUpDTO().apply {
+                val seatBookingPopUpDTO = SeatBookingPopUpDto().apply {
                     isSeatViewPoppedUp = _isSeatViewPoppedUp
                     selectedDate = _selectedDate
                     selectedTime = _selectedTime
@@ -369,7 +401,7 @@ fun TicketScreen(
                         ) {
                             Spacer(modifier = Modifier.height(25.dp))
 
-                            val dropDownMenuDTOForSeatType = DropDownMenuDTO().apply {
+                            val dropDownMenuDTOForSeatType = DropDownMenuDto().apply {
                                 heading = "সিটের ধরণ"
                                 leadingIcon = R.drawable.seat_icon
                                 items = R.array.seat_category
@@ -378,7 +410,7 @@ fun TicketScreen(
 
                             Spacer(modifier = Modifier.height(25.dp))
 
-                            val dropDownMenuDTOForSource = DropDownMenuDTO().apply {
+                            val dropDownMenuDTOForSource = DropDownMenuDto().apply {
                                 heading = "যাত্রা শুরুর স্থান"
                                 leadingIcon = R.drawable.source_icon
                                 items = R.array.zilla
@@ -387,7 +419,7 @@ fun TicketScreen(
 
                             Spacer(modifier = Modifier.height(25.dp))
 
-                            val dropDownMenuDTOForDestination = DropDownMenuDTO().apply {
+                            val dropDownMenuDTOForDestination = DropDownMenuDto().apply {
                                 heading = "যাত্রা শেষের স্থান"
                                 leadingIcon = R.drawable.destination_icon
                                 items = R.array.zilla
@@ -404,7 +436,7 @@ fun TicketScreen(
                                 Box(
                                     modifier = Modifier.padding(end = 10.dp)
                                 ) {
-                                    val pickerPopupDTO = PickerPopupDTO().apply {
+                                    val pickerPopupDTO = PickerPopupDto().apply {
                                         heading = "যাত্রার তারিখ"
                                         leadingIcon = R.drawable.calendar_icon
                                     }
@@ -413,7 +445,7 @@ fun TicketScreen(
                                 Box(
                                     modifier = Modifier.padding(start = 10.dp)
                                 ) {
-                                    val pickerPopupDTO = PickerPopupDTO().apply {
+                                    val pickerPopupDTO = PickerPopupDto().apply {
                                         heading = "যাত্রার সময়"
                                         leadingIcon = R.drawable.time_icon
                                     }
@@ -428,7 +460,7 @@ fun TicketScreen(
                                 modifier = Modifier.fillMaxWidth(1.0f),
                                 horizontalArrangement = Arrangement.SpaceBetween,
                             ) {
-                                val numericStepperDTOForAdult = NumericStepperDTO().apply {
+                                val numericStepperDTOForAdult = NumericStepperDto().apply {
                                     heading = "যাত্রী সংখ্যা (প্রাপ্তবয়স্ক)"
                                     rowModifier = Modifier
                                         .fillMaxWidth(0.5f)
@@ -447,7 +479,7 @@ fun TicketScreen(
                                 }
                                 NumericStepper(numericStepperDTOForAdult)
 
-                                val numericStepperDTOForChild = NumericStepperDTO().apply {
+                                val numericStepperDTOForChild = NumericStepperDto().apply {
                                     heading = "যাত্রী সংখ্যা (শিশু)"
                                     rowModifier = Modifier
                                         .fillMaxWidth()

@@ -12,6 +12,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.akash.nou.dto.AllLookUpDto
 import com.akash.nou.dto.TicketLookUpDTO
 import com.akash.nou.model.SeatBookResponse
 import com.akash.nou.model.SoldTicketListResponse
@@ -24,6 +25,9 @@ import kotlinx.coroutines.launch
 
 class TicketViewModel(private val repository: TicketRepository) : ViewModel() {
     val ticketsLiveData: MutableLiveData<GenericApiResponse<Tickets>> = MutableLiveData()
+    val seatCategoryLiveData: MutableLiveData<GenericApiResponse<Tickets>> = MutableLiveData()
+    val stationLiveData: MutableLiveData<GenericApiResponse<Tickets>> = MutableLiveData()
+    val journeyTimeLiveData: MutableLiveData<GenericApiResponse<Tickets>> = MutableLiveData()
     val bookTicketLiveData: MutableLiveData<GenericApiResponse<SeatBookResponse>> =
         MutableLiveData()
     val soldTicketListLiveData: MutableLiveData<GenericApiResponse<SoldTicketListResponse>> =
@@ -191,6 +195,122 @@ class TicketViewModel(private val repository: TicketRepository) : ViewModel() {
                 Log.d("tag", "${e.stackTraceToString()}")
                 isLoading.postValue(false)
                 ticketsLiveData.postValue(GenericApiResponse.Error(e.message))
+            }
+        }
+    }
+
+    fun getAllLookUpInfos(context: Context, allLookUpDto: AllLookUpDto) {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val response =
+                    repository.allLookUp(
+                        null,
+                        "Bearer ${sharedPref.getString(context, "accessToken").toString()}",
+                        allLookUpDto
+                    )
+                        .execute()
+                if (response.isSuccessful) {
+                    if(allLookUpDto.type == "seat_category")
+                        seatCategoryLiveData.postValue(GenericApiResponse.Success(response.body()!!))
+                    if(allLookUpDto.type == "station")
+                        stationLiveData.postValue(GenericApiResponse.Success(response.body()!!))
+                    if(allLookUpDto.type == "journey_time")
+                        journeyTimeLiveData.postValue(GenericApiResponse.Success(response.body()!!))
+                }
+                else if (response.code() == 401) {
+                    val fetchNewTokenResponse =
+                        repository.allLookUp(
+                            encryptedSharedPreference.getString(
+                                context,
+                                "refreshToken"
+                            ).toString(),
+                            null,
+                            allLookUpDto
+                        ).execute()
+
+                    if (fetchNewTokenResponse.isSuccessful) {
+                        sharedPref.setString(
+                            context, "accessToken",
+                            fetchNewTokenResponse.body()?.accessToken.toString()
+                        )
+                        encryptedSharedPreference.setString(
+                            context, "refreshToken",
+                            fetchNewTokenResponse.body()?.refreshToken.toString()
+                        )
+
+                        val responseWithUpdatedTokens =
+                            repository.allLookUp(
+                                null,
+                                "Bearer ${sharedPref.getString(context, "accessToken")}",
+                                allLookUpDto
+                            ).execute()
+
+                        if (responseWithUpdatedTokens.isSuccessful) {
+                            if(allLookUpDto.type == "seat_category")
+                                seatCategoryLiveData.postValue(GenericApiResponse.Success(response.body()!!))
+                            if(allLookUpDto.type == "station")
+                                stationLiveData.postValue(GenericApiResponse.Success(response.body()!!))
+                            if(allLookUpDto.type == "journey_time")
+                                journeyTimeLiveData.postValue(GenericApiResponse.Success(response.body()!!))
+                        }
+                        else {
+                            if(allLookUpDto.type == "seat_category")
+                                seatCategoryLiveData.postValue(GenericApiResponse.Forbidden("invalid refresh token"))
+                            if(allLookUpDto.type == "station")
+                                stationLiveData.postValue(GenericApiResponse.Forbidden("invalid refresh token"))
+                            if(allLookUpDto.type == "journey_time")
+                                journeyTimeLiveData.postValue(GenericApiResponse.Forbidden("invalid refresh token"))
+                        }
+                    }
+                    else {
+                        if(allLookUpDto.type == "seat_category")
+                            seatCategoryLiveData.postValue(GenericApiResponse.Error(
+                                "Oops! Something went wrong. :(\n${
+                                    response.errorBody().toString()
+                                }"
+                            ))
+                        if(allLookUpDto.type == "station")
+                            stationLiveData.postValue(GenericApiResponse.Error(
+                                "Oops! Something went wrong. :(\n${
+                                    response.errorBody().toString()
+                                }"
+                            ))
+                        if(allLookUpDto.type == "journey_time")
+                            journeyTimeLiveData.postValue(GenericApiResponse.Error(
+                                "Oops! Something went wrong. :(\n${
+                                    response.errorBody().toString()
+                                }"
+                            ))
+                    }
+                }
+                else {
+                    if(allLookUpDto.type == "seat_category")
+                        seatCategoryLiveData.postValue(GenericApiResponse.Error(
+                            "Oops! Something went wrong. :(\n${
+                                response.errorBody().toString()
+                            }"
+                        ))
+                    if(allLookUpDto.type == "station")
+                        stationLiveData.postValue(GenericApiResponse.Error(
+                            "Oops! Something went wrong. :(\n${
+                                response.errorBody().toString()
+                            }"
+                        ))
+                    if(allLookUpDto.type == "journey_time")
+                        journeyTimeLiveData.postValue(GenericApiResponse.Error(
+                            "Oops! Something went wrong. :(\n${
+                                response.errorBody().toString()
+                            }"
+                        ))
+                }
+            } catch (e: Exception) {
+                Log.d("tag", "${e.stackTraceToString()}")
+                if(allLookUpDto.type == "seat_category")
+                    seatCategoryLiveData.postValue(GenericApiResponse.Error(e.message))
+                if(allLookUpDto.type == "station")
+                    stationLiveData.postValue(GenericApiResponse.Error(e.message))
+                if(allLookUpDto.type == "journey_time")
+                    journeyTimeLiveData.postValue(GenericApiResponse.Error(e.message))
             }
         }
     }

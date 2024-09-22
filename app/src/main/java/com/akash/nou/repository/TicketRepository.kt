@@ -6,6 +6,7 @@
 package com.akash.nou.repository
 
 import com.akash.nou.api.TicketAPI
+import com.akash.nou.dto.AllLookUpDto
 import com.akash.nou.dto.TicketLookUpDTO
 import com.akash.nou.model.SeatBookResponse
 import com.akash.nou.model.SoldTicketListResponse
@@ -26,6 +27,19 @@ class TicketRepository(private val service: TicketAPI) {
             destination = ticketLookUpDto.destination,
             passengerCount = ticketLookUpDto.passengerCount,
             childPassengerCount = ticketLookUpDto.childPassengerCount,
+        )
+    }
+
+    fun allLookUp(refreshToken: String?, accessToken: String?, allLookUpDto: AllLookUpDto):
+            Call<Tickets> {
+        return service.allLookUp(
+            refreshToken = refreshToken,
+            accessToken = accessToken,
+            pageNo = allLookUpDto.pageNo,
+            type = allLookUpDto.type,
+            perPage = allLookUpDto.perPage,
+            orderValue = allLookUpDto.orderValue,
+            vendorId = allLookUpDto.vendorId,
         )
     }
 

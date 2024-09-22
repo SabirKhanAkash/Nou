@@ -27,10 +27,10 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.akash.nou.dto.NumericStepperDTO
+import com.akash.nou.dto.NumericStepperDto
 
 @Composable
-fun NumericStepper(numericStepperDTO: NumericStepperDTO) {
+fun NumericStepper(numericStepperDTO: NumericStepperDto) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center

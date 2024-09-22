@@ -22,11 +22,11 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.akash.nou.dto.SeatBookingPopUpDTO
+import com.akash.nou.dto.SeatBookingPopUpDto
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SeatBookingPopUp(context: Context, seatBookingPopUpDTO: SeatBookingPopUpDTO) {
+fun SeatBookingPopUp(context: Context, seatBookingPopUpDTO: SeatBookingPopUpDto) {
     Column(
         modifier = Modifier
             .fillMaxSize(),

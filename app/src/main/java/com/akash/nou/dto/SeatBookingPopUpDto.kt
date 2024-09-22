@@ -1,6 +1,6 @@
 package com.akash.nou.dto
 
-class SeatBookingPopUpDTO {
+class SeatBookingPopUpDto {
     var isSeatViewPoppedUp: Boolean = false
     lateinit var selectedDate: String
     lateinit var selectedTime: String
