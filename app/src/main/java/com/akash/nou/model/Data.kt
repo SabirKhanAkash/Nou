@@ -6,12 +6,20 @@
 package com.akash.nou.model
 
 import com.akash.nou.dto.AllLookUpDto
-import com.akash.nou.dto.TicketLookUpDTO
+import com.akash.nou.dto.TicketLookUpDto
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class Data(
-    var ticketList: List<TicketLookUpDTO>,
-    var allLookUpList: List<AllLookUpDto>,
-    var count: Int,
-    var totalPages: Int,
-    var status: String
+    @SerialName("ticketList")
+    var ticketList: List<TicketLookUpDto>? = emptyList(),
+    @SerialName("allLookUpList")
+    var allLookUpList: List<AllLookUpDto>? = emptyList(),
+    @SerialName("count")
+    var count: Int? = null,
+    @SerialName("totalPages")
+    var totalPages: Int? = null,
+    @SerialName("status")
+    var status: String? = null,
 )

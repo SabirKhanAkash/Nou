@@ -16,14 +16,14 @@ sealed class BottomNavItem(
     @StringRes val title: Int,
 ) {
     object ticket : BottomNavItem(
-        "ticket", R.drawable.home_icon, R.drawable.unselected_home_icon, R.string.menu_item_1
+        "ticket", R.drawable.ic_home, R.drawable.ic_unselected_home, R.string.menu_item_1
     )
 
     object history : BottomNavItem(
-        "history", R.drawable.history_icon, R.drawable.unselected_history_icon, R.string.menu_item_2
+        "history", R.drawable.ic_history, R.drawable.ic_unselected_history, R.string.menu_item_2
     )
 
     object profile : BottomNavItem(
-        "profile", R.drawable.profile_icon, R.drawable.unselected_profile_icon, R.string.menu_item_3
+        "profile", R.drawable.ic_profile, R.drawable.ic_unselected_profile, R.string.menu_item_3
     )
 }

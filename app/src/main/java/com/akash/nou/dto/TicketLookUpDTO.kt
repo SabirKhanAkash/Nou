@@ -1,15 +1,41 @@
+/**
+ * IN THE NAME OF ALLAH, THE MOST BENEFICENT, THE MOST MERCIFUL
+ * COPYRIGHT (C) SABIR KHAN AKASH - 2023, 2024
+ */
+
 package com.akash.nou.dto
 
-class TicketLookUpDTO {
-    lateinit var seatNumber: String
-    lateinit var seatCategory: String
-    lateinit var source: String
-    lateinit var destination: String
-    lateinit var date: String
-    lateinit var time: String
-    var pageNo: Int = 1
-    var passengerCount: Int = 0
-    var sold: Boolean = false
-    var isSelected: Boolean = true
-    var childPassengerCount: Int = 0
-}
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
+
+@Serializable
+data class TicketLookUpDto(
+    @SerialName("toRefresh")
+    var toRefresh: Boolean = false,
+    @SerialName("seatNumber")
+    var seatNumber: String? = null,
+    @SerialName("seatCategory")
+    var seatCategory: String? = null,
+    @SerialName("source")
+    var source: String? = null,
+    @SerialName("destination")
+    var destination: String? = null,
+    @SerialName("date")
+    var date: String? = null,
+    @SerialName("time")
+    var time: String? = null,
+    @SerialName("accessToken")
+    var accessToken: String? = null,
+    @SerialName("refreshToken")
+    var refreshToken: String? = null,
+    @SerialName("pageNo")
+    var pageNo: Int = 1,
+    @SerialName("passengerCount")
+    var passengerCount: Int = 1,
+    @SerialName("childPassengerCount")
+    var childPassengerCount: Int = 0,
+    @SerialName("sold")
+    var sold: Boolean = false,
+    @SerialName("isSelected")
+    var isSelected: Boolean = true,
+)

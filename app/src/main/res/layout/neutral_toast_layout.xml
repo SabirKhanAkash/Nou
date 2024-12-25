@@ -2,7 +2,7 @@
     android:id="@+id/custom_toast_layout"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@drawable/neutral_toast_bg"
+    android:background="@drawable/bg_neutral_toast"
     android:orientation="vertical"
     android:padding="12dp">
 
@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:drawableStart="@drawable/neutral_icon"
+        android:drawableStart="@drawable/ic_neutral"
         android:drawablePadding="5sp"
         android:drawableTint="@color/toast_text_blue"
         android:gravity="center"
