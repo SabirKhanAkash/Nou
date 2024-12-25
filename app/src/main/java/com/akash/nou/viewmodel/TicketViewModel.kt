@@ -56,6 +56,7 @@ class TicketViewModel(private val repository: TicketRepository) : ViewModel() {
     val selectedTime: LiveData<String> = _selectedTime
     val isSeatViewPoppedUp: LiveData<Boolean> = _isSeatViewPoppedUp
     val seats: LiveData<List<TicketLookUpDTO>> = _seats
+    val listOfSeatCategory: GenericApiResponse<Tickets>? = seatCategoryLiveData.value
     val numberOfColumns: LiveData<Int> = _numberOfColumns
 
     fun setDropDownItem(item: String, dropDownType: String) {
@@ -210,11 +211,11 @@ class TicketViewModel(private val repository: TicketRepository) : ViewModel() {
                     )
                         .execute()
                 if (response.isSuccessful) {
-                    if(allLookUpDto.type == "seat_category")
+                    if (allLookUpDto.type == "seat_category")
                         seatCategoryLiveData.postValue(GenericApiResponse.Success(response.body()!!))
-                    if(allLookUpDto.type == "station")
+                    if (allLookUpDto.type == "station")
                         stationLiveData.postValue(GenericApiResponse.Success(response.body()!!))
-                    if(allLookUpDto.type == "journey_time")
+                    if (allLookUpDto.type == "journey_time")
                         journeyTimeLiveData.postValue(GenericApiResponse.Success(response.body()!!))
                 }
                 else if (response.code() == 401) {
@@ -246,70 +247,82 @@ class TicketViewModel(private val repository: TicketRepository) : ViewModel() {
                             ).execute()
 
                         if (responseWithUpdatedTokens.isSuccessful) {
-                            if(allLookUpDto.type == "seat_category")
+                            if (allLookUpDto.type == "seat_category")
                                 seatCategoryLiveData.postValue(GenericApiResponse.Success(response.body()!!))
-                            if(allLookUpDto.type == "station")
+                            if (allLookUpDto.type == "station")
                                 stationLiveData.postValue(GenericApiResponse.Success(response.body()!!))
-                            if(allLookUpDto.type == "journey_time")
+                            if (allLookUpDto.type == "journey_time")
                                 journeyTimeLiveData.postValue(GenericApiResponse.Success(response.body()!!))
                         }
                         else {
-                            if(allLookUpDto.type == "seat_category")
+                            if (allLookUpDto.type == "seat_category")
                                 seatCategoryLiveData.postValue(GenericApiResponse.Forbidden("invalid refresh token"))
-                            if(allLookUpDto.type == "station")
+                            if (allLookUpDto.type == "station")
                                 stationLiveData.postValue(GenericApiResponse.Forbidden("invalid refresh token"))
-                            if(allLookUpDto.type == "journey_time")
+                            if (allLookUpDto.type == "journey_time")
                                 journeyTimeLiveData.postValue(GenericApiResponse.Forbidden("invalid refresh token"))
                         }
                     }
                     else {
-                        if(allLookUpDto.type == "seat_category")
-                            seatCategoryLiveData.postValue(GenericApiResponse.Error(
-                                "Oops! Something went wrong. :(\n${
-                                    response.errorBody().toString()
-                                }"
-                            ))
-                        if(allLookUpDto.type == "station")
-                            stationLiveData.postValue(GenericApiResponse.Error(
-                                "Oops! Something went wrong. :(\n${
-                                    response.errorBody().toString()
-                                }"
-                            ))
-                        if(allLookUpDto.type == "journey_time")
-                            journeyTimeLiveData.postValue(GenericApiResponse.Error(
-                                "Oops! Something went wrong. :(\n${
-                                    response.errorBody().toString()
-                                }"
-                            ))
+                        if (allLookUpDto.type == "seat_category")
+                            seatCategoryLiveData.postValue(
+                                GenericApiResponse.Error(
+                                    "Oops! Something went wrong. :(\n${
+                                        response.errorBody().toString()
+                                    }"
+                                )
+                            )
+                        if (allLookUpDto.type == "station")
+                            stationLiveData.postValue(
+                                GenericApiResponse.Error(
+                                    "Oops! Something went wrong. :(\n${
+                                        response.errorBody().toString()
+                                    }"
+                                )
+                            )
+                        if (allLookUpDto.type == "journey_time")
+                            journeyTimeLiveData.postValue(
+                                GenericApiResponse.Error(
+                                    "Oops! Something went wrong. :(\n${
+                                        response.errorBody().toString()
+                                    }"
+                                )
+                            )
                     }
                 }
                 else {
-                    if(allLookUpDto.type == "seat_category")
-                        seatCategoryLiveData.postValue(GenericApiResponse.Error(
-                            "Oops! Something went wrong. :(\n${
-                                response.errorBody().toString()
-                            }"
-                        ))
-                    if(allLookUpDto.type == "station")
-                        stationLiveData.postValue(GenericApiResponse.Error(
-                            "Oops! Something went wrong. :(\n${
-                                response.errorBody().toString()
-                            }"
-                        ))
-                    if(allLookUpDto.type == "journey_time")
-                        journeyTimeLiveData.postValue(GenericApiResponse.Error(
-                            "Oops! Something went wrong. :(\n${
-                                response.errorBody().toString()
-                            }"
-                        ))
+                    if (allLookUpDto.type == "seat_category")
+                        seatCategoryLiveData.postValue(
+                            GenericApiResponse.Error(
+                                "Oops! Something went wrong. :(\n${
+                                    response.errorBody().toString()
+                                }"
+                            )
+                        )
+                    if (allLookUpDto.type == "station")
+                        stationLiveData.postValue(
+                            GenericApiResponse.Error(
+                                "Oops! Something went wrong. :(\n${
+                                    response.errorBody().toString()
+                                }"
+                            )
+                        )
+                    if (allLookUpDto.type == "journey_time")
+                        journeyTimeLiveData.postValue(
+                            GenericApiResponse.Error(
+                                "Oops! Something went wrong. :(\n${
+                                    response.errorBody().toString()
+                                }"
+                            )
+                        )
                 }
             } catch (e: Exception) {
                 Log.d("tag", "${e.stackTraceToString()}")
-                if(allLookUpDto.type == "seat_category")
+                if (allLookUpDto.type == "seat_category")
                     seatCategoryLiveData.postValue(GenericApiResponse.Error(e.message))
-                if(allLookUpDto.type == "station")
+                if (allLookUpDto.type == "station")
                     stationLiveData.postValue(GenericApiResponse.Error(e.message))
-                if(allLookUpDto.type == "journey_time")
+                if (allLookUpDto.type == "journey_time")
                     journeyTimeLiveData.postValue(GenericApiResponse.Error(e.message))
             }
         }

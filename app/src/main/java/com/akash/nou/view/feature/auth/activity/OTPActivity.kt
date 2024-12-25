@@ -46,7 +46,11 @@ class OTPActivity : AppCompatActivity() {
                     val resultData = result.data
                     if (resultData.status == "Success") {
                         authViewModel.setOtpVerified(true)
-                        sharedPref.setString(applicationContext, "accessToken", resultData.accessToken)
+                        sharedPref.setString(
+                            applicationContext,
+                            "accessToken",
+                            resultData.accessToken
+                        )
                         sharedPref.setString(
                             applicationContext, "refreshToken", resultData.refreshToken
                         )

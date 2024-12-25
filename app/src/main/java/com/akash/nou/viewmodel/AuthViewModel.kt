@@ -25,8 +25,8 @@ class AuthViewModel(private val authrepository: AuthRepository) : ViewModel() {
     private val _isPhoneNumberValid = MutableLiveData<Boolean>()
     private val _isOTPVerified = MutableLiveData<Boolean>()
     private val _otp = MutableLiveData<String>()
-    val phoneNumber: LiveData<String> = _phoneNumber
     val otp: LiveData<String> = _otp
+    val phoneNumber: LiveData<String> = _phoneNumber
     val isPhoneNumberValid: LiveData<Boolean> = _isPhoneNumberValid
     val isOTPVerified: LiveData<Boolean> = _isOTPVerified
 
@@ -68,7 +68,7 @@ class AuthViewModel(private val authrepository: AuthRepository) : ViewModel() {
                     )
                 }
             } catch (e: Exception) {
-                Log.d("tag", "${e.stackTraceToString()}")
+                Log.d("tag", e.stackTraceToString())
                 isLoading.postValue(false)
                 authLiveData.postValue(GenericApiResponse.Error(e.message))
             }
@@ -99,7 +99,7 @@ class AuthViewModel(private val authrepository: AuthRepository) : ViewModel() {
                     )
                 }
             } catch (e: Exception) {
-                Log.d("tag", "${e.stackTraceToString()}")
+                Log.d("tag", e.stackTraceToString())
                 isLoading.postValue(false)
                 otpLiveData.postValue(GenericApiResponse.Error(e.message))
             }

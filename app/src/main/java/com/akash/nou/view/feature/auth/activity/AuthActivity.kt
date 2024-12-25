@@ -83,7 +83,10 @@ class AuthActivity : AppCompatActivity() {
 
                 is GenericApiResponse.Forbidden -> {
                     showTopToast(
-                        applicationContext, "দুঃখিত! আপনি নিবন্ধিত ব্যবহারকারী না", "short", "neutral"
+                        applicationContext,
+                        "দুঃখিত! আপনি নিবন্ধিত ব্যবহারকারী না",
+                        "short",
+                        "neutral"
                     )
                 }
 
