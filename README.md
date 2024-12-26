@@ -1,52 +1,32 @@
-![Language](https://img.shields.io/github/languages/top/its-me-debk007/kotlin-android-mvvm-template?color=B125EA&logo=kotlin&style=social)&nbsp;&nbsp;
-[![Owner](https://img.shields.io/badge/by-its--me--debk007-brightgreen?logo=github&style=social)](https://github.com/its-me-debk007)&nbsp;&nbsp;
-![License](https://img.shields.io/github/license/its-me-debk007/kotlin-android-mvvm-template.svg?style=social)
+# Nou
+A Launch Ticket Management Native Android App built with Kotlin, Jetpack Compose
 
-# Kotlin Android MVVM Template
+- Technologies Used: Kotlin, Jetpack Compose, XML, Kotlin DSL, Hilt, Kotlin Coroutines, TypeConverters, Retrofit, OkHTTPLogger, SharedPreference, ViewModel, LiveData, Gson
+- API Used: [Nou-Express-JS-Backend-API](https://github.com/SabirKhanAkash/nou-express-js-backend) (Custom Made)
+- Important Libraries Used: Glide, Material3, Loaderspack, otpview-compose, navigation-compose, activity-compose
+- Architecture Used: Model-View-ViewModel
+- IDE Used: Android Studio
+- Emulator Used: Google Pixel 7 Pro (API Level 29)
 
-A simple+lightweight template for a Jetpack Compose app with Navigation, Retrofit, Dagger-Hilt fully setup for convenience, so you can **focus only on what's important!**
+- DOWNLOAD THE APP BY [CLICKING HERE](https://github.com/SabirKhanAkash/Nou/raw/master/Nou-v1.0.apk)
 
-> ***"Every line of code should be written once, and only once." - Ron Jeffries***
+- For any bugs reporting, Create issues [here](https://github.com/SabirKhanAkash/Nou/issues) 
+Any type of suggestions is highly appreciated.
 
+# HAPPY CODING !
 
-## Features 🎨
-
-- Project fully in `Jetpack Compose`
-- Jetpack Compose Navigation
-- ktor *(Fully setup with a **working** sample API Call)*
-> [!NOTE]
-> for API Call using **retrofit**, switch to `main` branch
-- MVVM Architecture
-- Kotlin DSL
-- `Gradle Version Catalog` for dependency management
-- `Dependabot` *(with a weekly schedule)*
-- `GitHub Actions` CI/CD pipeline to **run lint checks** + **perform unit tests** + **build and upload apk**
-- Coil *(for image loading)*
-
-
-## Getting Started 👣
-
-- Click on [![Use this template](https://img.shields.io/badge/-Use%20this%20template-499D95?style=for-the-badge)](https://github.com/new?template_name=kotlin-android-mvvm-template&template_owner=its-me-debk007) button to create a new repository from this template
-- Few TODOs are added, such as changing *package name*, *server base url*, *api endpoints*, etc to guide through the project *(just type TODO after pressing SHIFT key twice in Android Studio, to search for the TODOs)*
-- Enable Dependabot in repo settings *(for ref, a [30 sec video](https://www.youtube.com/watch?v=yvXKlDgiGHo))*
-
-
-## Project Structure 🗺️📐🛠️
-
-The project includes a single module **`app`**, with following packages:
-
-- **`di`:** contains Dagger-Hilt Module
-- **`network`:** includes NetworkHttpClient that provides a ktor HttpClient
-- **`model`:** contains response data class from the server
-- **`repository`:** contains repository interface & its implementation
-- **`presentation`:** signifies the presentation layer
-
-## Contributing 🤝
-
-Join us in shaping the future of this project – your contributions are invaluable! Feel free to open a issue or submit a pull request for any bugs/improvements.
-
-## License
-
-Distributed under the MIT License. See `LICENSE` file for more information.
-
-#### 🌟 If you find value in this project, please consider starring it! Your support keeps it thriving. 🚀
+## In-app Screenshots
+<img src="https://github.com/SabirKhanAkash/Nou/assets/39434260/f038550a-aaa4-4be8-bfaa-84760f329511" width="270" height="570">$~~~~~~$
+  <img src="https://github.com/SabirKhanAkash/Nou/assets/39434260/db8cc44e-ca22-491c-bd88-f3340074ef8b" width="270" height="570">$~~~~~~$
+  <img src="https://github.com/SabirKhanAkash/Nou/assets/39434260/be13f911-979c-430d-a1a0-f924357dc324" width="270" height="570">$~~~~~~$
+  <img src="https://github.com/SabirKhanAkash/Nou/assets/39434260/708e46f1-a8ff-4d6c-83a8-4f2e3bb69251" width="270" height="570">$~~~~~~$
+  <img src="https://github.com/SabirKhanAkash/Nou/assets/39434260/f8b8058f-bdca-40be-a6f9-a464a52bf7ad" width="270" height="570">$~~~~~~$
+  <img src="https://github.com/SabirKhanAkash/Nou/assets/39434260/edc38b83-3359-4ea5-a845-16c638f599c0" width="270" height="570">$~~~~~~$
+  <img src="https://github.com/SabirKhanAkash/Nou/assets/39434260/11e95e23-1928-428d-bbec-1c924daac37f" width="270" height="570">$~~~~~~$
+  <img src="https://github.com/SabirKhanAkash/Nou/assets/39434260/a52a4e6f-f503-4e01-82c4-6a8332775d68" width="270" height="570">$~~~~~~$
+  <img src="https://github.com/SabirKhanAkash/Nou/assets/39434260/df883388-fe1f-4385-85a4-9dc6fb71ee9e" width="270" height="570">$~~~~~~$
+  <img src="https://github.com/SabirKhanAkash/Nou/assets/39434260/89607293-0aa3-41b2-88ae-6ae44c8fde37" width="270" height="570">$~~~~~~$
+  <img src="https://github.com/SabirKhanAkash/Nou/assets/39434260/f9de776e-ed52-4df8-bc0c-807caa70fc16" width="270" height="570">$~~~~~~$
+  <img src="https://github.com/user-attachments/assets/6987cb87-482f-419a-8594-70f8b0f7e8c9" width="270" height="570">$~~~~~~$
+  <img src="https://github.com/SabirKhanAkash/Nou/assets/39434260/cfa00f99-f725-4a7c-bcc0-38d3ff9335f9" width="270" height="570">$~~~~~~$
+  <img src="https://github.com/SabirKhanAkash/Nou/assets/39434260/363e7b14-d8f3-4420-8328-bf977e505587" width="270" height="570">$~~~~~~$
